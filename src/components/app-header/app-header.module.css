@@ -1,0 +1,23 @@
+.header {
+  background:  #1C1C21;
+}
+
+.logo {
+  width: 100%;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  display: flex;
+  text-decoration: none;
+}
