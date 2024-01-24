@@ -1,6 +1,6 @@
- import styles from "./app-header.module.css";
+import styles from "./app-header.module.css";
 import clsx from "clsx";
- import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
  
  function AppHeader(props) {
   return (
