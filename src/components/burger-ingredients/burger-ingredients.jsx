@@ -1,4 +1,4 @@
-import style from "./burger-ingredients.module.css";
+import styles from "./burger-ingredients.module.css";
 
 import clsx from "clsx";
 import BurgerIngredientsTabs from "../burger-ingredients-tabs/burger-ingredients-tabs";
@@ -7,16 +7,19 @@ import BurgerIngredientsConstructor from "../burger-ingredients-constructor/burg
 import {data} from "../../utils/data";
 
 export default function BurgerIngredients() {
+  console.log(data);
   const categories = data.map(item => item.type);
   const filteredCategories = [...new Set(categories)];
   return (
     <section>
-      <div>
         <BurgerIngredientsTabs tabs={filteredCategories}/>
-      </div>
-      <div className={clsx(style.section)}>
-        <BurgerIngredientsCategories {...data}/>
-        <BurgerIngredientsConstructor/>
+      <div className={clsx(styles.wrapper, "custom-scroll")}>
+        <div className={clsx(styles.categories, "custom-scroll")}>
+          <BurgerIngredientsCategories ingredients={data}/>
+        </div>
+        <div>
+          <BurgerIngredientsConstructor/>
+        </div>
       </div>
     </section>
   )
