@@ -9,3 +9,9 @@
   display: flex;
   gap: 8px;
 }
+
+.card {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  column-gap: 24px;
+}

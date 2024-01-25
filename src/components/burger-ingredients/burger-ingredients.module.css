@@ -4,11 +4,16 @@
   column-gap: 40px;
 }
 
-.categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
-  column-gap: 24px;
+.scroll {
+  display: flex;
+  flex-direction: column;
   row-gap: 40px;
   overflow-y: scroll;
   height: 912px;
+}
+
+.constructor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

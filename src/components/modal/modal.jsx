@@ -6,17 +6,17 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 const modalRoot = document.querySelector("#modal");
 
 
-export default function Modal ({title, onClose, children}) {
+export default function Modal ({active, title, onClose, children}) {
   return (
     <>
       <div className={clsx(styles.modal)}>
-        <h2 className={clsx(title)}>
+        <h2 className={clsx(styles.title)}>
           {title}
         </h2>
         <CloseIcon type="primary" onClick={onClose}/>
         {children}
       </div>
-      <ModalOverlay onClick={onClose}/>
+      {/*<ModalOverlay onClick={onClose}/>*/}
     </>,
       modalRoot
   )

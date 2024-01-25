@@ -15,9 +15,11 @@
 .inner {
   display: flex;
   align-items: center;
+  gap: 50px;
 }
 
 .link {
   display: flex;
   text-decoration: none;
+  align-items: center;
 }

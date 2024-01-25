@@ -9,11 +9,11 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-dev
         <div className={clsx(styles.inner)}>
           <a href="#" className={clsx(styles.link)}>
             <BurgerIcon type="primary" />
-            <p className={clsx("text text_type_main-default")}>Конструктор</p>
+            <p className={clsx("text text_type_main-default ml-2")}>Конструктор</p>
           </a>
           <a href="#" className={clsx(styles.link)}>
             <ListIcon type={"secondary"}/>
-            <p className={clsx("text text_type_main-default")}>Лента заказов</p>
+            <p className={clsx("text text_type_main-default ml-2")}>Лента заказов</p>
           </a>
         </div>
         <div>
@@ -22,7 +22,7 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-dev
         <div>
           <a href="#" className={clsx(styles.link)}>
             <ProfileIcon type="secondary" />
-            <p className={clsx("text text_type_main-default")}>Личный кабинет</p>
+            <p className={clsx("text text_type_main-default ml-2")}>Личный кабинет</p>
           </a>
         </div>
       </nav>
