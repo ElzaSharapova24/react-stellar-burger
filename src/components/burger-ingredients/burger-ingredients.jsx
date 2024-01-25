@@ -5,7 +5,7 @@ import BurgerIngredientsTabs from "../burger-ingredients-tabs/burger-ingredients
 import BurgerIngredientsCategories from "../burger-ingredients-categories/burger-ingredients-categories";
 import BurgerIngredientsConstructor from "../burger-ingredients-constructor/burger-ingredients-constructor";
 import {data} from "../../utils/data";
-import Modal from "../modal/modal";
+
 
 export default function BurgerIngredients() {
   const categories = data.map(item => item.type);
@@ -23,19 +23,14 @@ export default function BurgerIngredients() {
   return (
     <section>
         <BurgerIngredientsTabs tabs={filteredCategories}/>
-      <div className={clsx(styles.wrapper, "custom-scroll")}>
-        <div className={clsx(styles.categories, styles.scroll, "custom-scroll")}>
+      <div className={clsx(styles.wrapper)}>
+        <div className={clsx(styles.scroll, "custom-scroll")}>
           <BurgerIngredientsCategories groups={groups}/>
         </div>
-        <div className={clsx(styles.scroll, styles.constructor)}>
+        <div className={clsx(styles.scroll, styles.constructor, "custom-scroll")}>
           <BurgerIngredientsConstructor ingredients = {data}/>
         </div>
       </div>
-      <Modal>
-        <div title="DELETE">
-          <h1>csknksxnkxn</h1>
-        </div>
-      </Modal>
     </section>
   )
 }

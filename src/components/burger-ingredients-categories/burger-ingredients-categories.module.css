@@ -15,3 +15,32 @@
   grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
   column-gap: 24px;
 }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 720px;
+  max-width: 100%;
+  border-radius: 40px;
+  border: 1px solid  rgba(76, 76, 255, 0.20);
+  background:  #1C1C21;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 4px 8px 0px rgba(0, 0, 0, 0.04), 0px 16px 24px 0px rgba(0, 0, 0, 0.04), 0px 24px 32px 0px rgba(0, 0, 0, 0.04);
+  position: relative;
+  color: #131316;
+  margin: 0 20px;
+  height: 538px;
+}
+
+.heading {
+  color: #f2f2f3;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+}
