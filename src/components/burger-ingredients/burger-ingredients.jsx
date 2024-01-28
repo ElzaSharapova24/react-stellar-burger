@@ -1,9 +1,9 @@
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import styles from "./burger-ingredients.module.css"
 import React from "react";
 import IngredientDetails from "../ingredient-details"
 import PropTypes from "prop-types";
+import BurgerIngredient from "../burger-ingredient";
 
 function BurgerIngredients (props) {
   const [modalItem, setModalItem] = React.useState(null);
@@ -15,25 +15,13 @@ function BurgerIngredients (props) {
       <h2 id={key}>
         {key}
       </h2>
-      <div className={clsx(styles.card)}>
+      <div className={clsx(styles.card)} key={key}>
         {value.map((item) =>
-            <article className={clsx(styles.inner)} key={item._id}>
-             <a href="#" className={clsx(styles.link)}>
-               <img alt={item.name} src={item.image} onClick={() => {
-                 setModalItem(item);
-                 setModalIsActive(true);
-               }}/>
-               <div className={clsx(styles.info)}>
-                 <div className={clsx(styles.price)}>
-                   <p className={clsx("text text_type_digits-default mr-2", styles.text)}>{item.price}</p>
-                   <CurrencyIcon type="primary"/>
-                 </div>
-                 <p className={clsx("text", styles.text)}>{item.name}</p>
-               </div>
-             </a>
-            </article>
+          <BurgerIngredient {...item} onClick={() => {
+            setModalItem(item);
+            setModalIsActive(true);
+          }} key={item._id}/>
         )}
-
       </div>
       <IngredientDetails modalItem={modalItem} modalIsActive={modalIsActive} setModalIsActive={setModalIsActive}/>
     </div>
