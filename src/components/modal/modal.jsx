@@ -57,11 +57,11 @@ const Modal = ({ isVisible = false, children, onClose }) => {
   
   return !isVisible ? null : (
     <div className={clsx(styles.modal)} onClick={onClose}>
-      <CloseIcon type={"primary"} onClick={onClose}/>
-      <div className={clsx(styles.modalDialog)} onClick={e => e.stopPropagation()}>
-        </div>
+      <div className={clsx(styles.modalDialog)} onClick={e => e.stopPropagation()}></div>
         <div className={clsx(styles.modalBody)}>
-          <div className="modal-content">{children}</div>
+          <CloseIcon type={"primary"} onClick={onClose}/>
+          <div className={clsx()}>
+            {children}</div>
         </div>
     </div>
   );

@@ -1,1 +1,26 @@
 
+.inner {
+  display: flex;
+  width: 536px;
+  margin-top: auto;
+  padding-top: 25px;
+  justify-content: flex-end;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price svg {
+  width: 34px;
+  height: 34px;
+}
+
+.block {
+  display: flex;
+  align-items: center;
+
+}
+
