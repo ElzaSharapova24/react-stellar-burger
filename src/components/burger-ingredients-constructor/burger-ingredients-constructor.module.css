@@ -1,9 +1,16 @@
 
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-left: 15px;
+}
+
 .inner {
   display: flex;
   width: 536px;
   margin-top: auto;
-  padding-top: 25px;
+  padding-top: 96px;
   justify-content: flex-end;
 }
 
@@ -19,8 +26,6 @@
 }
 
 .block {
-  display: flex;
-  align-items: center;
-
+  margin-left: -20px;
 }
 

@@ -10,3 +10,4 @@ export default function getIngredientsRequest() {
   return fetch(`${BASE_URL}/ingredients`, {
   }).then(onResponse)
 }
+

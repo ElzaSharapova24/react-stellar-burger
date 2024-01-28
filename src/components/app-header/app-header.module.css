@@ -22,4 +22,10 @@
   display: flex;
   text-decoration: none;
   align-items: center;
+  color: #8585AD;
 }
+
+.activeLink {
+  color: #F2F2F3;
+}
+
