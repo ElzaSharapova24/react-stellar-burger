@@ -7,11 +7,11 @@ import styles from "./order-details.module.css"
 export default function OrderDetails(props) {
   return(
     <Modal isVisible={props.isModal}
-           title={"1`223344"}
+           title={null}
            onClose={() => props.setModal(false)}
-           className={clsx("text text_type_digits-large", styles.title)}
     >
       <div className={clsx(styles.wrapper)}>
+        <h2 className={clsx("text text_type_digits-large", styles.title)}>122334</h2>
         <p>
           идентификатор заказа
         </p>

@@ -3,7 +3,7 @@ import clsx from "clsx";
 import styles from "./ingredient-details.module.css"
 import React from "react";
 
-export default function IngredientDetails(props) {
+function IngredientDetails(props) {
   
   return (
     <Modal
@@ -44,3 +44,7 @@ export default function IngredientDetails(props) {
     </Modal>
   )
 }
+
+
+
+export default IngredientDetails;

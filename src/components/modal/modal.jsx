@@ -3,7 +3,8 @@ import styles from "./modal.module.css"
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useEffect} from "react";
 
-const Modal = ({ isVisible = false, title,  children, onClose, className }) => {
+
+export default function Modal({ isVisible = false, title,  children, onClose, className }) {
   const keydownHandler = ({ key }) => {
     switch (key) {
       case 'Escape':
@@ -30,7 +31,5 @@ const Modal = ({ isVisible = false, title,  children, onClose, className }) => {
         </div>
     </div>
   );
-};
-
-export default Modal;
+}
 

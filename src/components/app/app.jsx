@@ -3,7 +3,7 @@ import styles from "./app.module.css";
 import clsx from "clsx";
 import AppHeader from "../app-header";
 import getIngredientsRequest from "../../utils/api";
-import BurgerIngredientsCategories from "../burger-ingredients-categories";
+import BurgerIngredients from "../burger-ingredients";
 import BurgerIngredientsConstructor from "../burger-ingredients-constructor";
 import BurgerIngredientsTabs from "../burger-ingredients-tabs"
 
@@ -42,10 +42,10 @@ function App() {
         </div>
         <div className={clsx(styles.wrapper)}>
           <section className={clsx("custom-scroll", styles.scroll)}>
-            <BurgerIngredientsCategories groups={currentCategories}/>
+            <BurgerIngredients groups={currentCategories}/>
           </section>
           <section className={clsx("custom-scroll", styles.scroll)}>
-            <BurgerIngredientsConstructor ingredients={currentIngredients}/>
+            <BurgerIngredientsConstructor/>
           </section>
         </div>
       </main>

@@ -9,7 +9,7 @@ import styles from "./burger-ingredients-constructor.module.css"
 import React from "react";
 import OrderDetails from "../order-details";
 
-export default function BurgerIngredientsConstructor (props) {
+export default function BurgerIngredientsConstructor () {
   const [isModal, setModal] = React.useState(false);
   
   return (
@@ -20,14 +20,14 @@ export default function BurgerIngredientsConstructor (props) {
           isLocked={true}
           text="Краторная булка N-200i (верх)"
           price={200}
-          thumbnail={props.ingredients.image}
+          thumbnail="#"
         />
         <div className={clsx(styles.block)}>
           <DragIcon type="primary" />
           <ConstructorElement
             text="Краторная булка N-200i (верх)"
             price={50}
-            thumbnail={props.ingredients.image}
+            thumbnail="#"
           />
         </div>
         <div className={clsx(styles.block)}>
@@ -35,7 +35,7 @@ export default function BurgerIngredientsConstructor (props) {
           <ConstructorElement
             text="Краторная булка N-200i (верх)"
             price={50}
-            thumbnail={props.ingredients.image}
+            thumbnail="#"
           />
         </div>
         <div className={clsx(styles.block)}>
@@ -43,7 +43,7 @@ export default function BurgerIngredientsConstructor (props) {
           <ConstructorElement
             text="Краторная булка N-200i (верх)"
             price={50}
-            thumbnail={props.ingredients.image}
+            thumbnail="#"
           />
         </div>
         <ConstructorElement
@@ -51,7 +51,7 @@ export default function BurgerIngredientsConstructor (props) {
           isLocked={true}
           text="Краторная булка N-200i (низ)"
           price={200}
-          thumbnail={props.ingredients.image}/>
+          thumbnail="#"/>
         <div className={clsx(styles.inner)}>
           <div className={clsx(styles.price, "mr-10")}>
             <p className={clsx("text text_type_digits-medium")}>2222</p>

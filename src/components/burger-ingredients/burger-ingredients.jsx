@@ -1,22 +1,23 @@
-import {Counter, CurrencyIcon, Tab} from "@ya.praktikum/react-developer-burger-ui-components";
+import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
-import styles from "./burger-ingredients-categories.module.css"
+import styles from "./burger-ingredients.module.css"
 import React from "react";
 import IngredientDetails from "../ingredient-details"
+import PropTypes from "prop-types";
 
-export default function BurgerIngredientsCategories (props) {
+function BurgerIngredients (props) {
   const [modalItem, setModalItem] = React.useState(null);
   const [modalIsActive, setModalIsActive] = React.useState(false);
   
   return Object.keys(props.groups).map(key => {
     const value = props.groups[key];
-    return <div>
+    return <div key={key}>
       <h2 id={key}>
         {key}
       </h2>
       <div className={clsx(styles.card)}>
         {value.map((item) =>
-            <article className={clsx(styles.inner)}>
+            <article className={clsx(styles.inner)} key={item._id}>
              <a href="#" className={clsx(styles.link)}>
                <img alt={item.name} src={item.image} onClick={() => {
                  setModalItem(item);
@@ -38,3 +39,9 @@ export default function BurgerIngredientsCategories (props) {
     </div>
   })
 }
+
+BurgerIngredients.propTypes = {
+  groups: PropTypes.object.isRequired
+};
+
+export default BurgerIngredients;
