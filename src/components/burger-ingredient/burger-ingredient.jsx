@@ -5,21 +5,23 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function BurgerIngredient(props) {
+  const {_id, name, price, image } = props
+  
   return (
-    <article className={clsx(styles.inner)} key={props._id}>
-      <a href="#" className={clsx(styles.link)}>
-        <img alt={props.name} src={props.image} onClick={() => {
-          props.onClick();
-        }}/>
-        <div className={clsx(styles.info)}>
-          <div className={clsx(styles.price)}>
-            <p className={clsx("text text_type_digits-default mr-2", styles.text)}>{props.price}</p>
-            <CurrencyIcon type="primary"/>
+      <article className={clsx(styles.inner)} key={_id}>
+        <a href="#" className={clsx(styles.link)}>
+          <img alt={name} src={image} onClick={() => {
+            props.onClick();
+          }}/>
+          <div className={clsx(styles.info)}>
+            <div className={clsx(styles.price)}>
+              <p className={clsx("text text_type_digits-default mr-2", styles.text)}>{price}</p>
+              <CurrencyIcon type="primary"/>
+            </div>
+            <p className={clsx("text", styles.text)}>{name}</p>
           </div>
-          <p className={clsx("text", styles.text)}>{props.name}</p>
-        </div>
-      </a>
-    </article>
+        </a>
+      </article>
   )
 }
 

@@ -7,10 +7,8 @@ import {
 import clsx from "clsx";
 import styles from "./burger-constructor.module.css"
 import React from "react";
-import OrderDetails from "../order-details";
 
-export default function BurgerConstructor () {
-  const [isModal, setModal] = React.useState(false);
+export default function BurgerConstructor ({setModal}) {
   
   return (
     <>
@@ -62,7 +60,7 @@ export default function BurgerConstructor () {
           </Button>
         </div>
       </div>
-      <OrderDetails isModal={isModal} setModal={setModal}/>
+      
     </>
     
   )

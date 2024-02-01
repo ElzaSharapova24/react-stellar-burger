@@ -1,16 +1,15 @@
 import clsx from "clsx";
 import styles from "./burger-ingredients.module.css"
 import React from "react";
-import IngredientDetails from "../ingredient-details"
 import PropTypes from "prop-types";
 import BurgerIngredient from "../burger-ingredient";
 
 function BurgerIngredients (props) {
-  const [modalItem, setModalItem] = React.useState(null);
-  const [modalIsActive, setModalIsActive] = React.useState(false);
+  const {setModalIsActive, setModalItem, ingredients, _id} = props
   
-  return Object.keys(props.groups).map(key => {
-    const value = props.groups[key];
+  
+  return Object.keys(ingredients).map(key => {
+    const value = ingredients[key];
     return <div key={key}>
       <h2 id={key}>
         {key}
@@ -20,16 +19,14 @@ function BurgerIngredients (props) {
           <BurgerIngredient {...item} onClick={() => {
             setModalItem(item);
             setModalIsActive(true);
-          }} key={item._id}/>
+            console.log(_id)
+          }} key={_id}/>
         )}
       </div>
-      <IngredientDetails modalItem={modalItem} modalIsActive={modalIsActive} setModalIsActive={setModalIsActive}/>
     </div>
   })
+  
+  
 }
-
-BurgerIngredients.propTypes = {
-  groups: PropTypes.object.isRequired
-};
 
 export default BurgerIngredients;
