@@ -5,11 +5,11 @@ import {
   DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
-import styles from "./burger-ingredients-constructor.module.css"
+import styles from "./burger-constructor.module.css"
 import React from "react";
 import OrderDetails from "../order-details";
 
-export default function BurgerIngredientsConstructor () {
+export default function BurgerConstructor () {
   const [isModal, setModal] = React.useState(false);
   
   return (
