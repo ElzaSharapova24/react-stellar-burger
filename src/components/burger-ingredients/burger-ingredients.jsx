@@ -15,12 +15,12 @@ function BurgerIngredients (props) {
         {key}
       </h2>
       <div className={clsx(styles.card)} key={key}>
-        {value.map((item) =>
-          <BurgerIngredient {...item} onClick={() => {
-            setModalItem(item);
+        {value.map((ingredient) =>
+          <BurgerIngredient {...ingredient} onClick={() => {
+            setModalItem(ingredient);
             setModalIsActive(true);
             console.log(_id)
-          }} key={_id}/>
+          }} key={ingredient._id}/>
         )}
       </div>
     </div>

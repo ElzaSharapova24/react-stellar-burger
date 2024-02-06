@@ -20,29 +20,31 @@ export default function BurgerConstructor ({setModal}) {
           price={200}
           thumbnail="#"
         />
-        <div className={clsx(styles.block)}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail="#"
-          />
-        </div>
-        <div className={clsx(styles.block)}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail="#"
-          />
-        </div>
-        <div className={clsx(styles.block)}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail="#"
-          />
+        <div className={clsx("custom-scroll", styles.scroll)}>
+          <div>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text="Краторная булка N-200i (верх)"
+              price={50}
+              thumbnail="#"
+            />
+          </div>
+          <div>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text="Краторная булка N-200i (верх)"
+              price={50}
+              thumbnail="#"
+            />
+          </div>
+          <div>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text="Краторная булка N-200i (верх)"
+              price={50}
+              thumbnail="#"
+            />
+          </div>
         </div>
         <ConstructorElement
           type="bottom"

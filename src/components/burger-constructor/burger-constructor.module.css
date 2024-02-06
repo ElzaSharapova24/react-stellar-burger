@@ -3,14 +3,13 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-left: 15px;
 }
 
 .inner {
   display: flex;
   width: 536px;
   margin-top: auto;
-  padding-top: 96px;
+  padding-top: 15px;
   justify-content: flex-end;
 }
 
@@ -25,7 +24,13 @@
   height: 34px;
 }
 
-.block {
-  margin-left: -20px;
+
+.scroll {
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: scroll;
+  margin-left: -22px;
 }
 

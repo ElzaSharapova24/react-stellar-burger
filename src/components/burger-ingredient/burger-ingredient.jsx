@@ -3,12 +3,21 @@ import styles from "../burger-ingredients/burger-ingredients.module.css";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import PropTypes from "prop-types";
+import {useDrag} from "react-dnd";
 
 function BurgerIngredient(props) {
-  const {_id, name, price, image } = props
+  const {_id, name, price, image } = props;
+  const [{isDragging}, dragRef] = useDrag({
+    item: {
+      type: 'BurgerIngredient'
+    },
+    collect: (monitor) =>({
+      isDragging: monitor.isDragging()
+    })
+  })
   
   return (
-      <article className={clsx(styles.inner)} key={_id}>
+      <article className={clsx(styles.inner)} key={props._id} ref={dragRef}>
         <a href="#" className={clsx(styles.link)}>
           <img alt={name} src={image} onClick={() => {
             props.onClick();

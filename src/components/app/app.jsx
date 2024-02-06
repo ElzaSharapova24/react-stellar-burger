@@ -2,23 +2,27 @@ import React, {useEffect, useState} from "react";
 import styles from "./app.module.css";
 import clsx from "clsx";
 import AppHeader from "../app-header";
-import getIngredientsRequest from "../../utils/api";
 import BurgerIngredients from "../burger-ingredients";
 import BurgerConstructor from "../burger-constructor";
 import BurgerIngredientsTabs from "../burger-ingredients-tabs"
 import IngredientDetails from "../ingredient-details";
 import OrderDetails from "../order-details";
-
+import {useDispatch, useSelector} from "react-redux";
+import {getIngredients} from "../../services/selectors";
+import {getIngredientsFetch} from "../../services/getIngredient/ingredientSlice";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {DndProvider} from "react-dnd";
 
 function App() {
+  const {ingredients, isLoading, error} = useSelector(getIngredients);
+  const dispatch = useDispatch();
+  
   const [modalItem, setModalItem] = React.useState(null);
   const [ingredientDetailsModal, setIngredientDetailsModal] = React.useState(false);
   
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
-
-  const [currentIngredients, setCurrentIngredients] = useState([]);
   
-  const currentCategories = currentIngredients.reduce((result, current) => {
+  const currentCategories = ingredients.reduce((result, current) => {
     if (!result[current.type]) {
       result[current.type] = [];
     }
@@ -26,18 +30,12 @@ function App() {
     return result;
   }, {});
   
+  console.log(currentCategories)
   
   useEffect(() => {
-    getIngredientsRequest().then(data => {
-    try {
-      if (data.success){
-        setCurrentIngredients(data.data)
-      }
-    } catch (error) {
-      console.log(error.message())
-    }
-    })
+    dispatch(getIngredientsFetch());
   }, []);
+  
   
   
   return (
@@ -50,14 +48,16 @@ function App() {
         <div className={clsx(styles.tabs)}>
           <BurgerIngredientsTabs tabs={currentCategories}/>
         </div>
-        <div className={clsx(styles.wrapper)}>
-          <section className={clsx("custom-scroll", styles.scroll)}>
-            <BurgerIngredients ingredients={currentCategories} setModalItem={setModalItem} setModalIsActive={setIngredientDetailsModal}/>
-          </section>
-          <section className={clsx("custom-scroll", styles.scroll)}>
-            <BurgerConstructor setModal={setOrderDetailsModal}/>
-          </section>
-        </div>
+        <DndProvider backend={HTML5Backend}>
+          <div className={clsx(styles.wrapper)}>
+            <section className={clsx("custom-scroll", styles.scroll)}>
+              {isLoading ? 'loading...' : <BurgerIngredients ingredients={currentCategories} setModalItem={setModalItem} setModalIsActive={setIngredientDetailsModal}/>}
+            </section>
+            <section>
+              <BurgerConstructor setModal={setOrderDetailsModal}/>
+            </section>
+          </div>
+        </DndProvider>
       </main>
       <IngredientDetails modalItem={modalItem} modalIsActive={ingredientDetailsModal} setModalIsActive={setIngredientDetailsModal}/>
       <OrderDetails isModal={orderDetailsModal} setModal={setOrderDetailsModal}/>
