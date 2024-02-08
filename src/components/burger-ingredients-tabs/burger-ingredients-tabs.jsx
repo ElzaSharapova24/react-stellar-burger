@@ -3,30 +3,19 @@ import React from "react";
 import clsx from "clsx";
 import styles from "./burger-ingredients-tabs.module.css"
 import PropTypes from 'prop-types';
+import categoriesNames from "../../utils/utils";
 
 
-function BurgerIngredientsTabs({tabs}) {
-  const [current, setCurrent] = React.useState('bun');
+function BurgerIngredientsTabs({tabs, current, handleTubClick}) {
   
-  
-  const handleTubClick = (type) => {
-    setCurrent(type);
-    const tab = document.querySelector(`#${type}`);
-    if (tab) tab.scrollIntoView({block: "start", behavior: "smooth"})
-  }
-  
-  return (
-      <div className={clsx(styles.wrap)} key={tabs}>
-        <Tab active={current === 'bun'} onClick={() => {handleTubClick('bun');
-        }} value={'bun'}>Булки</Tab>
-        <Tab active={current === 'main'} onClick={() => {handleTubClick('main');
-        
-        }} value={'main'}>Начинка</Tab>
-        <Tab active={current === 'sauce'} onClick={() => {handleTubClick('sauce');
-        
-        }} value={'sauce'}>Соусы</Tab>
-      </div>
-  )
+  return <div className={clsx(styles.wrap)}>
+    {
+      Object.keys(tabs).map(key => {
+        return <Tab active={current === key} onClick={() => handleTubClick(key)} key={key} value={key}>
+          {categoriesNames[key]}
+        </Tab>
+      })}
+  </div>
 }
 
 BurgerIngredientsTabs.propTypes = {

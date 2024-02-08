@@ -4,28 +4,29 @@ import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-deve
 import React from "react";
 
 
-export default function ConstructorItem({setModal, ingredients}) {
+export default function ConstructorItem({ingredients}) {
 
   
   return( ingredients.map(item =>
-      <><ConstructorElement
+      <>
+        <ConstructorElement
         type="top"
         isLocked={true}
         text={item.name}
         thumbnail={item.image}
         price={200}/>
-        <ConstructorElement
-          text={item.name}
-          price={item.price}
-          thumbnail={item.image}
-        />
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={item.name}
-          price={200}
-          thumbnail={item.image}
-        />
+        {/*<ConstructorElement*/}
+        {/*  text={item.name}*/}
+        {/*  price={item.price}*/}
+        {/*  thumbnail={item.image}*/}
+        {/*/>*/}
+        {/*<ConstructorElement*/}
+        {/*  type="bottom"*/}
+        {/*  isLocked={true}*/}
+        {/*  text={item.name}*/}
+        {/*  price={200}*/}
+        {/*  thumbnail={item.image}*/}
+        {/*/>*/}
       </>
     )
     

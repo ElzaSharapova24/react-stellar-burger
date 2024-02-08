@@ -29,7 +29,7 @@ export default function BurgerConstructor ({setModal, onDropHandler, ingredients
       <div className={clsx(styles.wrap,)} ref={drop}
            style={{
              boxShadow: isOver ? '4px -1px 20px 6px rgba(38,19,239,0.51)'
-               : '4px -1px 20px 6px rgba(115,106,208,0.51)',
+               : null,
              padding: 10,
              borderRadius: 10,
            }}>
