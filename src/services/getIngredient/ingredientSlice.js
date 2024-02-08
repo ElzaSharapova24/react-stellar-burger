@@ -1,10 +1,11 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import getIngredientsRequest from "../../utils/api";
+import {getIngredientsRequest} from "../../utils/api";
 
 
 
 const initialState = {
 	ingredients: [],
+  draggedIngredients: [],
 	isLoading: false,
 	error: null,
 };
@@ -31,7 +32,11 @@ export const ingredientSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers:{
-  
+    dragIngredient(state, action){
+      const dragged = state.ingredients.filter(element => element._id === action.payload)[0];
+      state.ingredients = state.ingredients.filter(element => element !== dragged);
+      state.draggedIngredients = state.draggedIngredients.concat([dragged]);
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -52,5 +57,7 @@ export const ingredientSlice = createSlice({
       });
   },
 })
+
+export const { dragIngredient } = ingredientSlice.actions;
 
 

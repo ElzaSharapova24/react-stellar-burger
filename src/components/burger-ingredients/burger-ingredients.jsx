@@ -1,12 +1,11 @@
 import clsx from "clsx";
 import styles from "./burger-ingredients.module.css"
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import BurgerIngredient from "../burger-ingredient";
 
 function BurgerIngredients (props) {
   const {setModalIsActive, setModalItem, ingredients, _id} = props
-  
   
   return Object.keys(ingredients).map(key => {
     const value = ingredients[key];
@@ -19,7 +18,6 @@ function BurgerIngredients (props) {
           <BurgerIngredient {...ingredient} onClick={() => {
             setModalItem(ingredient);
             setModalIsActive(true);
-            console.log(_id)
           }} key={ingredient._id}/>
         )}
       </div>

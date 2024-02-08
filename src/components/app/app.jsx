@@ -9,18 +9,28 @@ import IngredientDetails from "../ingredient-details";
 import OrderDetails from "../order-details";
 import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../../services/selectors";
-import {getIngredientsFetch} from "../../services/getIngredient/ingredientSlice";
-import {HTML5Backend} from "react-dnd-html5-backend";
-import {DndProvider} from "react-dnd";
+import {getIngredientsFetch, dragIngredient} from "../../services/getIngredient/ingredientSlice";
 
 function App() {
-  const {ingredients, isLoading, error} = useSelector(getIngredients);
+  const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
+  const {ingredients, draggedIngredients, isLoading, error} = useSelector(getIngredients);
   const dispatch = useDispatch();
   
   const [modalItem, setModalItem] = React.useState(null);
   const [ingredientDetailsModal, setIngredientDetailsModal] = React.useState(false);
   
-  const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
+  const handleDrop = (item) => {
+    if (item.type === 'bun') {
+      console.log('qweqwe')
+      dispatch(dragIngredient(item._id));
+      
+    } else {
+      console.log('hff')
+      dispatch(dragIngredient(item._id));
+    }
+    
+
+  };
   
   const currentCategories = ingredients.reduce((result, current) => {
     if (!result[current.type]) {
@@ -30,12 +40,9 @@ function App() {
     return result;
   }, {});
   
-  console.log(currentCategories)
-  
   useEffect(() => {
     dispatch(getIngredientsFetch());
   }, []);
-  
   
   
   return (
@@ -48,16 +55,14 @@ function App() {
         <div className={clsx(styles.tabs)}>
           <BurgerIngredientsTabs tabs={currentCategories}/>
         </div>
-        <DndProvider backend={HTML5Backend}>
           <div className={clsx(styles.wrapper)}>
-            <section className={clsx("custom-scroll", styles.scroll)}>
+            <section className={clsx("custom-scroll", styles.scroll) }>
               {isLoading ? 'loading...' : <BurgerIngredients ingredients={currentCategories} setModalItem={setModalItem} setModalIsActive={setIngredientDetailsModal}/>}
             </section>
             <section>
-              <BurgerConstructor setModal={setOrderDetailsModal}/>
+              <BurgerConstructor ingredients={draggedIngredients} setModal={setOrderDetailsModal} onDropHandler={handleDrop}/>
             </section>
           </div>
-        </DndProvider>
       </main>
       <IngredientDetails modalItem={modalItem} modalIsActive={ingredientDetailsModal} setModalIsActive={setIngredientDetailsModal}/>
       <OrderDetails isModal={orderDetailsModal} setModal={setOrderDetailsModal}/>

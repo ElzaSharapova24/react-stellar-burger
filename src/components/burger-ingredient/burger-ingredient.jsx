@@ -7,17 +7,20 @@ import {useDrag} from "react-dnd";
 
 function BurgerIngredient(props) {
   const {_id, name, price, image } = props;
-  const [{isDragging}, dragRef] = useDrag({
-    item: {
-      type: 'BurgerIngredient'
+  const [{ isDragging }, drag] = useDrag({
+    type: 'draggableItem',
+    item: props,
+    collect: (monitor) => {
+      return {
+        isDragging: !!monitor.isDragging(),
+      }
     },
-    collect: (monitor) =>({
-      isDragging: monitor.isDragging()
-    })
-  })
+  });
   
   return (
-      <article className={clsx(styles.inner)} key={props._id} ref={dragRef}>
+      <article className={clsx(styles.inner)} key={_id} ref={drag} style={{
+        cursor: 'move',
+      }}>
         <a href="#" className={clsx(styles.link)}>
           <img alt={name} src={image} onClick={() => {
             props.onClick();
