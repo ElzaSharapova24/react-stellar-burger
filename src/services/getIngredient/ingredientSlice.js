@@ -2,11 +2,12 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getIngredientsRequest} from "../../utils/api";
 
 
-
 const initialState = {
+  bun: null,
+  fillings: [],
+  totalPrice: 0,
 	ingredients: [],
-  draggedIngredients: [],
-	isLoading: false,
+	isLoading: true,
 	error: null,
 };
 
@@ -32,19 +33,54 @@ export const ingredientSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers:{
-    dragIngredient(state, action){
-      const dragged = state.ingredients.filter(element => element._id === action.payload)[0];
-      state.ingredients = state.ingredients.filter(element => element !== dragged);
-      state.draggedIngredients = state.draggedIngredients.concat([dragged]);
+    // dragBun(state, action){
+    //   const dragged = state.ingredients.filter(element => element._id === action.payload)[0];
+    //   state.ingredients = state.ingredients.filter(element => element !== dragged);
+    //   state.draggedIngredients = state.draggedIngredients.concat([dragged]);
+    // },
+    // dragFilling(state, action){
+    //   const dragged = state.ingredients.filter(element => element._id === action.payload)[0];
+    //   state.ingredients = state.ingredients.filter(element => element !== dragged);
+    //   state.draggedIngredients = state.draggedIngredients.concat([dragged]);
+    // },
+    dragBun(state, action){
+      state.totalPrice = state.totalPrice + action.payload.price * 2;
+      state.bun = action.payload;
+    },
+    dragFilling(state, action){
+      state.totalPrice = state.totalPrice + action.payload.price;
+      state.fillings.push({
+        ...action.payload,
+        id:crypto.randomUUID()
+      })
+    },
+    // addFilling(state, action) {
+    //   if(action.payload.type === 'bun') {
+    //     state.totalPrice = state.totalPrice + action.payload.price * 2;
+    //     state.bun = action.payload;
+    //   } else {
+    //     state.totalPrice = state.totalPrice + action.payload.price;
+    //     state.fillings.push({
+    //       ...action.payload,
+    //       id:crypto.randomUUID()
+    //     })
+    //   }
+    // },
+    fillingSort(state, action) {
+      state.fillings.splice(
+        action.payload.to,
+        0,
+        state.fillings.splice(action.payload.from, 1)[0]
+      )
     }
   },
   extraReducers: (builder) => {
     builder
-    .addCase(getIngredientsFetch.pending, (state) => {
-      state.isLoading = true;
-      state.error = false;
-      
-    })
+      .addCase(getIngredientsFetch.pending, (state) => {
+        state.isLoading = true;
+        state.error = false;
+        
+      })
       .addCase(getIngredientsFetch.fulfilled,
         (state, action) => {
           const { data } = action.payload;
@@ -58,6 +94,8 @@ export const ingredientSlice = createSlice({
   },
 })
 
-export const { dragIngredient } = ingredientSlice.actions;
+export const { dragBun, dragFilling} = ingredientSlice.actions;
+
+export const ingredientReducers = ingredientSlice.reducer
 
 

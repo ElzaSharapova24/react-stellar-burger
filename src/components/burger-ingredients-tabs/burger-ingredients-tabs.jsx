@@ -23,11 +23,4 @@ BurgerIngredientsTabs.propTypes = {
 };
 
 export default BurgerIngredientsTabs;
-// Object.keys(props.tabs).map(item => {
-//   return <div className={clsx(styles.wrap)} key={item}>
-//     <Tab key={item} active={current === item} onClick={() => {
-//       setCurrent(item);
-//       document.querySelector(`#${item}`)?.scrollIntoView({block: "start", behavior: "smooth"});
-//     }} value={item}>{item}</Tab>
-//   </div>
-// })
+

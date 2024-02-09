@@ -1,12 +1,13 @@
 import clsx from "clsx";
 import styles from "../burger-ingredients/burger-ingredients.module.css";
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {useRef} from "react";
 import PropTypes from "prop-types";
 import {useDrag} from "react-dnd";
 
 function BurgerIngredient(props) {
-  const {_id, name, price, image } = props;
+  const {_id, name, price, image, count } = props;
+  const ref = useRef();
   const [{ isDragging }, drag] = useDrag({
     type: 'draggableItem',
     item: props,
@@ -16,11 +17,13 @@ function BurgerIngredient(props) {
       }
     },
   });
+  drag(ref)
   
   return (
-      <article className={clsx(styles.inner)} key={_id} ref={drag} style={{
+      <article className={clsx(styles.inner)} key={_id} ref={ref} style={{
         cursor: 'move',
       }}>
+        <Counter count={1} size="default" extraClass="m-1"/>
         <a href="#" className={clsx(styles.link)}>
           <img alt={name} src={image} onClick={() => {
             props.onClick();

@@ -5,15 +5,14 @@ import React from "react";
 import BurgerIngredient from "../burger-ingredient";
 import categoriesNames from "../../utils/utils";
 
-function BurgerIngredients (props) {
-  const {setModalIsActive, setModalItem, ingredients, name} = props
-  
+
+function BurgerIngredients ({setModalIsActive, setModalItem, ingredients, name}) {
   return <div id={name}>
     <h2 id={name}>
       {categoriesNames[name]}
     </h2>
     <div className={clsx(styles.card)}>
-      {ingredients.map((ingredient) =>
+      {ingredients && ingredients.map((ingredient) =>
         <BurgerIngredient {...ingredient} onClick={() => {
           setModalItem(ingredient);
           setModalIsActive(true);
@@ -21,25 +20,6 @@ function BurgerIngredients (props) {
       )}
     </div>
   </div>
-  
-  // return Object.keys(categories).map(key => {
-  //   const value = categories[key];
-  //   return <div key={key} id={key}>
-  //     <h2 id={key}>
-  //       {categoriesNames[key]}
-  //     </h2>
-  //     <div className={clsx(styles.card)} key={key}>
-  //       {value.map((ingredient) =>
-  //         <BurgerIngredient {...ingredient} onClick={() => {
-  //           setModalItem(ingredient);
-  //           setModalIsActive(true);
-  //         }} key={ingredient._id}/>
-  //       )}
-  //     </div>
-  //   </div>
-  // })
-  
-  
 }
 
 export default BurgerIngredients;

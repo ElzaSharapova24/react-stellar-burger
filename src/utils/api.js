@@ -6,22 +6,21 @@ function getIngredientsRequest() {
   return fetch(`${BASE_URL}/ingredients`);
 }
 
-// function createOrderRequest () {
-//   return fetch(`${BASE_URL}/orders`, {
-//     method: "POST",
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({"ingredients": []}),
-//   });
-// };
-//
-// console.log(createOrderRequest())
+function createOrderRequest () {
+  return fetch(`${BASE_URL}/orders`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({"ingredients": []}),
+  });
+};
+
 
 
 const getOrderByNumberRequest = (number) => {
   return fetch(`${BASE_URL}/orders/${number}`);
 };
 
-export {getIngredientsRequest, getOrderByNumberRequest};
+export {getIngredientsRequest, getOrderByNumberRequest, createOrderRequest};
 
