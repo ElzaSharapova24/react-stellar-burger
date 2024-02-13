@@ -9,7 +9,12 @@ import IngredientDetails from "../ingredient-details";
 import OrderDetails from "../order-details";
 import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../../services/selectors";
-import {getIngredientsFetch, dragBun, dragFilling} from "../../services/getIngredient/ingredientSlice";
+import {
+  getIngredientsFetch,
+  dragBun,
+  dragFilling,
+  ingredientDelete
+} from "../../services/getIngredient/ingredientSlice";
 import {useInView} from "react-intersection-observer";
 
 
@@ -39,6 +44,8 @@ function App() {
     const tab = document.querySelector(`#${type}`);
     if (tab) tab.scrollIntoView({block: "start", behavior: "smooth"})
   }
+  
+  const handleDeleteIngredient = (item) => dispatch(ingredientDelete(item));
   
   useEffect(() => {
     bunInView ? setCurrent("bunCategory") : (sauceInView ? setCurrent("sauceCategory") : setCurrent("mainCategory"))
@@ -95,7 +102,7 @@ function App() {
               }
             </section>
             <section>
-              <BurgerConstructor fillings={fillings} bun={bun} totalPrice={totalPrice} setModal={setOrderDetailsModal} onDrop={handleDrop}/>
+              <BurgerConstructor fillings={fillings} bun={bun} totalPrice={totalPrice} setModal={setOrderDetailsModal} handleDeleteIngredient={handleDeleteIngredient} onDrop={handleDrop}/>
             </section>
           </div>
         </mainCategory>

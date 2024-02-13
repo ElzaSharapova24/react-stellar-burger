@@ -8,7 +8,7 @@ import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
 import {ingredientSort} from "../../services/getIngredient/ingredientSlice";
 
-export default function ConstructorItem({bun, fillings, index}) {
+export default function ConstructorItem({bun, fillings, index, handleDeleteIngredient}) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   
@@ -103,6 +103,7 @@ export default function ConstructorItem({bun, fillings, index}) {
                   text={item.name}
                   price={item.price}
                   thumbnail={item.image}
+                  handleClose={() => handleDeleteIngredient(item)}
                 />
               </div>
             )

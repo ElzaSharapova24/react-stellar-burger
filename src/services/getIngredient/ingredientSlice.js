@@ -57,18 +57,6 @@ export const ingredientSlice = createSlice({
         id:crypto.randomUUID()
       })
     },
-    // addFilling(state, action) {
-    //   if(action.payload.type === 'bun') {
-    //     state.totalPrice = state.totalPrice + action.payload.price * 2;
-    //     state.bun = action.payload;
-    //   } else {
-    //     state.totalPrice = state.totalPrice + action.payload.price;
-    //     state.fillings.push({
-    //       ...action.payload,
-    //       id:crypto.randomUUID()
-    //     })
-    //   }
-    // },
     ingredientSort(state, action) {
       state.fillings.splice(
         action.payload.to,
@@ -77,6 +65,7 @@ export const ingredientSlice = createSlice({
       );
     },
     ingredientDelete(state, action) {
+      state.ingredients.find(e => e._id === action.payload._id).count--;
       state.fillings = state.fillings.filter(
         item => item.id !== action.payload.id
       )
