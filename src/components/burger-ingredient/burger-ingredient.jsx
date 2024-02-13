@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import {useDrag} from "react-dnd";
 
 function BurgerIngredient(props) {
-  const {_id, name, price, image, count } = props;
+  const {_id, name, price, image, count, onClick } = props;
   const ref = useRef();
   const [{ isDragging }, drag] = useDrag({
     type: 'draggableItem',
@@ -26,7 +26,7 @@ function BurgerIngredient(props) {
         {(count > 0) && <Counter count={count} size="default" extraClass="m-1"/>}
         <a href="#" className={clsx(styles.link)}>
           <img alt={name} src={image} onClick={() => {
-            props.onClick();
+            onClick();
           }}/>
           <div className={clsx(styles.info)}>
             <div className={clsx(styles.price)}>

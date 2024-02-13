@@ -21,7 +21,7 @@ export default function Modal({ isVisible = false, title,  children, onClose, cl
         document.removeEventListener('keydown', closeByEscape);
       }
     }
-  }, [isVisible])
+  }, [isVisible, onClose])
   
   
   return !isVisible ? null : (

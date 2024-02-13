@@ -20,6 +20,7 @@ import {useInView} from "react-intersection-observer";
 
 function App() {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
+
   const {ingredients, bun, fillings, isLoading, error} = useSelector(getIngredients);
   const dispatch = useDispatch();
   
@@ -27,8 +28,8 @@ function App() {
     return fillings.reduce((a,c) => a + c.price, 0) + (bun !== null ? bun.price * 2 : 0);
   }, [bun, fillings]);
   
-  const [modalItem, setModalItem] = React.useState(null);
-  const [ingredientDetailsModal, setIngredientDetailsModal] = React.useState(false);
+  const [ingredientModalItem, setIngredientModalItem] = React.useState(null);
+  const [ingredientModalIsActive, setIngredientModalIsActive] = React.useState(false);
   
   const [bunCategory, bunInView] = useInView({ threshold: 0 });
   const [sauceCategory, sauceInView] = useInView({ threshold: 0 });
@@ -90,13 +91,13 @@ function App() {
                   ? 'loading...'
                   : <>
                     <div id='bun' ref={bunCategory}>
-                      <BurgerIngredients name={'bun'} ingredients={currentCategories['bun']} setModalItem={setModalItem} setModalIsActive={setIngredientDetailsModal}/>
+                      <BurgerIngredients name={'bun'} ingredients={currentCategories['bun']} setModalItem={setIngredientModalItem} setModalIsActive={setIngredientModalIsActive}/>
                     </div>
                     <div id='main' ref={mainCategory}>
-                      <BurgerIngredients name={'main'} ingredients={currentCategories['main']} setModalItem={setModalItem} setModalIsActive={setIngredientDetailsModal}/>
+                      <BurgerIngredients name={'main'} ingredients={currentCategories['main']} setModalItem={setIngredientModalItem} setModalIsActive={setIngredientModalIsActive}/>
                     </div>
                     <div id='sauce' ref={sauceCategory}>
-                      <BurgerIngredients name={'sauce'} ingredients={currentCategories['sauce']} setModalItem={setModalItem} setModalIsActive={setIngredientDetailsModal}/>
+                      <BurgerIngredients name={'sauce'} ingredients={currentCategories['sauce']} setModalItem={setIngredientModalItem} setModalIsActive={setIngredientModalIsActive}/>
                     </div>
                   </>
               }
@@ -106,7 +107,7 @@ function App() {
             </section>
           </div>
         </mainCategory>
-        <IngredientDetails modalItem={modalItem} modalIsActive={ingredientDetailsModal} setModalIsActive={setIngredientDetailsModal}/>
+        <IngredientDetails modalItem={ingredientModalItem} modalIsActive={ingredientModalIsActive} setModalIsActive={setIngredientModalIsActive}/>
         <OrderDetails isModal={orderDetailsModal} setModal={setOrderDetailsModal}/>
       </div>
     );
