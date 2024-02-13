@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import styles from "./app.module.css";
 import clsx from "clsx";
 import AppHeader from "../app-header";
@@ -15,8 +15,12 @@ import {useInView} from "react-intersection-observer";
 
 function App() {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
-  const {ingredients, bun, fillings, isLoading, error, totalPrice} = useSelector(getIngredients);
+  const {ingredients, bun, fillings, isLoading, error} = useSelector(getIngredients);
   const dispatch = useDispatch();
+  
+  const totalPrice = useMemo(() => {
+    return fillings.reduce((a,c) => a + c.price, 0) + (bun !== null ? bun.price * 2 : 0);
+  }, [bun, fillings]);
   
   const [modalItem, setModalItem] = React.useState(null);
   const [ingredientDetailsModal, setIngredientDetailsModal] = React.useState(false);

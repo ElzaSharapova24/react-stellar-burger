@@ -5,7 +5,7 @@ import {getIngredientsRequest} from "../../utils/api";
 const initialState = {
   bun: null,
   fillings: [],
-  totalPrice: 0,
+  // totalPrice: 0,
 	ingredients: [],
 	isLoading: true,
 	error: null,
@@ -44,11 +44,14 @@ export const ingredientSlice = createSlice({
     //   state.draggedIngredients = state.draggedIngredients.concat([dragged]);
     // },
     dragBun(state, action){
-      state.totalPrice = state.totalPrice + action.payload.price * 2;
+      if (state.bun !== null){
+        state.ingredients.find(e => e._id === state.bun._id).count = 0;
+      }
+      state.ingredients.find(e => e._id === action.payload._id).count = 2;
       state.bun = action.payload;
     },
     dragFilling(state, action){
-      state.totalPrice = state.totalPrice + action.payload.price;
+      state.ingredients.find(e => e._id === action.payload._id).count++;
       state.fillings.push({
         ...action.payload,
         id:crypto.randomUUID()
@@ -89,7 +92,12 @@ export const ingredientSlice = createSlice({
       .addCase(getIngredientsFetch.fulfilled,
         (state, action) => {
           const { data } = action.payload;
-          state.ingredients = data;
+          state.ingredients = data.map(e => {
+            return {
+              ...e,
+              count: 0
+            }
+          });
           state.isLoading = false;
         })
       .addCase(getIngredientsFetch.rejected, (state) => {

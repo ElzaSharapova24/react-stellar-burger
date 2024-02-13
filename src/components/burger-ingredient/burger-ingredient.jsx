@@ -23,7 +23,7 @@ function BurgerIngredient(props) {
       <article className={clsx(styles.inner)} key={_id} ref={ref} style={{
         cursor: 'move',
       }}>
-        <Counter count={1} size="default" extraClass="m-1"/>
+        {(count > 0) && <Counter count={count} size="default" extraClass="m-1"/>}
         <a href="#" className={clsx(styles.link)}>
           <img alt={name} src={image} onClick={() => {
             props.onClick();
