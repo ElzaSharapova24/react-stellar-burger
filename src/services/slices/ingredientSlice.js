@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getIngredientsRequest} from "../../utils/api";
+import {createOrderRequest, getIngredientsRequest} from "../../utils/api";
 
 
 const initialState = {
@@ -8,6 +8,7 @@ const initialState = {
 	ingredients: [],
 	isLoading: true,
 	error: null,
+  order: null,
 };
 
 
@@ -27,21 +28,27 @@ export const getIngredientsFetch = createAsyncThunk(
   }
 );
 
+export const createOrderResult = createAsyncThunk(
+  'order/getOrderResult',
+  async function (payload, { rejectWithValue, fulfillWithValue }) {
+    try {
+      const response = await createOrderRequest(payload.ingredients);
+      if (!response.ok) {
+        return rejectWithValue({ message: 'Ошибка на стороне сервера' });
+      }
+      const json = await response.json();
+      return fulfillWithValue(json);
+    } catch {
+      return rejectWithValue({ message: 'Ошибка на стороне сервера' });
+    }
+  }
+);
+
 
 export const ingredientSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers:{
-    // dragBun(state, action){
-    //   const dragged = state.ingredients.filter(element => element._id === action.payload)[0];
-    //   state.ingredients = state.ingredients.filter(element => element !== dragged);
-    //   state.draggedIngredients = state.draggedIngredients.concat([dragged]);
-    // },
-    // dragFilling(state, action){
-    //   const dragged = state.ingredients.filter(element => element._id === action.payload)[0];
-    //   state.ingredients = state.ingredients.filter(element => element !== dragged);
-    //   state.draggedIngredients = state.draggedIngredients.concat([dragged]);
-    // },
     dragBun(state, action){
       if (state.bun !== null){
         state.ingredients.find(e => e._id === state.bun._id).count = 0;
@@ -75,7 +82,6 @@ export const ingredientSlice = createSlice({
       .addCase(getIngredientsFetch.pending, (state) => {
         state.isLoading = true;
         state.error = false;
-        
       })
       .addCase(getIngredientsFetch.fulfilled,
         (state, action) => {
@@ -88,10 +94,26 @@ export const ingredientSlice = createSlice({
           });
           state.isLoading = false;
         })
+      
       .addCase(getIngredientsFetch.rejected, (state) => {
         state.isLoading = false;
         state.error = true;
-      });
+      })
+      .addCase(createOrderResult.pending, (state) => {
+          state.isLoading = true;
+          state.error = false;
+        })
+      
+          .addCase(createOrderResult.fulfilled,
+            (state, action) => {
+              state.order = action.payload;
+              state.isLoading = false;
+            })
+      
+          .addCase(createOrderResult.rejected, (state) => {
+            state.isLoading = false;
+            state.error = true;
+          });
   },
 })
 

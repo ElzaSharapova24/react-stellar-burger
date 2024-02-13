@@ -13,17 +13,15 @@ import {
   getIngredientsFetch,
   dragBun,
   dragFilling,
-  ingredientDelete
+  ingredientDelete, createOrderResult
 } from "../../services/slices/ingredientSlice";
 import {useInView} from "react-intersection-observer";
-import {createOrderResult} from "../../services/slices/createOrderSlice";
 
 
 function App() {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
 
-  const {ingredients, bun, fillings, isLoading, error} = useSelector(getIngredients);
-  const {order} = useSelector(createOrder);
+  const {ingredients, bun, fillings, isLoading, error, order} = useSelector(getIngredients);
   const dispatch = useDispatch();
   
   const totalPrice = useMemo(() => {
