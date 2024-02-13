@@ -13,10 +13,7 @@ function BurgerIngredients ({setModalIsActive, setModalItem, ingredients, name})
     </h2>
     <div className={clsx(styles.card)}>
       {ingredients && ingredients.map((ingredient) =>
-        <BurgerIngredient {...ingredient} onClick={() => {
-          setModalItem(ingredient);
-          setModalIsActive(true);
-        }} key={ingredient._id}/>
+        <BurgerIngredient {...ingredient}  key={ingredient._id}/>
       )}
     </div>
   </div>

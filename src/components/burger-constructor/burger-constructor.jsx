@@ -1,12 +1,13 @@
 
 import clsx from "clsx";
 import styles from "./burger-constructor.module.css"
-import React from "react";
+import React, {useMemo} from "react";
 import {useDrop} from "react-dnd";
 import ConstructorItem from "../constructor-item";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function BurgerConstructor ({setModal,onDrop, bun, fillings, totalPrice}) {
+  
   const [{ isOver, itemDrag }, drop] = useDrop({
     accept: 'draggableItem',
     drop: (item) => {

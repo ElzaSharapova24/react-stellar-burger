@@ -66,11 +66,16 @@ export const ingredientSlice = createSlice({
     //     })
     //   }
     // },
-    fillingSort(state, action) {
+    ingredientSort(state, action) {
       state.fillings.splice(
         action.payload.to,
         0,
         state.fillings.splice(action.payload.from, 1)[0]
+      );
+    },
+    ingredientDelete(state, action) {
+      state.fillings = state.fillings.filter(
+        item => item.id !== action.payload.id
       )
     }
   },
@@ -94,7 +99,7 @@ export const ingredientSlice = createSlice({
   },
 })
 
-export const { dragBun, dragFilling} = ingredientSlice.actions;
+export const { dragBun, dragFilling, ingredientSort, ingredientDelete} = ingredientSlice.actions;
 
 export const ingredientReducers = ingredientSlice.reducer
 
