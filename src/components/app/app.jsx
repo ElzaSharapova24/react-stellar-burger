@@ -8,20 +8,22 @@ import BurgerIngredientsTabs from "../burger-ingredients-tabs"
 import IngredientDetails from "../ingredient-details";
 import OrderDetails from "../order-details";
 import {useDispatch, useSelector} from "react-redux";
-import {getIngredients} from "../../services/selectors";
+import {createOrder, getIngredients} from "../../services/selectors";
 import {
   getIngredientsFetch,
   dragBun,
   dragFilling,
   ingredientDelete
-} from "../../services/getIngredient/ingredientSlice";
+} from "../../services/slices/ingredientSlice";
 import {useInView} from "react-intersection-observer";
+import {createOrderResult} from "../../services/slices/createOrderSlice";
 
 
 function App() {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
 
   const {ingredients, bun, fillings, isLoading, error} = useSelector(getIngredients);
+  const {order} = useSelector(createOrder);
   const dispatch = useDispatch();
   
   const totalPrice = useMemo(() => {
@@ -36,6 +38,7 @@ function App() {
   const [mainCategory, mainInView] = useInView({ threshold: 0 });
   
   const [current, setCurrent] = React.useState([0]);
+  
   useEffect(() => {
     dispatch(getIngredientsFetch());
   }, [dispatch]);
@@ -103,12 +106,17 @@ function App() {
               }
             </section>
             <section>
-              <BurgerConstructor fillings={fillings} bun={bun} totalPrice={totalPrice} setModal={setOrderDetailsModal} handleDeleteIngredient={handleDeleteIngredient} onDrop={handleDrop}/>
+              <BurgerConstructor fillings={fillings} bun={bun} totalPrice={totalPrice} onClick={() => {
+                dispatch(createOrderResult({
+                  ingredients: fillings.map(e => e._id).concat(bun._id)
+                }));
+                setOrderDetailsModal(true);
+              }} handleDeleteIngredient={handleDeleteIngredient} onDrop={handleDrop}/>
             </section>
           </div>
         </mainCategory>
         <IngredientDetails modalItem={ingredientModalItem} modalIsActive={ingredientModalIsActive} setModalIsActive={setIngredientModalIsActive}/>
-        <OrderDetails isModal={orderDetailsModal} setModal={setOrderDetailsModal}/>
+        <OrderDetails order={order} isModal={orderDetailsModal} setModal={setOrderDetailsModal}/>
       </div>
     );
   }

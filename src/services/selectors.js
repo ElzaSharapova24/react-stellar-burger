@@ -1,8 +1,6 @@
-import {ingredientSlice} from "./getIngredient/ingredientSlice";
-import {constructorIngredientSlice} from "./constructorIngredient/constructorIngredientSlice";
+import {ingredientSlice} from "./slices/ingredientSlice";
+import {createOrderSlice} from "./slices/createOrderSlice";
 
 
 export const getIngredients = store => store[ingredientSlice.name];
-// export const getIngredientsIsLoading = store => store[ingredientSlice.name].isLoading;
-export const createOrderSelector = store => store[constructorIngredientSlice.name];
-export const createOrderr = store => store[constructorIngredientSlice.getInitialStat];
+export const createOrder = store => store[createOrderSlice.name];

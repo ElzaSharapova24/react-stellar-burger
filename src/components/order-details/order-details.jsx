@@ -5,13 +5,15 @@ import doneIcon from "../../images/done.svg"
 import styles from "./order-details.module.css"
 
 export default function OrderDetails(props) {
+  const {order, isModal, setModal} = props;
   return(
-    <Modal isVisible={props.isModal}
+    <Modal isVisible={isModal}
            title={null}
-           onClose={() => props.setModal(false)}
+           onClose={() => setModal(false)}
     >
-      <div className={clsx(styles.wrapper)}>
-        <h2 className={clsx("text text_type_digits-large", styles.title)}>122334</h2>
+    {
+      order && <div className={clsx(styles.wrapper)}>
+        <h2 className={clsx("text text_type_digits-large", styles.title)}>{order.order.number}</h2>
         <p>
           идентификатор заказа
         </p>
@@ -25,6 +27,7 @@ export default function OrderDetails(props) {
           </p>
         </div>
       </div>
+    }
     </Modal>
   )
 }

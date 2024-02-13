@@ -6,7 +6,7 @@ import {useDrop} from "react-dnd";
 import ConstructorItem from "../constructor-item";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-export default function BurgerConstructor ({setModal,onDrop, bun, fillings, totalPrice, handleDeleteIngredient}) {
+export default function BurgerConstructor ({onClick, onDrop, bun, fillings, totalPrice, handleDeleteIngredient}) {
   
   const [{ isOver, itemDrag }, drop] = useDrop({
     accept: 'draggableItem',
@@ -38,13 +38,13 @@ export default function BurgerConstructor ({setModal,onDrop, bun, fillings, tota
              padding: 10,
              borderRadius: 10,
            }}>
-        <ConstructorItem bun={bun} fillings={fillings} setModal={setModal} handleDeleteIngredient={handleDeleteIngredient}/>
+        <ConstructorItem bun={bun} fillings={fillings} handleDeleteIngredient={handleDeleteIngredient}/>
         <div className={clsx(styles.inner)}>
           <div className={clsx(styles.price, "mr-10")}>
             <p className={clsx("text text_type_digits-medium")}>{totalPrice}</p>
             <CurrencyIcon type="primary"/>
           </div>
-          <Button htmlType="button" type="primary" size="large" onClick={() => setModal(true)}>
+          <Button htmlType="button" type="primary" size="large" onClick={onClick}>
             Нажми на меня
           </Button>
         </div>

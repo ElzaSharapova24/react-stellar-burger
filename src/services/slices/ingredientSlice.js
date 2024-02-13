@@ -5,7 +5,6 @@ import {getIngredientsRequest} from "../../utils/api";
 const initialState = {
   bun: null,
   fillings: [],
-  // totalPrice: 0,
 	ingredients: [],
 	isLoading: true,
 	error: null,

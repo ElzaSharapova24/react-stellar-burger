@@ -6,7 +6,7 @@ import {DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./constructor-item.module.css"
 import {useDispatch} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
-import {ingredientSort} from "../../services/getIngredient/ingredientSlice";
+import {ingredientSort} from "../../services/slices/ingredientSlice";
 
 export default function ConstructorItem({bun, fillings, index, handleDeleteIngredient}) {
   const ref = useRef(null);
@@ -79,9 +79,10 @@ export default function ConstructorItem({bun, fillings, index, handleDeleteIngre
     },
   })
   
-  drag(drop(ref))
   
   const opacity = isDragging ? 0 : 1;
+  drag(drop(ref))
+  
   return(
       <React.Fragment >
         {
@@ -96,7 +97,7 @@ export default function ConstructorItem({bun, fillings, index, handleDeleteIngre
         <div className={clsx("custom-scroll", styles.scroll)} >
           {fillings.map((item) => {
             return (
-              <div ref={ref} data-handler-id={handlerId} style={{opacity}}  key={item._id}>
+              <div ref={ref} data-handler-id={handlerId} style={{opacity}} key={item.id}>
                 <DragIcon type="primary" />
                 <ConstructorElement
                   index={index}
