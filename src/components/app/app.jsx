@@ -13,7 +13,7 @@ import {
   getIngredientsFetch,
   dragBun,
   dragFilling,
-  ingredientDelete, createOrderResult
+  ingredientDelete, createOrderResult, resetOrder
 } from "../../services/slices/ingredientSlice";
 import {useInView} from "react-intersection-observer";
 
@@ -114,7 +114,10 @@ function App() {
           </div>
         </mainCategory>
         <IngredientDetails modalItem={ingredientModalItem} modalIsActive={ingredientModalIsActive} setModalIsActive={setIngredientModalIsActive}/>
-        <OrderDetails order={order} isModal={orderDetailsModal} setModal={setOrderDetailsModal}/>
+        <OrderDetails order={order} isModal={orderDetailsModal} onClose={() => {
+          setOrderDetailsModal(false);
+          dispatch(resetOrder())
+        }}/>
       </div>
     );
   }

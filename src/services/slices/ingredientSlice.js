@@ -75,6 +75,9 @@ export const ingredientSlice = createSlice({
       state.fillings = state.fillings.filter(
         item => item.id !== action.payload.id
       )
+    },
+    resetOrder(state) {
+      state.order = null;
     }
   },
   extraReducers: (builder) => {
@@ -99,25 +102,31 @@ export const ingredientSlice = createSlice({
         state.isLoading = false;
         state.error = true;
       })
+      
       .addCase(createOrderResult.pending, (state) => {
           state.isLoading = true;
           state.error = false;
         })
       
-          .addCase(createOrderResult.fulfilled,
-            (state, action) => {
-              state.order = action.payload;
-              state.isLoading = false;
-            })
-      
-          .addCase(createOrderResult.rejected, (state) => {
-            state.isLoading = false;
-            state.error = true;
-          });
+      .addCase(createOrderResult.fulfilled,
+        (state, action) => {
+          state.bun = null;
+          state.fillings = [];
+          for (let ingredient of state.ingredients){
+            ingredient.count = 0;
+          }
+          state.order = action.payload;
+          state.isLoading = false;
+        })
+  
+      .addCase(createOrderResult.rejected, (state) => {
+        state.isLoading = false;
+        state.error = true;
+      });
   },
 })
 
-export const { dragBun, dragFilling, ingredientSort, ingredientDelete} = ingredientSlice.actions;
+export const { dragBun, dragFilling, ingredientSort, ingredientDelete, resetOrder} = ingredientSlice.actions;
 
 export const ingredientReducers = ingredientSlice.reducer
 

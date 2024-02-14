@@ -5,11 +5,11 @@ import doneIcon from "../../images/done.svg"
 import styles from "./order-details.module.css"
 
 export default function OrderDetails(props) {
-  const {order, isModal, setModal} = props;
+  const {order, isModal, onClose} = props;
   return(
     <Modal isVisible={isModal}
            title={null}
-           onClose={() => setModal(false)}
+           onClose={() => onClose()}
     >
     {
       order && <div className={clsx(styles.wrapper)}>
