@@ -1,2 +1,2 @@
-import ConstructorItem from './constructor-item';
-export default ConstructorItem;
+import ConstructorItems from './constructor-items';
+export default ConstructorItems;

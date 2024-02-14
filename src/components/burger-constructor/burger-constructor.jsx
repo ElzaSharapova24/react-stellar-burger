@@ -1,9 +1,9 @@
 
 import clsx from "clsx";
 import styles from "./burger-constructor.module.css"
-import React, {useMemo} from "react";
+import React from "react";
 import {useDrop} from "react-dnd";
-import ConstructorItem from "../constructor-item";
+import ConstructorItems from "../constructor-item";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function BurgerConstructor ({onClick, onDrop, bun, fillings, totalPrice, handleDeleteIngredient}) {
@@ -38,7 +38,7 @@ export default function BurgerConstructor ({onClick, onDrop, bun, fillings, tota
              padding: 10,
              borderRadius: 10,
            }}>
-        <ConstructorItem bun={bun} fillings={fillings} handleDeleteIngredient={handleDeleteIngredient}/>
+        <ConstructorItems bun={bun} fillings={fillings} handleDeleteIngredient={handleDeleteIngredient}/>
         <div className={clsx(styles.inner)}>
           <div className={clsx(styles.price, "mr-10")}>
             <p className={clsx("text text_type_digits-medium")}>{totalPrice}</p>
