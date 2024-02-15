@@ -103,10 +103,10 @@ function BurgerConstructorItem({ item, index, handleDeleteIngredient }) {
 BurgerConstructorItem.propTypes = {
   item: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  image: PropTypes.string,
+  price: PropTypes.number,
   handleDeleteIngredient: PropTypes.func,
 };
 
