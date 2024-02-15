@@ -85,7 +85,7 @@ function App() {
     return (
       <div className={clsx(styles.app)}>
         <AppHeader />
-        <mainCategory>
+        <main>
           <h1 className={clsx("pt-10 pb-5 text text_type_main-large")}>
             Соберите бургер
           </h1>
@@ -147,7 +147,7 @@ function App() {
               />
             </section>
           </div>
-        </mainCategory>
+        </main>
         <IngredientDetails
           modalItem={ingredientModalItem}
           modalIsActive={ingredientModalIsActive}
