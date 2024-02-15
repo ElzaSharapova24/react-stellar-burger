@@ -1,33 +1,41 @@
 import Modal from "../modal/modal";
 import clsx from "clsx";
 import React from "react";
-import doneIcon from "../../images/done.svg"
-import styles from "./order-details.module.css"
+import doneIcon from "../../images/done.svg";
+import styles from "./order-details.module.css";
+import PropTypes from "prop-types";
 
-export default function OrderDetails(props) {
-  const {order, isModal, onClose} = props;
-  return(
-    <Modal isVisible={isModal}
-           title={null}
-           onClose={() => onClose()}
-    >
-    {
-      order && <div className={clsx(styles.wrapper)}>
-        <h2 className={clsx("text text_type_digits-large", styles.title)}>{order.order.number}</h2>
-        <p>
-          идентификатор заказа
-        </p>
-        <img className={clsx(styles.image)} src={doneIcon} alt="Заказ оформлен"/>
-        <div>
-          <p className={clsx("mb-2")}>
-            Ваш заказ начали готовить
-          </p>
-          <p className={clsx(styles.text)}>
-            Дождитесь готовности на орбитальной станции
-          </p>
+function OrderDetails(props) {
+  const { order, isModal, onClose } = props;
+  return (
+    <Modal isVisible={isModal} title={null} onClose={() => onClose()}>
+      {order && (
+        <div className={clsx(styles.wrapper)}>
+          <h2 className={clsx("text text_type_digits-large", styles.title)}>
+            {order.order.number}
+          </h2>
+          <p>идентификатор заказа</p>
+          <img
+            className={clsx(styles.image)}
+            src={doneIcon}
+            alt="Заказ оформлен"
+          />
+          <div>
+            <p className={clsx("mb-2")}>Ваш заказ начали готовить</p>
+            <p className={clsx(styles.text)}>
+              Дождитесь готовности на орбитальной станции
+            </p>
+          </div>
         </div>
-      </div>
-    }
+      )}
     </Modal>
-  )
+  );
 }
+
+OrderDetails.propTypes = {
+  order: PropTypes.number,
+  isModal: PropTypes.bool.isRequired,
+  onClose: PropTypes.func,
+};
+
+export default OrderDetails;

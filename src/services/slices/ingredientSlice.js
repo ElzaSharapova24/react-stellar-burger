@@ -1,67 +1,64 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {createOrderRequest, getIngredientsRequest} from "../../utils/api";
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createOrderRequest, getIngredientsRequest } from "../../utils/api";
 
 const initialState = {
   bun: null,
   fillings: [],
-	ingredients: [],
-	isLoading: true,
-	error: null,
+  ingredients: [],
+  isLoading: true,
+  error: null,
   order: null,
 };
 
-
 export const getIngredientsFetch = createAsyncThunk(
-  'ingredients/getIngredientsFetch',
+  "ingredients/getIngredientsFetch",
   async function (_, { rejectWithValue, fulfillWithValue }) {
     try {
       const response = await getIngredientsRequest();
       if (!response.ok) {
-        return rejectWithValue({ message: 'Ошибка на стороне сервера' });
+        return rejectWithValue({ message: "Ошибка на стороне сервера" });
       }
       const json = await response.json();
       return fulfillWithValue(json);
     } catch {
-      return rejectWithValue({ message: 'Ошибка на стороне сервера' });
+      return rejectWithValue({ message: "Ошибка на стороне сервера" });
     }
   }
 );
 
 export const createOrderResult = createAsyncThunk(
-  'order/getOrderResult',
+  "order/getOrderResult",
   async function (payload, { rejectWithValue, fulfillWithValue }) {
     try {
       const response = await createOrderRequest(payload.ingredients);
       if (!response.ok) {
-        return rejectWithValue({ message: 'Ошибка на стороне сервера' });
+        return rejectWithValue({ message: "Ошибка на стороне сервера" });
       }
       const json = await response.json();
       return fulfillWithValue(json);
     } catch {
-      return rejectWithValue({ message: 'Ошибка на стороне сервера' });
+      return rejectWithValue({ message: "Ошибка на стороне сервера" });
     }
   }
 );
 
-
 export const ingredientSlice = createSlice({
-  name: 'ingredients',
+  name: "ingredients",
   initialState,
-  reducers:{
-    dragBun(state, action){
-      if (state.bun !== null){
-        state.ingredients.find(e => e._id === state.bun._id).count = 0;
+  reducers: {
+    dragBun(state, action) {
+      if (state.bun !== null) {
+        state.ingredients.find((e) => e._id === state.bun._id).count = 0;
       }
-      state.ingredients.find(e => e._id === action.payload._id).count = 2;
+      state.ingredients.find((e) => e._id === action.payload._id).count = 2;
       state.bun = action.payload;
     },
-    dragFilling(state, action){
-      state.ingredients.find(e => e._id === action.payload._id).count++;
+    dragFilling(state, action) {
+      state.ingredients.find((e) => e._id === action.payload._id).count++;
       state.fillings.push({
         ...action.payload,
-        id:crypto.randomUUID()
-      })
+        id: crypto.randomUUID(),
+      });
     },
     ingredientSort(state, action) {
       state.fillings.splice(
@@ -71,14 +68,14 @@ export const ingredientSlice = createSlice({
       );
     },
     ingredientDelete(state, action) {
-      state.ingredients.find(e => e._id === action.payload._id).count--;
+      state.ingredients.find((e) => e._id === action.payload._id).count--;
       state.fillings = state.fillings.filter(
-        item => item.id !== action.payload.id
-      )
+        (item) => item.id !== action.payload.id
+      );
     },
     resetOrder(state) {
       state.order = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -86,48 +83,50 @@ export const ingredientSlice = createSlice({
         state.isLoading = true;
         state.error = false;
       })
-      .addCase(getIngredientsFetch.fulfilled,
-        (state, action) => {
-          const { data } = action.payload;
-          state.ingredients = data.map(e => {
-            return {
-              ...e,
-              count: 0
-            }
-          });
-          state.isLoading = false;
-        })
-      
+      .addCase(getIngredientsFetch.fulfilled, (state, action) => {
+        const { data } = action.payload;
+        state.ingredients = data.map((e) => {
+          return {
+            ...e,
+            count: 0,
+          };
+        });
+        state.isLoading = false;
+      })
+
       .addCase(getIngredientsFetch.rejected, (state) => {
         state.isLoading = false;
         state.error = true;
       })
-      
+
       .addCase(createOrderResult.pending, (state) => {
-          state.isLoading = true;
-          state.error = false;
-        })
-      
-      .addCase(createOrderResult.fulfilled,
-        (state, action) => {
-          state.bun = null;
-          state.fillings = [];
-          for (let ingredient of state.ingredients){
-            ingredient.count = 0;
-          }
-          state.order = action.payload;
-          state.isLoading = false;
-        })
-  
+        state.isLoading = true;
+        state.error = false;
+      })
+
+      .addCase(createOrderResult.fulfilled, (state, action) => {
+        state.bun = null;
+        state.fillings = [];
+        for (let ingredient of state.ingredients) {
+          ingredient.count = 0;
+        }
+        state.order = action.payload;
+        state.isLoading = false;
+      })
+
       .addCase(createOrderResult.rejected, (state) => {
         state.isLoading = false;
         state.error = true;
       });
   },
-})
+});
 
-export const { dragBun, dragFilling, ingredientSort, ingredientDelete, resetOrder} = ingredientSlice.actions;
+export const {
+  dragBun,
+  dragFilling,
+  ingredientSort,
+  ingredientDelete,
+  resetOrder,
+} = ingredientSlice.actions;
 
-export const ingredientReducers = ingredientSlice.reducer
-
-
+export const ingredientReducers = ingredientSlice.reducer;

@@ -1,6 +1,3 @@
-import {ingredientSlice} from "./slices/ingredientSlice";
+import { ingredientSlice } from "./slices/ingredientSlice";
 
-
-
-export const getIngredients = store => store[ingredientSlice.name];
-
+export const getIngredients = (store) => store[ingredientSlice.name];

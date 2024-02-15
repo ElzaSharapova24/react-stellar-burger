@@ -1,5 +1,5 @@
 .header {
-  background:  #1C1C21;
+  background: #1c1c21;
 }
 
 .logo {
@@ -22,10 +22,9 @@
   display: flex;
   text-decoration: none;
   align-items: center;
-  color: #8585AD;
+  color: #8585ad;
 }
 
 .activeLink {
-  color: #F2F2F3;
+  color: #f2f2f3;
 }
-
