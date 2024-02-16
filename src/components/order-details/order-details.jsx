@@ -33,7 +33,7 @@ function OrderDetails(props) {
 }
 
 OrderDetails.propTypes = {
-  order: PropTypes.number,
+  order: PropTypes.object,
   isModal: PropTypes.bool.isRequired,
   onClose: PropTypes.func,
 };

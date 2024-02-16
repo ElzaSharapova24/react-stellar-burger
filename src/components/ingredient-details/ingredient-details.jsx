@@ -2,6 +2,7 @@ import Modal from "../modal/modal";
 import clsx from "clsx";
 import styles from "./ingredient-details.module.css";
 import React from "react";
+import PropTypes from "prop-types";
 
 function IngredientDetails(props) {
   return (
@@ -68,5 +69,20 @@ function IngredientDetails(props) {
     </Modal>
   );
 }
+
+
+IngredientDetails.propTypes = {
+  modalIsActive: PropTypes.bool.isRequired,
+  onClose: PropTypes.func,
+  name: PropTypes.string,
+  image_large: PropTypes.string,
+  calories: PropTypes.number,
+  proteins: PropTypes.number,
+  fat: PropTypes.number,
+  carbohydrates: PropTypes.number,
+};
+
+
+
 
 export default IngredientDetails;
