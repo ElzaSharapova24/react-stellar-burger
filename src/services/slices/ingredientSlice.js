@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createOrderRequest, getIngredientsRequest } from "../../utils/api";
+import {checkResponse} from "../../utils/utils";
 
 const initialState = {
   bun: null,
@@ -10,35 +11,18 @@ const initialState = {
   order: null,
 };
 
+
 export const getIngredientsFetch = createAsyncThunk(
   "ingredients/getIngredientsFetch",
-  async function (_, { rejectWithValue, fulfillWithValue }) {
-    try {
-      const response = await getIngredientsRequest();
-      if (!response.ok) {
-        return rejectWithValue({ message: "Ошибка на стороне сервера" });
-      }
-      const json = await response.json();
-      return fulfillWithValue(json);
-    } catch {
-      return rejectWithValue({ message: "Ошибка на стороне сервера" });
-    }
+  async function (_) {
+    return await getIngredientsRequest().then(checkResponse);
   }
 );
 
 export const createOrderResult = createAsyncThunk(
   "order/getOrderResult",
-  async function (payload, { rejectWithValue, fulfillWithValue }) {
-    try {
-      const response = await createOrderRequest(payload.ingredients);
-      if (!response.ok) {
-        return rejectWithValue({ message: "Ошибка на стороне сервера" });
-      }
-      const json = await response.json();
-      return fulfillWithValue(json);
-    } catch {
-      return rejectWithValue({ message: "Ошибка на стороне сервера" });
-    }
+  async function (payload) {
+    return await createOrderRequest(payload.ingredients).then(checkResponse)
   }
 );
 

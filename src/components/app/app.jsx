@@ -57,10 +57,10 @@ function App() {
 
   useEffect(() => {
     bunInView
-      ? setCurrent("bunCategory")
+      ? setCurrent("bun")
       : sauceInView
-      ? setCurrent("sauceCategory")
-      : setCurrent("mainCategory");
+      ? setCurrent("sauce")
+      : setCurrent("main");
   }, [bunInView, sauceInView, mainInView]);
 
   const handleDrop = (item) => {

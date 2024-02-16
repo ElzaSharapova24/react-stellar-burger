@@ -6,13 +6,14 @@ import BurgerConstructorItem from "../burger-constructor-item/burger-constructor
 import PropTypes from "prop-types";
 
 function ConstructorItems({ bun, fillings, handleDeleteIngredient }) {
+  const position = ["верх","низ"]
   return (
     <React.Fragment>
       {bun && (
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={bun.name}
+          text={`${bun.name} (верх)`}
           thumbnail={bun.image}
           price={bun.price}
         />
@@ -32,7 +33,8 @@ function ConstructorItems({ bun, fillings, handleDeleteIngredient }) {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={bun.name}
+          text={`${bun.name} (низ)`}
+          position={position}
           thumbnail={bun.image}
           price={bun.price}
         />

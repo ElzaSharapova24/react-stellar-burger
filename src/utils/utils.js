@@ -3,4 +3,12 @@ const categoriesNames = {
   main: "Начинка",
   sauce: "Соусы",
 };
-export default categoriesNames;
+
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка ${res.status}`);
+}
+
+export {categoriesNames, checkResponse};

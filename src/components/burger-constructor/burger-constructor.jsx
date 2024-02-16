@@ -17,6 +17,8 @@ function BurgerConstructor({
   totalPrice,
   handleDeleteIngredient,
 }) {
+  
+  
   const [{ isOver, itemDrag }, drop] = useDrop({
     accept: "draggableItem",
     drop: (item) => {

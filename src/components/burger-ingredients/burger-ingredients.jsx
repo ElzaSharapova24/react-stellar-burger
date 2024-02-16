@@ -3,7 +3,7 @@ import styles from "./burger-ingredients.module.css";
 import React from "react";
 // import PropTypes from "prop-types";
 import BurgerIngredient from "../burger-ingredient";
-import categoriesNames from "../../utils/utils";
+import {categoriesNames} from "../../utils/utils";
 
 function BurgerIngredients({
   setModalIsActive,

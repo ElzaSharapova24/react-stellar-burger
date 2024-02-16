@@ -3,7 +3,7 @@ import React from "react";
 import clsx from "clsx";
 import styles from "./burger-ingredients-tabs.module.css";
 import PropTypes from "prop-types";
-import categoriesNames from "../../utils/utils";
+import {categoriesNames} from "../../utils/utils";
 
 function BurgerIngredientsTabs({ tabs, current, handleTubClick }) {
   return (
