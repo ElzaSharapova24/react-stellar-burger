@@ -5,7 +5,7 @@ import styles from "./order-details.module.css";
 import PropTypes from "prop-types";
 
 function OrderDetails(props) {
-  const { order} = props;
+  const { order } = props;
   return (
     <>
       {order && (
@@ -26,8 +26,9 @@ function OrderDetails(props) {
             </p>
           </div>
         </div>
-      )}</>
-)
+      )}
+    </>
+  );
 }
 
 OrderDetails.propTypes = {

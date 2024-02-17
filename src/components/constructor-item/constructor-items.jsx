@@ -6,7 +6,7 @@ import BurgerConstructorItem from "../burger-constructor-item/burger-constructor
 import PropTypes from "prop-types";
 
 function ConstructorItems({ bun, fillings, handleDeleteIngredient }) {
-  const position = ["верх","низ"]
+  const position = ["верх", "низ"];
   return (
     <React.Fragment>
       {bun && (

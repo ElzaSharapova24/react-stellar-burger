@@ -3,21 +3,17 @@
   flex-direction: column;
   background-color: #131316;
   color: #f2f2f3;
-  font-family: "Jet Brains Mono",sans-serif;
+  font-family: "Jet Brains Mono", sans-serif;
   margin: 0 auto;
   max-width: 1240px;
   min-height: 100vh;
-}
-
-.tabs {
-  display: flex;
 }
 
 .wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
   column-gap: 40px;
-  height: 450px;
+  height: 500px;
 }
 
 .scroll {
@@ -29,35 +25,4 @@
 
 .constructor {
   gap: 16px;
-}
-
-.loader {
-  margin: 0 auto;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  position: relative;
-  animation: rotate 1s linear infinite
-}
-
-.loader::before {
-  content: "";
-  box-sizing: border-box;
-  position: absolute;
-  inset: 0px;
-  border-radius: 50%;
-  border: 5px solid #FFF;
-  animation: prixClipFix 2s linear infinite ;
-}
-
-@keyframes rotate {
-  100%   {transform: rotate(360deg)}
-}
-
-@keyframes prixClipFix {
-  0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
-  25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
-  50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
-  75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
-  100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
 }

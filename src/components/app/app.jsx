@@ -2,13 +2,11 @@ import React, { useEffect, useMemo } from "react";
 import styles from "./app.module.css";
 import clsx from "clsx";
 import AppHeader from "../app-header";
-import BurgerIngredientsCategory from "../burger-ingredients-category";
 import BurgerConstructor from "../burger-constructor";
-import BurgerIngredientsTabs from "../burger-ingredients-tabs";
 import IngredientDetails from "../ingredient-details";
 import OrderDetails from "../order-details";
 import { useDispatch, useSelector } from "react-redux";
-import { createOrder, getIngredients } from "../../services/selectors";
+import { getIngredients } from "../../services/selectors";
 import {
   getIngredientsFetch,
   dragBun,
@@ -19,6 +17,7 @@ import {
 } from "../../services/slices/ingredientSlice";
 import { useInView } from "react-intersection-observer";
 import Modal from "../modal";
+import BurgerIngredients from "../burger-ingredients";
 
 function App() {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
@@ -55,7 +54,7 @@ function App() {
   };
 
   const handleDeleteIngredient = (item) => dispatch(ingredientDelete(item));
-  
+
   useEffect(() => {
     if (bunInView) {
       setCurrent("bun");
@@ -92,77 +91,53 @@ function App() {
           <h1 className={clsx("pt-10 pb-5 text text_type_main-large")}>
             Соберите бургер
           </h1>
-          <div className={clsx(styles.tabs)}>
-            <BurgerIngredientsTabs
-              tabs={currentCategories}
-              current={current}
-              handleTubClick={handleTubClick}
-            />
-          </div>
           <div className={clsx(styles.wrapper)}>
-            <section className={clsx("custom-scroll", styles.scroll)}>
-              {isLoading ? (
-                <span className={clsx(styles.loader)}></span>
-              ) : (
-                <>
-                  <div id="bun" ref={bunCategory}>
-                    <BurgerIngredientsCategory
-                      name={"bun"}
-                      ingredients={currentCategories["bun"]}
-                      setModalItem={setIngredientModalItem}
-                      setModalIsActive={setIngredientModalIsActive}
-                    />
-                  </div>
-                  <div id="main" ref={mainCategory}>
-                    <BurgerIngredientsCategory
-                      name={"main"}
-                      ingredients={currentCategories["main"]}
-                      setModalItem={setIngredientModalItem}
-                      setModalIsActive={setIngredientModalIsActive}
-                    />
-                  </div>
-                  <div id="sauce" ref={sauceCategory}>
-                    <BurgerIngredientsCategory
-                      name={"sauce"}
-                      ingredients={currentCategories["sauce"]}
-                      setModalItem={setIngredientModalItem}
-                      setModalIsActive={setIngredientModalIsActive}
-                    />
-                  </div>
-                </>
-              )}
-            </section>
-            <section>
-              <BurgerConstructor
-                fillings={fillings}
-                bun={bun}
-                totalPrice={totalPrice}
-                onClick={() => {
-                  dispatch(
-                    createOrderResult({
-                      ingredients: fillings.map((e) => e._id).concat(bun._id),
-                    })
-                  );
-                  setOrderDetailsModal(true);
-                }}
-                handleDeleteIngredient={handleDeleteIngredient}
-                onDrop={handleDrop}
-              />
-            </section>
+            <BurgerIngredients
+              ingredients={ingredients}
+              isLoading={isLoading}
+              currentCategories={currentCategories}
+              handleTubClick={handleTubClick}
+              current={current}
+              bunCategory={bunCategory}
+              setIngredientModalItem={setIngredientModalItem}
+              setIngredientModalIsActive={setIngredientModalIsActive}
+              mainCategory={mainCategory}
+              sauceCategory={sauceCategory}
+            />
+            <BurgerConstructor
+              fillings={fillings}
+              bun={bun}
+              totalPrice={totalPrice}
+              onClick={() => {
+                dispatch(
+                  createOrderResult({
+                    ingredients: fillings.map((e) => e._id).concat(bun._id),
+                  })
+                );
+                setOrderDetailsModal(true);
+              }}
+              handleDeleteIngredient={handleDeleteIngredient}
+              onDrop={handleDrop}
+              buttonIsDisabled={bun === null}
+            />
           </div>
         </main>
         <Modal
-          title={'Детали ингредиента'}
+          title={"Детали ингредиента"}
           onClose={() => setIngredientModalIsActive(false)}
           isVisible={ingredientModalIsActive}
-          className={"text text_type_main-large"}>
+          className={"text text_type_main-large"}
+        >
           <IngredientDetails modalItem={ingredientModalItem} modalIsActive />
         </Modal>
-        <Modal isVisible={orderDetailsModal}  onClose={() => {
-          setOrderDetailsModal(false);
-          dispatch(resetOrder());
-        }}>
-          <OrderDetails order={order} isModal={orderDetailsModal}/>
+        <Modal
+          isVisible={orderDetailsModal}
+          onClose={() => {
+            setOrderDetailsModal(false);
+            dispatch(resetOrder());
+          }}
+        >
+          <OrderDetails order={order} isModal={orderDetailsModal} />
         </Modal>
       </div>
     );
