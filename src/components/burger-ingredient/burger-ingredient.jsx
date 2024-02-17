@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import styles from "../burger-ingredients/burger-ingredients.module.css";
+import styles from "../burger-ingredients-category/burger-ingredients-category.module.css";
 import {
   Counter,
   CurrencyIcon,

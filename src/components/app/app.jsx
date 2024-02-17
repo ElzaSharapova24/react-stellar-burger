@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import styles from "./app.module.css";
 import clsx from "clsx";
 import AppHeader from "../app-header";
-import BurgerIngredients from "../burger-ingredients";
+import BurgerIngredientsCategory from "../burger-ingredients-category";
 import BurgerConstructor from "../burger-constructor";
 import BurgerIngredientsTabs from "../burger-ingredients-tabs";
 import IngredientDetails from "../ingredient-details";
@@ -106,7 +106,7 @@ function App() {
               ) : (
                 <>
                   <div id="bun" ref={bunCategory}>
-                    <BurgerIngredients
+                    <BurgerIngredientsCategory
                       name={"bun"}
                       ingredients={currentCategories["bun"]}
                       setModalItem={setIngredientModalItem}
@@ -114,7 +114,7 @@ function App() {
                     />
                   </div>
                   <div id="main" ref={mainCategory}>
-                    <BurgerIngredients
+                    <BurgerIngredientsCategory
                       name={"main"}
                       ingredients={currentCategories["main"]}
                       setModalItem={setIngredientModalItem}
@@ -122,7 +122,7 @@ function App() {
                     />
                   </div>
                   <div id="sauce" ref={sauceCategory}>
-                    <BurgerIngredients
+                    <BurgerIngredientsCategory
                       name={"sauce"}
                       ingredients={currentCategories["sauce"]}
                       setModalItem={setIngredientModalItem}

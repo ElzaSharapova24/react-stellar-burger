@@ -1,11 +1,12 @@
 import clsx from "clsx";
-import styles from "./burger-ingredients.module.css";
+import styles from "./burger-ingredients-category.module.css";
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import BurgerIngredient from "../burger-ingredient";
 import {categoriesNames} from "../../utils/utils";
 
-function BurgerIngredients({
+
+function BurgerIngredientsCategory({
   setModalIsActive,
   setModalItem,
   ingredients,
@@ -31,4 +32,12 @@ function BurgerIngredients({
   );
 }
 
-export default BurgerIngredients;
+BurgerIngredientsCategory.propTypes = {
+  name: PropTypes.string.isRequired,
+  setModalIsActive: PropTypes.func.isRequired,
+  ingredients: PropTypes.array.isRequired,
+  setModalItem: PropTypes.func.isRequired,
+  _id: PropTypes.number,
+};
+
+export default BurgerIngredientsCategory;
