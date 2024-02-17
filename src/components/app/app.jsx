@@ -18,6 +18,7 @@ import {
   resetOrder,
 } from "../../services/slices/ingredientSlice";
 import { useInView } from "react-intersection-observer";
+import Modal from "../modal";
 
 function App() {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
@@ -54,13 +55,15 @@ function App() {
   };
 
   const handleDeleteIngredient = (item) => dispatch(ingredientDelete(item));
-
+  
   useEffect(() => {
-    bunInView
-      ? setCurrent("bun")
-      : sauceInView
-      ? setCurrent("sauce")
-      : setCurrent("main");
+    if (bunInView) {
+      setCurrent("bun");
+    } else if (sauceInView) {
+      setCurrent("sauce");
+    } else {
+      setCurrent("main");
+    }
   }, [bunInView, sauceInView, mainInView]);
 
   const handleDrop = (item) => {
@@ -99,7 +102,7 @@ function App() {
           <div className={clsx(styles.wrapper)}>
             <section className={clsx("custom-scroll", styles.scroll)}>
               {isLoading ? (
-                "loading..."
+                <span className={clsx(styles.loader)}></span>
               ) : (
                 <>
                   <div id="bun" ref={bunCategory}>
@@ -148,19 +151,19 @@ function App() {
             </section>
           </div>
         </main>
-        <IngredientDetails
-          modalItem={ingredientModalItem}
-          modalIsActive={ingredientModalIsActive}
-          setModalIsActive={setIngredientModalIsActive}
-        />
-        <OrderDetails
-          order={order}
-          isModal={orderDetailsModal}
-          onClose={() => {
-            setOrderDetailsModal(false);
-            dispatch(resetOrder());
-          }}
-        />
+        <Modal
+          title={'Детали ингредиента'}
+          onClose={() => setIngredientModalIsActive(false)}
+          isVisible={ingredientModalIsActive}
+          className={"text text_type_main-large"}>
+          <IngredientDetails modalItem={ingredientModalItem} modalIsActive />
+        </Modal>
+        <Modal isVisible={orderDetailsModal}  onClose={() => {
+          setOrderDetailsModal(false);
+          dispatch(resetOrder());
+        }}>
+          <OrderDetails order={order} isModal={orderDetailsModal}/>
+        </Modal>
       </div>
     );
   }

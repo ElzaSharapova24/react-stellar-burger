@@ -4,25 +4,25 @@ import styles from "./ingredient-details.module.css";
 import React from "react";
 import PropTypes from "prop-types";
 
-function IngredientDetails(props) {
+function IngredientDetails({modalItem, modalIsActive, setModalIsActive}) {
   return (
-    <Modal
-      isVisible={props.modalIsActive}
-      title={"Детали ингредиента"}
-      onClose={() => props.setModalIsActive(false)}
-      className={"text text_type_main-large"}
-    >
+    // <Modal
+    //   isVisible={modalIsActive}
+    //   title={"Детали ингредиента"}
+    //   onClose={() => setModalIsActive(false)}
+    //   className={"text text_type_main-large"}
+    // >
       <>
-        {props.modalItem !== null && (
+        {modalItem !== null && (
           <div className={clsx(styles.wrapper)}>
             <img
               className={clsx(styles.image)}
-              src={props.modalItem.image_large}
-              alt={props.modalItem.name}
+              src={modalItem.image_large}
+              alt={modalItem.name}
             />
             <div className={clsx(styles.inner)}>
               <h3 className={clsx("text text_type_main-medium")}>
-                {props.modalItem.name}
+                {modalItem.name}
               </h3>
               <ul className={clsx(styles.list)}>
                 <li
@@ -32,7 +32,7 @@ function IngredientDetails(props) {
                   )}
                 >
                   <p>Калории,ккал</p>
-                  <p>{props.modalItem.calories}</p>
+                  <p>{modalItem.calories}</p>
                 </li>
                 <li
                   className={clsx(
@@ -41,7 +41,7 @@ function IngredientDetails(props) {
                   )}
                 >
                   <p>Белки, г</p>
-                  <p>{props.modalItem.proteins}</p>
+                  <p>{modalItem.proteins}</p>
                 </li>
                 <li
                   className={clsx(
@@ -50,7 +50,7 @@ function IngredientDetails(props) {
                   )}
                 >
                   <p>Жиры, г</p>
-                  <p>{props.modalItem.fat}</p>
+                  <p>{modalItem.fat}</p>
                 </li>
                 <li
                   className={clsx(
@@ -59,14 +59,14 @@ function IngredientDetails(props) {
                   )}
                 >
                   <p>Углеводы, г</p>
-                  <p>{props.modalItem.carbohydrates}</p>
+                  <p>{modalItem.carbohydrates}</p>
                 </li>
               </ul>
             </div>
           </div>
         )}
       </>
-    </Modal>
+    // </Modal>
   );
 }
 

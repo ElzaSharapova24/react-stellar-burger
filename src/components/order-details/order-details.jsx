@@ -1,4 +1,3 @@
-import Modal from "../modal/modal";
 import clsx from "clsx";
 import React from "react";
 import doneIcon from "../../images/done.svg";
@@ -6,9 +5,9 @@ import styles from "./order-details.module.css";
 import PropTypes from "prop-types";
 
 function OrderDetails(props) {
-  const { order, isModal, onClose } = props;
+  const { order} = props;
   return (
-    <Modal isVisible={isModal} title={null} onClose={() => onClose()}>
+    <>
       {order && (
         <div className={clsx(styles.wrapper)}>
           <h2 className={clsx("text text_type_digits-large", styles.title)}>
@@ -27,15 +26,12 @@ function OrderDetails(props) {
             </p>
           </div>
         </div>
-      )}
-    </Modal>
-  );
+      )}</>
+)
 }
 
 OrderDetails.propTypes = {
   order: PropTypes.object,
-  isModal: PropTypes.bool.isRequired,
-  onClose: PropTypes.func,
 };
 
 export default OrderDetails;
