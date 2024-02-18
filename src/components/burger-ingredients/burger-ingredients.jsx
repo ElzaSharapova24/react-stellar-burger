@@ -61,7 +61,15 @@ function BurgerIngredients({
 
 BurgerIngredients.propTypes = {
   name: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
   ingredients: PropTypes.array.isRequired,
+  currentCategories: PropTypes.object.isRequired,
+  handleTubClick: PropTypes.func.isRequired,
+  bunCategory: PropTypes.func.isRequired,
+  setIngredientModalItem: PropTypes.func.isRequired,
+  setIngredientModalIsActive: PropTypes.func.isRequired,
+  mainCategory: PropTypes.func.isRequired,
+  sauceCategory: PropTypes.func.isRequired,
   _id: PropTypes.number,
 };
 

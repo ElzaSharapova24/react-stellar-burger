@@ -1,13 +1,15 @@
 import clsx from "clsx";
 import styles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import ModalOverlay from "../modal-overlay";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 
-function Modal({ isVisible = false, title, children, onClose, className }) {
+function Modal({ title, children, onClose, className }) {
   const modal = document.getElementById("modal");
+  const [isVisible, setIsVisible] = useState(true)
+  
 
   useEffect(() => {
     function closeByEscape(evt) {
@@ -40,7 +42,7 @@ function Modal({ isVisible = false, title, children, onClose, className }) {
 }
 
 Modal.propTypes = {
-  isVisible: PropTypes.bool.isRequired,
+  isVisible: PropTypes.bool,
   title: PropTypes.string,
   onClose: PropTypes.func,
   className: PropTypes.string,

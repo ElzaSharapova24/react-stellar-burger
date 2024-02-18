@@ -1,4 +1,3 @@
-import Modal from "../modal/modal";
 import clsx from "clsx";
 import styles from "./ingredient-details.module.css";
 import React from "react";
@@ -65,14 +64,7 @@ function IngredientDetails({ modalItem }) {
 }
 
 IngredientDetails.propTypes = {
-  modalIsActive: PropTypes.bool.isRequired,
-  onClose: PropTypes.func,
-  name: PropTypes.string,
-  image_large: PropTypes.string,
-  calories: PropTypes.number,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
+  modalItem: PropTypes.object,
 };
 
 export default IngredientDetails;

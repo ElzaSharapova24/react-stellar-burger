@@ -21,27 +21,25 @@ import BurgerIngredients from "../burger-ingredients";
 
 function App() {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
+  const [ingredientModalItem, setIngredientModalItem] = React.useState(null);
+  const [ingredientModalIsActive, setIngredientModalIsActive] =
+    React.useState(false);
+  const [bunCategory, bunInView] = useInView({ threshold: 0 });
+  const [sauceCategory, sauceInView] = useInView({ threshold: 0 });
+  const [mainCategory, mainInView] = useInView({ threshold: 0 });
 
+  const [current, setCurrent] = React.useState([0]);
+  
   const { ingredients, bun, fillings, isLoading, error, order } =
     useSelector(getIngredients);
   const dispatch = useDispatch();
-
+  
   const totalPrice = useMemo(() => {
     return (
       fillings.reduce((a, c) => a + c.price, 0) +
       (bun !== null ? bun.price * 2 : 0)
     );
   }, [bun, fillings]);
-
-  const [ingredientModalItem, setIngredientModalItem] = React.useState(null);
-  const [ingredientModalIsActive, setIngredientModalIsActive] =
-    React.useState(false);
-
-  const [bunCategory, bunInView] = useInView({ threshold: 0 });
-  const [sauceCategory, sauceInView] = useInView({ threshold: 0 });
-  const [mainCategory, mainInView] = useInView({ threshold: 0 });
-
-  const [current, setCurrent] = React.useState([0]);
 
   useEffect(() => {
     dispatch(getIngredientsFetch());
@@ -122,23 +120,25 @@ function App() {
             />
           </div>
         </main>
-        <Modal
-          title={"Детали ингредиента"}
-          onClose={() => setIngredientModalIsActive(false)}
-          isVisible={ingredientModalIsActive}
-          className={"text text_type_main-large"}
-        >
-          <IngredientDetails modalItem={ingredientModalItem} modalIsActive />
-        </Modal>
-        <Modal
-          isVisible={orderDetailsModal}
-          onClose={() => {
-            setOrderDetailsModal(false);
-            dispatch(resetOrder());
-          }}
-        >
-          <OrderDetails order={order} isModal={orderDetailsModal} />
-        </Modal>
+        {ingredientModalIsActive && (
+          <Modal
+            title={"Детали ингредиента"}
+            onClose={() => setIngredientModalIsActive(false)}
+            className={"text text_type_main-large"}
+          >
+            <IngredientDetails modalItem={ingredientModalItem} modalIsActive />
+          </Modal>
+        )}
+        {orderDetailsModal && (
+          <Modal
+            onClose={() => {
+              setOrderDetailsModal(false);
+              dispatch(resetOrder());
+            }}
+          >
+            <OrderDetails order={order} isModal={orderDetailsModal} />
+          </Modal>
+        )}
       </div>
     );
   }

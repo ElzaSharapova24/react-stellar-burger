@@ -36,7 +36,6 @@ BurgerIngredientsCategory.propTypes = {
   setModalIsActive: PropTypes.func.isRequired,
   ingredients: PropTypes.array.isRequired,
   setModalItem: PropTypes.func.isRequired,
-  _id: PropTypes.number,
 };
 
 export default BurgerIngredientsCategory;

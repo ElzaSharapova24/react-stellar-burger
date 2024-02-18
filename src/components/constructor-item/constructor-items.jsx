@@ -46,11 +46,6 @@ function ConstructorItems({ bun, fillings, handleDeleteIngredient }) {
 ConstructorItems.propTypes = {
   bun: PropTypes.object,
   fillings: PropTypes.array.isRequired,
-  image: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  id: PropTypes.number,
-  index: PropTypes.number,
   handleDeleteIngredient: PropTypes.func,
 };
 
