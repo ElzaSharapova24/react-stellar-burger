@@ -6,6 +6,7 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import {NavLink} from "react-router-dom";
 
 function AppHeader() {
   return (
@@ -34,12 +35,12 @@ function AppHeader() {
           <Logo />
         </div>
         <div>
-          <a href="#" className={clsx(styles.link)}>
+          <NavLink to="/login" activeClassName={clsx(styles.activeLink)} className={clsx(styles.link)}>
             <ProfileIcon type="secondary" />
             <p className={clsx("text text_type_main-default ml-2")}>
               Личный кабинет
             </p>
-          </a>
+          </NavLink>
         </div>
       </nav>
     </header>

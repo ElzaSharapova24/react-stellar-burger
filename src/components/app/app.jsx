@@ -18,6 +18,8 @@ import {
 import { useInView } from "react-intersection-observer";
 import Modal from "../modal";
 import BurgerIngredients from "../burger-ingredients";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Login from "../../pages/login";
 
 function App() {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
@@ -83,63 +85,68 @@ function App() {
     return <h1>Error:{"Ошибка на стороне сервера"}</h1>;
   } else {
     return (
-      <div className={clsx(styles.app)}>
-        <AppHeader />
-        <main>
-          <h1 className={clsx("pt-10 pb-5 text text_type_main-large")}>
-            Соберите бургер
-          </h1>
-          <div className={clsx(styles.wrapper)}>
-            <BurgerIngredients
-              ingredients={ingredients}
-              isLoading={isLoading}
-              currentCategories={currentCategories}
-              handleTubClick={handleTubClick}
-              current={current}
-              bunCategory={bunCategory}
-              setIngredientModalItem={setIngredientModalItem}
-              setIngredientModalIsActive={setIngredientModalIsActive}
-              mainCategory={mainCategory}
-              sauceCategory={sauceCategory}
-            />
-            <BurgerConstructor
-              fillings={fillings}
-              bun={bun}
-              totalPrice={totalPrice}
-              onClick={() => {
-                dispatch(
-                  createOrderResult({
-                    ingredients: fillings.map((e) => e._id).concat(bun._id),
-                  })
-                );
-                setOrderDetailsModal(true);
+      <>
+        <div className={clsx(styles.app)}>
+          <AppHeader/>
+          <main>
+            <h1 className={clsx("pt-10 pb-5 text text_type_main-large")}>
+              Соберите бургер
+            </h1>
+            <div className={clsx(styles.wrapper)}>
+              <BurgerIngredients
+                ingredients={ingredients}
+                isLoading={isLoading}
+                currentCategories={currentCategories}
+                handleTubClick={handleTubClick}
+                current={current}
+                bunCategory={bunCategory}
+                setIngredientModalItem={setIngredientModalItem}
+                setIngredientModalIsActive={setIngredientModalIsActive}
+                mainCategory={mainCategory}
+                sauceCategory={sauceCategory}/>
+              <BurgerConstructor
+                fillings={fillings}
+                bun={bun}
+                totalPrice={totalPrice}
+                onClick={() => {
+                  dispatch(
+                    createOrderResult({
+                      ingredients: fillings.map((e) => e._id).concat(bun._id),
+                    })
+                  );
+                  setOrderDetailsModal(true);
+                }}
+                handleDeleteIngredient={handleDeleteIngredient}
+                onDrop={handleDrop}
+                buttonIsDisabled={bun === null}/>
+            </div>
+          </main>
+          <Router>
+            <Switch>
+              <Route path="/login" Component={<Login />} />
+            </Switch>
+          </Router>
+          {ingredientModalIsActive && (
+            <Modal
+              title={"Детали ингредиента"}
+              onClose={() => setIngredientModalIsActive(false)}
+              className={"text text_type_main-large"}
+            >
+              <IngredientDetails modalItem={ingredientModalItem} modalIsActive/>
+            </Modal>
+          )}
+          {orderDetailsModal && (
+            <Modal
+              onClose={() => {
+                setOrderDetailsModal(false);
+                dispatch(resetOrder());
               }}
-              handleDeleteIngredient={handleDeleteIngredient}
-              onDrop={handleDrop}
-              buttonIsDisabled={bun === null}
-            />
-          </div>
-        </main>
-        {ingredientModalIsActive && (
-          <Modal
-            title={"Детали ингредиента"}
-            onClose={() => setIngredientModalIsActive(false)}
-            className={"text text_type_main-large"}
-          >
-            <IngredientDetails modalItem={ingredientModalItem} modalIsActive />
-          </Modal>
-        )}
-        {orderDetailsModal && (
-          <Modal
-            onClose={() => {
-              setOrderDetailsModal(false);
-              dispatch(resetOrder());
-            }}
-          >
-            <OrderDetails order={order} isModal={orderDetailsModal} />
-          </Modal>
-        )}
-      </div>
+            >
+              <OrderDetails order={order} isModal={orderDetailsModal}/>
+            </Modal>
+          )}
+        </div>
+      </>
     );
   }
 }

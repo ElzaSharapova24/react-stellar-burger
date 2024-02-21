@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 function Modal({ title, children, onClose, className }) {
   const modal = document.getElementById("modal");
-  const [isVisible, setIsVisible] = useState(true)
+  const isVisible = true;
   
 
   useEffect(() => {
