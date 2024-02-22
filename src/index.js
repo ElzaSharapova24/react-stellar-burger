@@ -7,7 +7,8 @@ import { store } from "./services/store";
 import { Provider } from 'react-redux';
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Login from "./pages/login";
 
 
 
@@ -16,7 +17,18 @@ ReactDOM.render(
     <Provider store={store}>
       <DndProvider backend={HTML5Backend}>
         <BrowserRouter basename={"/"}>
-          <App />
+          <Switch>
+            {/*<Route index element={<App />} />*/}
+            {/*<Route path="login" element={<Login />} />*/}
+            <Route exact path="/">
+              <App />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+          </Switch>
+
+          {/*<App />*/}
         </BrowserRouter>
       </DndProvider>
     </Provider>

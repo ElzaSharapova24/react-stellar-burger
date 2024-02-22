@@ -35,7 +35,7 @@ function AppHeader() {
           <Logo />
         </div>
         <div>
-          <NavLink to="/login" activeClassName={clsx(styles.activeLink)} className={clsx(styles.link)}>
+          <NavLink to="/login"  className={clsx(styles.link)}>
             <ProfileIcon type="secondary" />
             <p className={clsx("text text_type_main-default ml-2")}>
               Личный кабинет

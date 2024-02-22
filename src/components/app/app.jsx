@@ -18,8 +18,6 @@ import {
 import { useInView } from "react-intersection-observer";
 import Modal from "../modal";
 import BurgerIngredients from "../burger-ingredients";
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Login from "../../pages/login";
 
 function App() {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
@@ -121,11 +119,6 @@ function App() {
                 buttonIsDisabled={bun === null}/>
             </div>
           </main>
-          <Router>
-            <Switch>
-              <Route path="/login" Component={<Login />} />
-            </Switch>
-          </Router>
           {ingredientModalIsActive && (
             <Modal
               title={"Детали ингредиента"}
