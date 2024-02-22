@@ -13,7 +13,7 @@ function AppHeader() {
     <header className={clsx(styles.header, "p-4")}>
       <nav className={clsx(styles.wrap)}>
         <div className={clsx(styles.inner)}>
-          <a href="#" className={clsx(styles.link)}>
+          <NavLink to="/" className={clsx(styles.link)}>
             <BurgerIcon type="primary" />
             <p
               className={clsx(
@@ -23,7 +23,7 @@ function AppHeader() {
             >
               Конструктор
             </p>
-          </a>
+          </NavLink>
           <a href="#" className={clsx(styles.link)}>
             <ListIcon type={"secondary"} />
             <p className={clsx("text text_type_main-default ml-2")}>

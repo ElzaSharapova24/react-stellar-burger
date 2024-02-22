@@ -3,6 +3,7 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import React from "react";
 import clsx from "clsx";
 import {Link} from "react-router-dom";
+import AppHeader from "../../components/app-header";
 
 
 
@@ -19,10 +20,10 @@ function Login() {
   
   return (
     <>
+      <AppHeader/>
       <section className={clsx(styles.wrap)}>
         <h1 className={clsx('text', 'text_type_main-medium')}>Вход</h1>
-        <div style={{display: 'flex', flexDirection: 'column'}}>
-          <form>
+          <form className={clsx(styles.form)}>
             <Input
               type={'text'}
               placeholder={'placeholder'}
@@ -38,14 +39,13 @@ function Login() {
               extraClass="ml-1"/>
             <PasswordInput
               onChange={onChange}
-              value={value}
+              value={'password'}
               name={'password'}
               icon="EditIcon"/>
             <Button htmlType="button" type="primary" size="medium">
               Нажми на меня
             </Button>
           </form>
-        </div>
         <ul className={clsx(styles.list)}>
           <li className={clsx(styles.item)}>
             <p>Вы — новый пользователь?</p>
@@ -53,10 +53,10 @@ function Login() {
               Зарегистрироваться
             </Link>
           </li>
-          <li className={clsx(styles.item)}>
+          <Link to="/forgot-password" className={clsx(styles.item)}>
             <p>Забыли пароль?</p>
             <a>Восстановить пароль</a>
-          </li>
+          </Link>
         </ul>
       </section>
     </>
