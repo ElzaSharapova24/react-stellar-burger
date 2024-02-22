@@ -6,6 +6,29 @@
   gap: 24px;
 }
 
+.btn {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #4C4CFF;
+  transition: color 0.4s ease-in-out;
+}
+
+.btn:hover {
+  color: #fff;
+}
+
+.list {
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  column-gap: 8px;
+}
+
 .form {
   display: flex;
   flex-direction: column;

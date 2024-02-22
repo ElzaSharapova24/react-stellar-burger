@@ -48,15 +48,17 @@ function Login() {
           </form>
         <ul className={clsx(styles.list)}>
           <li className={clsx(styles.item)}>
-            <p>Вы — новый пользователь?</p>
-            <Link to="/register">
+            <p className={clsx('text text_type_main-default text_color_inactive')}>Вы — новый пользователь?</p>
+            <Link to="/register" className={clsx(styles.btn, "text text_type_main-default")}>
               Зарегистрироваться
             </Link>
           </li>
-          <Link to="/forgot-password" className={clsx(styles.item)}>
-            <p>Забыли пароль?</p>
-            <a>Восстановить пароль</a>
-          </Link>
+         <li className={clsx(styles.item)}>
+           <p className={clsx('text text_type_main-default text_color_inactive')}>Забыли пароль?</p>
+           <Link to="/forgot-password" className={clsx(styles.btn, "text text_type_main-default")}>
+             Восстановить пароль
+           </Link>
+         </li>
         </ul>
       </section>
     </>

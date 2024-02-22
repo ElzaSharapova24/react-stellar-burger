@@ -3,6 +3,7 @@ import React from "react";
 import clsx from "clsx";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import AppHeader from "../../components/app-header";
+import {Link} from "react-router-dom";
 
 
 function Register() {
@@ -56,10 +57,10 @@ function Register() {
               Нажми на меня
             </Button>
           </form>
-        <ul>
-          <li>
-            <p>Уже зарегистрированы?</p>
-            <a>Войти</a>
+        <ul className={clsx(styles.list)}>
+          <li className={clsx(styles.item)}>
+            <p className={clsx('text text_type_main-default text_color_inactive')}>Уже зарегистрированы?</p>
+            <Link to="/login" className={clsx(styles.btn, "text text_type_main-default")}>Войти</Link>
           </li>
         </ul>
       </section>

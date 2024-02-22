@@ -37,8 +37,8 @@ function ForgotPassword() {
         </form>
         <ul className={clsx(styles.list)}>
           <li className={clsx(styles.item)}>
-            <p>Вспомнили пароль?</p>
-            <Link to="/register">
+            <p className={clsx('text text_type_main-default text_color_inactive')}>Вспомнили пароль?</p>
+            <Link to="/register" className={clsx(styles.btn, "text text_type_main-default")}>
               Войти
             </Link>
           </li>

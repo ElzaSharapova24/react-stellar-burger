@@ -18,6 +18,7 @@ import {
 import { useInView } from "react-intersection-observer";
 import Modal from "../modal";
 import BurgerIngredients from "../burger-ingredients";
+import {Route, Routes, useNavigate} from "react-router";
 
 function App() {
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
@@ -27,12 +28,11 @@ function App() {
   const [bunCategory, bunInView] = useInView({ threshold: 0 });
   const [sauceCategory, sauceInView] = useInView({ threshold: 0 });
   const [mainCategory, mainInView] = useInView({ threshold: 0 });
-
   const [current, setCurrent] = React.useState([0]);
-  
   const { ingredients, bun, fillings, isLoading, error, order } =
     useSelector(getIngredients);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   const totalPrice = useMemo(() => {
     return (

@@ -1,18 +1,13 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./services/store";
 import { Provider } from 'react-redux';
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {BrowserRouter} from "react-router-dom";
-import {Route, Routes} from "react-router";
-import Login from "./pages/login";
-import Register from "./pages/register";
 import {createRoot} from 'react-dom/client';
-import ForgotPassword from "./pages/forgot-password";
+import Router from "./components/router/router";
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -22,12 +17,7 @@ root.render(
     <Provider store={store}>
       <DndProvider backend={HTML5Backend}>
         <BrowserRouter basename={"/"}>
-          <Routes>
-            <Route path="/" element={<App />}/>
-            <Route path="/login" element={<Login />}/>
-            <Route path="/register" element={<Register />}/>
-            <Route path="/forgot-password" element={<ForgotPassword />}/>
-          </Routes>
+          <Router/>
         </BrowserRouter>
       </DndProvider>
     </Provider>
