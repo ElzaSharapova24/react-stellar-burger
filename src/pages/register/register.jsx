@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 
 
 function Register() {
-  const [value, setValue] = React.useState('password')
+  const [value, setValue] = React.useState('')
   const onChange = e => {
     setValue(e.target.value)
   }
@@ -18,13 +18,13 @@ function Register() {
   }
   
   return(
-    <><AppHeader/>
+    <>
       <section className={clsx(styles.wrapper)}>
         <h1 className={clsx('text', 'text_type_main-medium')}>Регистрация</h1>
           <form className={clsx(styles.form)}>
             <Input
               type={'text'}
-              placeholder={'placeholder'}
+              placeholder={'Имя'}
               onChange={e => setValue(e.target.value)}
               icon={'CurrencyIcon'}
               value={value}
@@ -37,7 +37,7 @@ function Register() {
               extraClass="ml-1"/>
             <Input
               type={'text'}
-              placeholder={'placeholder'}
+              placeholder={'E-mail'}
               onChange={e => setValue(e.target.value)}
               icon={'CurrencyIcon'}
               value={value}
@@ -49,6 +49,7 @@ function Register() {
               size={'default'}
               extraClass="ml-1"/>
             <PasswordInput
+              placeholder={'Пароль'}
               onChange={onChange}
               value={value}
               name={'password'}

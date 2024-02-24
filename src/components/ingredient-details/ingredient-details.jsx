@@ -3,19 +3,22 @@ import styles from "./ingredient-details.module.css";
 import React from "react";
 import PropTypes from "prop-types";
 
+
 function IngredientDetails({ modalItem }) {
+  const {image_large, name, calories, proteins, fat, carbohydrates} = modalItem;
+  console.log(modalItem)
   return (
     <>
       {modalItem !== null && (
         <div className={clsx(styles.wrapper)}>
           <img
             className={clsx(styles.image)}
-            src={modalItem.image_large}
-            alt={modalItem.name}
+            src={image_large}
+            alt={name}
           />
           <div className={clsx(styles.inner)}>
             <h3 className={clsx("text text_type_main-medium")}>
-              {modalItem.name}
+              {name}
             </h3>
             <ul className={clsx(styles.list)}>
               <li
@@ -25,7 +28,7 @@ function IngredientDetails({ modalItem }) {
                 )}
               >
                 <p>Калории,ккал</p>
-                <p>{modalItem.calories}</p>
+                <p>{calories}</p>
               </li>
               <li
                 className={clsx(
@@ -34,7 +37,7 @@ function IngredientDetails({ modalItem }) {
                 )}
               >
                 <p>Белки, г</p>
-                <p>{modalItem.proteins}</p>
+                <p>{proteins}</p>
               </li>
               <li
                 className={clsx(
@@ -43,7 +46,7 @@ function IngredientDetails({ modalItem }) {
                 )}
               >
                 <p>Жиры, г</p>
-                <p>{modalItem.fat}</p>
+                <p>{fat}</p>
               </li>
               <li
                 className={clsx(
@@ -52,14 +55,13 @@ function IngredientDetails({ modalItem }) {
                 )}
               >
                 <p>Углеводы, г</p>
-                <p>{modalItem.carbohydrates}</p>
+                <p>{carbohydrates}</p>
               </li>
             </ul>
           </div>
         </div>
       )}
     </>
-    // </Modal>
   );
 }
 

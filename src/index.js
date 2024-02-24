@@ -7,7 +7,7 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {BrowserRouter} from "react-router-dom";
 import {createRoot} from 'react-dom/client';
-import Router from "./components/router/router";
+import App from "./components/app";
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -17,7 +17,7 @@ root.render(
     <Provider store={store}>
       <DndProvider backend={HTML5Backend}>
         <BrowserRouter basename={"/"}>
-          <Router/>
+          <App/>
         </BrowserRouter>
       </DndProvider>
     </Provider>

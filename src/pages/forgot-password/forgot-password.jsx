@@ -14,13 +14,13 @@ function ForgotPassword() {
   };
   
   return(
-    <><AppHeader/>
+    <>
       <section className={clsx(styles.wrap)}>
-        <h1 className={clsx('text', 'text_type_main-medium')}>Вход</h1>
+        <h1 className={clsx('text', 'text_type_main-medium')}>Восстановление пароля</h1>
         <form className={clsx(styles.form)}>
           <Input
             type={'text'}
-            placeholder={'placeholder'}
+            placeholder={'Укажите e-mail'}
             onChange={e => setValue(e.target.value)}
             icon={'CurrencyIcon'}
             value={value}

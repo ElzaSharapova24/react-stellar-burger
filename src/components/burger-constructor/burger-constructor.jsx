@@ -8,6 +8,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 function BurgerConstructor({
   onClick,
@@ -63,15 +64,17 @@ function BurgerConstructor({
               </p>
               <CurrencyIcon type="primary" />
             </div>
-            <Button
-              htmlType="button"
-              type="primary"
-              size="large"
-              onClick={onClick}
-              disabled={buttonIsDisabled}
-            >
-              Нажми на меня
-            </Button>
+            <Link to="/login">
+              <Button
+                htmlType="button"
+                type="primary"
+                size="large"
+                onClick={onClick}
+                disabled={buttonIsDisabled}
+              >
+                Нажми на меня
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

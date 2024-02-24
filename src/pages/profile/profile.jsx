@@ -16,7 +16,7 @@ function Profile() {
     setValue(e.target.value);
   };
   return(
-    <><AppHeader/>
+    <>
       <section className={clsx(styles.wrap)}>
         <div>
           <ul className={clsx(styles.list)}>
@@ -38,10 +38,10 @@ function Profile() {
         <form className={clsx(styles.form)}>
           <Input
             type={'text'}
-            placeholder={'placeholder'}
+            placeholder={'Имя'}
             onChange={e => setValue(e.target.value)}
             icon={'CurrencyIcon'}
-            value={value}
+            value=''
             name={'name'}
             error={false}
             ref={inputRef}
@@ -51,10 +51,10 @@ function Profile() {
             extraClass="ml-1"/>
           <Input
             type={'text'}
-            placeholder={'placeholder'}
+            placeholder={'Логин'}
             onChange={e => setValue(e.target.value)}
             icon={'CurrencyIcon'}
-            value={value}
+            value=''
             name={'name'}
             error={false}
             ref={inputRef}
