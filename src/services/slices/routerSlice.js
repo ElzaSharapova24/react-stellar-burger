@@ -1,11 +1,10 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {logoutUserRequest, registerUserRequest} from "../../utils/api";
 import {checkResponse} from "../../utils/utils";
-import {useDispatch} from "react-redux";
-import {getIngredientsRequest} from "../../utils/api";
+
 
 export const sliceName = "user";
-// eslint-disable-next-line react-hooks/rules-of-hooks
-const dispatch = useDispatch();
+
 
 const initialState = {
   isAuthChecked: false,
@@ -21,6 +20,22 @@ const initialState = {
   getUserRequest: false,
 }
 
+export const registerUser = createAsyncThunk(
+  `${sliceName}/registerUser`,
+  async function (_) {
+    return await registerUserRequest().then(checkResponse);
+  }
+);
+
+export const loginUser = createAsyncThunk(
+  `${sliceName}/loginUser`,
+  async function (_) {
+    return await logoutUserRequest().then(checkResponse);
+  }
+);
+
+
+
 export const userSlice = createSlice({
   name: sliceName,
   initialState,
@@ -34,14 +49,6 @@ export const userSlice = createSlice({
       .addCase()
   }
 })
-
-export const checkUserAuth = createAsyncThunk(
-    `${sliceName}/checkUserAuth`,
-  async function (_,{extra: api}) {
-    return await getIngredientsRequest().then(checkResponse);
-    dispatch(authCheck())
-  }
-);
 
 
 export const { authCheck } = userSlice.reducer;
