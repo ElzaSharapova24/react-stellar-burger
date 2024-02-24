@@ -4,6 +4,7 @@ import BurgerIngredientsCategory from "../burger-ingredients-category";
 import React from "react";
 import BurgerIngredientsTabs from "../burger-ingredients-tabs";
 import PropTypes from "prop-types";
+import Loader from "../loader";
 
 function BurgerIngredients({
   isLoading,
@@ -19,7 +20,7 @@ function BurgerIngredients({
   return (
     <section className={clsx("custom-scroll", styles.scroll)}>
       {isLoading ? (
-        <span className={clsx(styles.loader)}></span>
+        <Loader/>
       ) : (
         <>
           <div className={clsx(styles.tabs)}>

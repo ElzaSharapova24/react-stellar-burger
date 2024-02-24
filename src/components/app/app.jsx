@@ -11,6 +11,7 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {getIngredients} from "../../services/selectors";
 import IngredientDetails from "../ingredient-details";
+import ProtectedRoute from "../protected-route";
 
 function App() {
   const { ingredients, bun, fillings, isLoading, order } =
@@ -35,10 +36,10 @@ function App() {
                                            ingredients={ingredients}
                                            isLoading={isLoading}
           />}/>
-          <Route path="/login" element={<Login/>}/>
+          <Route path="/login" element={<ProtectedRoute onlyUnAuth><Login/></ProtectedRoute>}/>
           <Route path="/ingredients/:ingredients" element={<IngredientDetails/>}/>
           <Route path="/profile" element={<Profile/>}/>
-          <Route path="/register" element={<Register/>}/>
+          <Route path="/register" element={<ProtectedRoute onlyUnAuth><Register/></ProtectedRoute>}/>
           <Route path="/forgot-password" element={<ForgotPassword/>}/>
         </Routes>
       </div>
