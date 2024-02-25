@@ -12,8 +12,6 @@ function BurgerIngredients({
   handleTubClick,
   current,
   bunCategory,
-  setIngredientModalItem,
-  setIngredientModalIsActive,
   mainCategory,
   sauceCategory,
 }) {
@@ -34,24 +32,18 @@ function BurgerIngredients({
             <BurgerIngredientsCategory
               name={"bun"}
               ingredients={currentCategories["bun"]}
-              setModalItem={setIngredientModalItem}
-              setModalIsActive={setIngredientModalIsActive}
             />
           </div>
           <div id="main" ref={mainCategory}>
             <BurgerIngredientsCategory
               name={"main"}
               ingredients={currentCategories["main"]}
-              setModalItem={setIngredientModalItem}
-              setModalIsActive={setIngredientModalIsActive}
             />
           </div>
           <div id="sauce" ref={sauceCategory}>
             <BurgerIngredientsCategory
               name={"sauce"}
               ingredients={currentCategories["sauce"]}
-              setModalItem={setIngredientModalItem}
-              setModalIsActive={setIngredientModalIsActive}
             />
           </div>
         </>
@@ -67,8 +59,6 @@ BurgerIngredients.propTypes = {
   currentCategories: PropTypes.object.isRequired,
   handleTubClick: PropTypes.func.isRequired,
   bunCategory: PropTypes.func.isRequired,
-  setIngredientModalItem: PropTypes.func.isRequired,
-  setIngredientModalIsActive: PropTypes.func.isRequired,
   mainCategory: PropTypes.func.isRequired,
   sauceCategory: PropTypes.func.isRequired,
   _id: PropTypes.number,

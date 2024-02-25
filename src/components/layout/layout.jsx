@@ -18,11 +18,8 @@ import styles from "./layout.module.css";
 import BurgerIngredients from "../burger-ingredients";
 import BurgerConstructor from "../burger-constructor";
 
-function Layout({setIngredientModalItem,
-                  setIngredientModalIsActive,
+function Layout({
                   setOrderDetailsModal,
-                  ingredientModalIsActive,
-                  ingredientModalItem,
                   orderDetailsModal,
                   fillings,
                   bun,
@@ -43,10 +40,6 @@ function Layout({setIngredientModalItem,
       (bun !== null ? bun.price * 2 : 0)
     );
   }, [bun, fillings]);
-  
-  useEffect(() => {
-    dispatch(getIngredientsFetch());
-  }, [dispatch]);
   
   const handleTubClick = (type) => {
     setCurrent(type);
@@ -97,8 +90,6 @@ function Layout({setIngredientModalItem,
               handleTubClick={handleTubClick}
               current={current}
               bunCategory={bunCategory}
-              setIngredientModalItem={setIngredientModalItem}
-              setIngredientModalIsActive={setIngredientModalIsActive}
               mainCategory={mainCategory}
               sauceCategory={sauceCategory}/>
             <BurgerConstructor
@@ -119,15 +110,6 @@ function Layout({setIngredientModalItem,
           </div>
         </main>
       </div>
-      {ingredientModalIsActive && (
-        <Modal
-          title={"Детали ингредиента"}
-          onClose={() => setIngredientModalIsActive(false)}
-          className={"text text_type_main-large"}
-        >
-          <IngredientDetails modalItem={ingredientModalItem} modalIsActive/>
-        </Modal>
-      )}
       {orderDetailsModal && (
         <Modal
           onClose={() => {

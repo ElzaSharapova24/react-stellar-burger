@@ -1,4 +1,3 @@
-// import {getCookie} from "./cookie";
 
 import {getCookie} from "./cookie";
 

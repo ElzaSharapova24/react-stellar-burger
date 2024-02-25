@@ -6,8 +6,6 @@ import BurgerIngredient from "../burger-ingredient";
 import { categoriesNames } from "../../utils/utils";
 
 function BurgerIngredientsCategory({
-  setModalIsActive,
-  setModalItem,
   ingredients,
   name,
 }) {
@@ -20,10 +18,6 @@ function BurgerIngredientsCategory({
             <BurgerIngredient
               {...ingredient}
               key={ingredient._id}
-              onClick={() => {
-                setModalIsActive(true);
-                setModalItem(ingredient);
-              }}
             />
           ))}
       </div>
@@ -33,9 +27,7 @@ function BurgerIngredientsCategory({
 
 BurgerIngredientsCategory.propTypes = {
   name: PropTypes.string.isRequired,
-  setModalIsActive: PropTypes.func.isRequired,
   ingredients: PropTypes.array.isRequired,
-  setModalItem: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredientsCategory;

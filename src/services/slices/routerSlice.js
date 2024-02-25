@@ -8,7 +8,7 @@ export const sliceName = "user";
 
 const initialState = {
   isAuthChecked: false,
-  data: null,
+  authData: null,
   
   registerUserError: null,
   registerUserRequest: false,
@@ -22,22 +22,22 @@ const initialState = {
 
 export const checkUserAuth = createAsyncThunk(
   `${sliceName}/checkUserAuth`,
-  async function (_ , {dispatch}) {
+  async function (_ ) {
     return await getUserRequest().then(checkResponse);
   }
 );
 
 export const registerUser = createAsyncThunk(
   `${sliceName}/registerUser`,
-  async function (_) {
-    return await registerRequest().then(checkResponse);
+  async function (payload) {
+    return await registerRequest(payload.authData).then(checkResponse);
   }
 );
 
 export const loginUser = createAsyncThunk(
   `${sliceName}/loginUser`,
-  async function (_) {
-    return await loginRequest().then(checkResponse);
+  async function (payload) {
+    return await loginRequest(payload.authData).then(checkResponse);
   }
 );
 
@@ -53,15 +53,15 @@ export const routerSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(checkUserAuth.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.authData = action.payload;
         state.getUserRequest = false;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.authData = action.payload;
         state.registerUserRequest = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.authData = action.payload;
         state.loginUserRequest = false;
       })
     

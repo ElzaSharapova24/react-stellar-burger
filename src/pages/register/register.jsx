@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 
 
 function Register({onRegister}) {
-  const [userData, setUserData] = React.useState({email: '', password: '', login: ''});
+  const [userData, setUserData] = React.useState({email: '', password: '', name: ''});
   const inputRef = React.useRef(null);
   const [message, setMessage] = useState('');
   
@@ -36,7 +36,7 @@ function Register({onRegister}) {
               placeholder={'Имя'}
               onChange={onChange}
               icon={'CurrencyIcon'}
-              value={userData.email}
+              value={userData.name}
               name={'name'}
               error={false}
               ref={inputRef}
@@ -49,8 +49,8 @@ function Register({onRegister}) {
               placeholder={'E-mail'}
               onChange={onChange}
               icon={'CurrencyIcon'}
-              value={userData.login}
-              name={'name'}
+              value={userData.email}
+              name={'email'}
               error={false}
               ref={inputRef}
               onIconClick={onIconClick}
@@ -64,7 +64,7 @@ function Register({onRegister}) {
               value={userData.password}
               name={'password'}
               icon="EditIcon"/>
-            <Button htmlType="button" type="primary" size="medium">
+            <Button htmlType="submit" type="primary" size="medium">
               Нажми на меня
             </Button>
           </form>

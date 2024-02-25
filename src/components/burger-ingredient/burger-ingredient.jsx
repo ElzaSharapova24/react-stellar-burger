@@ -7,9 +7,12 @@ import {
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
+import {Link} from "react-router-dom";
+import {useLocation} from "react-router";
 
 function BurgerIngredient(props) {
   const { _id, name, price, image, count, onClick } = props;
+  const location = useLocation();
   const ref = useRef();
   const [{ isDragging }, drag] = useDrag({
     type: "draggableItem",
@@ -22,6 +25,7 @@ function BurgerIngredient(props) {
   });
   drag(ref);
 
+  
   return (
     <article
       className={clsx(styles.inner)}
@@ -32,7 +36,7 @@ function BurgerIngredient(props) {
       }}
     >
       {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
-      <a href="#" className={clsx(styles.link)}>
+      <Link to={{pathname:`/ingredients/${_id}`}} className={clsx(styles.link)} state={{backgroundLocation: location}}>
         <img
           alt={name}
           src={image}
@@ -54,7 +58,7 @@ function BurgerIngredient(props) {
           </div>
           <p className={clsx("text", styles.text)}>{name}</p>
         </div>
-      </a>
+      </Link>
     </article>
   );
 }

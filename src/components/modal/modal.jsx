@@ -5,7 +5,6 @@ import React, {useEffect, useState} from "react";
 import ModalOverlay from "../modal-overlay";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
-import {useNavigate} from "react-router";
 
 function Modal({ title, children, onClose, className }) {
   const modal = document.getElementById("modal");

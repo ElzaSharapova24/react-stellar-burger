@@ -2,20 +2,30 @@ import clsx from "clsx";
 import styles from "./ingredient-details.module.css";
 import React from "react";
 import PropTypes from "prop-types";
+import {useParams} from "react-router";
+import {useSelector} from "react-redux";
+import {getIngredients} from "../../services/selectors";
 
-
-function IngredientDetails({ modalItem }) {
+function IngredientDetails(
+  // {modalItem}
+) {
+  let { id } = useParams();
+  const { ingredients } = useSelector(getIngredients);
+  console.log(ingredients)
+  const modalItem = ingredients.find(e => e._id === id);
+  if (!modalItem)
+    return <></>;
   const {image_large, name, calories, proteins, fat, carbohydrates} = modalItem;
   console.log(modalItem)
   return (
     <>
-      {modalItem !== null && (
+      {(
         <div className={clsx(styles.wrapper)}>
-          <img
-            className={clsx(styles.image)}
-            src={image_large}
-            alt={name}
-          />
+            <img
+              className={clsx(styles.image)}
+              src={image_large}
+              alt={name}
+            />
           <div className={clsx(styles.inner)}>
             <h3 className={clsx("text text_type_main-medium")}>
               {name}
