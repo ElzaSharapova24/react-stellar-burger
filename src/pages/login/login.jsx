@@ -8,30 +8,42 @@ import {useNavigate} from "react-router";
 
 
 
-function Login({onlogin}) {
+function Login({onLogin}) {
   let navigate = useNavigate();
-  const [form, setValue] = useState({ email: '', password: '' });
+  const [userData, setUserData] = useState({ email: '', password: '' });
+  const [message, setMessage] = useState('');
+  const inputRef = React.useRef(null);
   
   const onChange = e => {
-    setValue({ ...form, [e.target.name]: e.target.value });
+    const {name, value} = e.target;
+    setUserData({ ...userData, [name]: value});
   };
-  const inputRef = React.useRef(null);
+  
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
     alert('Icon Click Callback');
   };
   
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!userData.email || ! userData.password) {
+      return;
+    }
+    onLogin(userData)
+  }
+  
   return (
     <>
       <section className={clsx(styles.wrap)}>
         <h1 className={clsx('text', 'text_type_main-medium')}>Вход</h1>
-          <form className={clsx(styles.form)}>
+        <div>{message}</div>
+          <form className={clsx(styles.form)} onSubmit={handleSubmit}>
             <Input
               type={'text'}
               placeholder={'Email'}
               onChange={onChange}
               icon={'CurrencyIcon'}
-              value={form.email}
+              value={userData.email}
               name={'name'}
               error={false}
               ref={inputRef}
@@ -41,7 +53,7 @@ function Login({onlogin}) {
               extraClass="ml-1"/>
             <PasswordInput
               onChange={onChange}
-              value={form.password}
+              value={userData.password}
               name={'password'}
               icon="EditIcon"/>
             <Button htmlType="button" type="primary" size="medium">

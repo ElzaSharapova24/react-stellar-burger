@@ -7,11 +7,12 @@ import ForgotPassword from "../../pages/forgot-password";
 import clsx from "clsx";
 import styles from "./app.module.css";
 import AppHeader from "../app-header";
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../../services/selectors";
 import IngredientDetails from "../ingredient-details";
 import ProtectedRoute from "../protected-route";
+import {authCheck, checkUserAuth, loginUser, registerUser} from "../../services/slices/routerSlice";
 
 function App() {
   const { ingredients, bun, fillings, isLoading, order } =
@@ -20,7 +21,25 @@ function App() {
   const [ingredientModalItem, setIngredientModalItem] = React.useState(null);
   const [ingredientModalIsActive, setIngredientModalIsActive] =
     React.useState(false);
-    return(
+  const dispatch = useDispatch();
+  
+  const cbLogin = (data) => {
+    dispatch(loginUser(data))
+  }
+  
+  const cbRegister = (data) => {
+    dispatch(registerUser(data))
+  }
+  
+  useEffect(() =>{
+    dispatch(checkUserAuth());
+  }, [dispatch])
+  
+  useEffect(() =>{
+    dispatch(authCheck());
+  }, [dispatch])
+  
+  return(
       <div className={clsx(styles.container)}>
         <AppHeader/>
         <Routes>
@@ -36,10 +55,10 @@ function App() {
                                            ingredients={ingredients}
                                            isLoading={isLoading}
           />}/>
-          <Route path="/login" element={<ProtectedRoute onlyUnAuth><Login/></ProtectedRoute>}/>
+          <Route path="/login" element={<ProtectedRoute onlyUnAuth><Login onLogin={cbLogin}/></ProtectedRoute>}/>
           <Route path="/ingredients/:ingredients" element={<IngredientDetails/>}/>
           <Route path="/profile" element={<Profile/>}/>
-          <Route path="/register" element={<ProtectedRoute onlyUnAuth><Register/></ProtectedRoute>}/>
+          <Route path="/register" element={<ProtectedRoute onlyUnAuth><Register onRegister={cbRegister}/></ProtectedRoute>}/>
           <Route path="/forgot-password" element={<ForgotPassword/>}/>
         </Routes>
       </div>

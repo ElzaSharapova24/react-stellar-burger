@@ -1,3 +1,5 @@
+// import {getCookie} from "./cookie";
+
 const BASE_URL = "https://norma.nomoreparties.space/api";
 
 const getIngredientsRequest = ()=> {
@@ -13,7 +15,7 @@ function createOrderRequest(ingredients) {
     body: JSON.stringify({ingredients: ingredients}),
   });
 }
-function registerUserRequest({ email, password, name }) {
+function registerRequest({ email, password, name }) {
   return fetch(`${BASE_URL}/auth/register`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
@@ -21,7 +23,7 @@ function registerUserRequest({ email, password, name }) {
   });
 }
 
-function loginUserRequest({ email, password }) {
+function loginRequest({ email, password }) {
   return fetch(`${BASE_URL}/auth/login`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
@@ -30,20 +32,26 @@ function loginUserRequest({ email, password }) {
 }
 
 function logoutUserRequest() {
-  return fetch(`${BASE_URL}/auth/logout`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    // body: JSON.stringify({ token: getCookie("refreshToken") }),
-  });
+  // return fetch(`${BASE_URL}/auth/logout`, {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify({ token: getCookie("refreshToken") }),
+  // });
 }
-
 
 function refreshTokenUserRequest() {
-  return fetch(`${BASE_URL}/auth/token`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    // body: JSON.stringify({token: getCookie("refreshToken")}),
-  });
+  // return fetch(`${BASE_URL}/auth/token`, {
+  //   method: "POST",
+  //   headers: {"Content-Type": "application/json"},
+  //   body: JSON.stringify({token: getCookie("refreshToken")}),
+  // });
 }
 
-export { getIngredientsRequest, createOrderRequest, loginUserRequest, refreshTokenUserRequest, registerUserRequest, logoutUserRequest };
+function getUserRequest() {
+  return fetch(`${BASE_URL}/auth/user`);
+  //
+  // if (dataUser?.success) return dataUser;
+  // return Promise.reject(dataUser);
+}
+
+export { getIngredientsRequest, createOrderRequest, loginRequest, refreshTokenUserRequest, registerRequest, logoutUserRequest, getUserRequest };

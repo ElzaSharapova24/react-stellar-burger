@@ -25,8 +25,8 @@ function BurgerIngredientsTabs({ tabs, current, handleTubClick }) {
 }
 
 BurgerIngredientsTabs.propTypes = {
-  tabs: PropTypes.object.isRequired,
-  current: PropTypes.string.isRequired,
+  tabs: PropTypes.object,
+  current: PropTypes.string,
   handleTubClick: PropTypes.func.isRequired,
 };
 

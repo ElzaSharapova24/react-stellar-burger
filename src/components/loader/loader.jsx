@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 function Loader() {
   return(
-    <span className={clsx(styles.loader)}></span>
+    <div className={clsx(styles.loader)}></div>
   )
 }
 

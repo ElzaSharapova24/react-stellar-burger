@@ -1,33 +1,43 @@
 import styles from "./register.module.css";
-import React from "react";
+import React, {useState} from "react";
 import clsx from "clsx";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import AppHeader from "../../components/app-header";
 import {Link} from "react-router-dom";
 
 
-function Register() {
-  const [value, setValue] = React.useState('')
+function Register({onRegister}) {
+  const [userData, setUserData] = React.useState({email: '', password: '', login: ''});
+  const inputRef = React.useRef(null);
+  const [message, setMessage] = useState('');
+  
   const onChange = e => {
-    setValue(e.target.value)
+    const {name, value} = e.target;
+    setUserData({ ...userData, [name]: value});
   }
-  const inputRef = React.useRef(null)
+  
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0)
     alert('Icon Click Callback')
+  }
+  
+  const handleSubmit = e => {
+    e.preventDefault();
+    onRegister(userData)
   }
   
   return(
     <>
       <section className={clsx(styles.wrapper)}>
         <h1 className={clsx('text', 'text_type_main-medium')}>Регистрация</h1>
-          <form className={clsx(styles.form)}>
+        <div>{message}</div>
+          <form className={clsx(styles.form)} onSubmit={handleSubmit}>
             <Input
               type={'text'}
               placeholder={'Имя'}
-              onChange={e => setValue(e.target.value)}
+              onChange={onChange}
               icon={'CurrencyIcon'}
-              value={value}
+              value={userData.email}
               name={'name'}
               error={false}
               ref={inputRef}
@@ -38,9 +48,9 @@ function Register() {
             <Input
               type={'text'}
               placeholder={'E-mail'}
-              onChange={e => setValue(e.target.value)}
+              onChange={onChange}
               icon={'CurrencyIcon'}
-              value={value}
+              value={userData.login}
               name={'name'}
               error={false}
               ref={inputRef}
@@ -51,7 +61,7 @@ function Register() {
             <PasswordInput
               placeholder={'Пароль'}
               onChange={onChange}
-              value={value}
+              value={userData.password}
               name={'password'}
               icon="EditIcon"/>
             <Button htmlType="button" type="primary" size="medium">
