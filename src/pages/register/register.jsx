@@ -2,7 +2,6 @@ import styles from "./register.module.css";
 import React, {useState} from "react";
 import clsx from "clsx";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import AppHeader from "../../components/app-header";
 import {Link} from "react-router-dom";
 
 
@@ -12,8 +11,8 @@ function Register({onRegister}) {
   const [message, setMessage] = useState('');
   
   const onChange = e => {
-    const {name, value} = e.target;
-    setUserData({ ...userData, [name]: value});
+    setUserData({  ...userData, [e.target.name]: e.target.value  });
+    console.log(userData)
   }
   
   const onIconClick = () => {
@@ -57,7 +56,8 @@ function Register({onRegister}) {
               onIconClick={onIconClick}
               errorText={'Ошибка'}
               size={'default'}
-              extraClass="ml-1"/>
+              extraClass="ml-1"
+            />
             <PasswordInput
               placeholder={'Пароль'}
               onChange={onChange}

@@ -57,7 +57,7 @@ function App() {
           />}/>
           <Route path="/login" element={<ProtectedRoute onlyUnAuth><Login onLogin={cbLogin}/></ProtectedRoute>}/>
           <Route path="/ingredients/:ingredients" element={<IngredientDetails/>}/>
-          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
           <Route path="/register" element={<ProtectedRoute onlyUnAuth><Register onRegister={cbRegister}/></ProtectedRoute>}/>
           <Route path="/forgot-password" element={<ForgotPassword/>}/>
         </Routes>

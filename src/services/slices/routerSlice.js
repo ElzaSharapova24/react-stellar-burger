@@ -55,7 +55,6 @@ export const routerSlice = createSlice({
       .addCase(checkUserAuth.fulfilled, (state, action) => {
         state.data = action.payload;
         state.getUserRequest = false;
-        state.isAuthChecked = true;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.data = action.payload;

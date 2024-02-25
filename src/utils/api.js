@@ -1,5 +1,7 @@
 // import {getCookie} from "./cookie";
 
+import {getCookie} from "./cookie";
+
 const BASE_URL = "https://norma.nomoreparties.space/api";
 
 const getIngredientsRequest = ()=> {
@@ -48,10 +50,11 @@ function refreshTokenUserRequest() {
 }
 
 function getUserRequest() {
-  return fetch(`${BASE_URL}/auth/user`);
-  //
-  // if (dataUser?.success) return dataUser;
-  // return Promise.reject(dataUser);
+  return fetch(`${BASE_URL}/auth/user`, {
+    headers: {
+      authorization: getCookie("accessToken")
+    }
+  });
 }
 
 export { getIngredientsRequest, createOrderRequest, loginRequest, refreshTokenUserRequest, registerRequest, logoutUserRequest, getUserRequest };

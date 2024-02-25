@@ -15,13 +15,14 @@ function ProtectedRoute({children, onlyUnAuth}) {
   }
   
   if (onlyUnAuth && user) {
+    const from  = location.state?.from || {pathname: '/'}
     console.log('navigate from login to index')
-    return <Navigate to="/"/>
+    return <Navigate replace to={from}/>
   }
   
   if (!onlyUnAuth && !user) {
     console.log('navigate from page to login')
-    return <Navigate to="/login"/>
+    return <Navigate replace to="/login" state={{from: location}}/>
   }
   
   console.log('render component')
