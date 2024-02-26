@@ -1,11 +1,11 @@
-import styles from "./forgot-password.module.css";
+import styles from "./forgot-password-page.module.css";
 import AppHeader from "../../components/app-header";
 import clsx from "clsx";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 import React from "react";
 
-function ForgotPassword() {
+function ForgotPasswordPage() {
   const [value, setValue] = React.useState('Email')
   const inputRef = React.useRef(null);
   const onIconClick = () => {
@@ -49,4 +49,4 @@ function ForgotPassword() {
 
 }
 
-export default ForgotPassword
+export default ForgotPasswordPage

@@ -7,7 +7,6 @@ import {useSelector} from "react-redux";
 import {getIngredients} from "../../services/selectors";
 
 function IngredientDetails(
-  // {modalItem}
 ) {
   let { id } = useParams();
   const { ingredients } = useSelector(getIngredients);

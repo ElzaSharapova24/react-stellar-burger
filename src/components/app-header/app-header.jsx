@@ -13,12 +13,11 @@ function AppHeader() {
     <header className={clsx(styles.header, "p-4")}>
       <nav className={clsx(styles.wrap)}>
         <div className={clsx(styles.inner)}>
-          <NavLink to="/" className={clsx(styles.link)}>
+          <NavLink to="/" className={clsx(styles.link)} >
             <BurgerIcon type="primary" />
             <p
               className={clsx(
                 "text text_type_main-default ml-2",
-                styles.activeLink
               )}
             >
               Конструктор

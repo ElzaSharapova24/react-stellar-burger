@@ -25,6 +25,7 @@
   color: #8585ad;
 }
 
-.activeLink {
+.activeLink  {
   color: #f2f2f3;
+  text-decoration: none;
 }

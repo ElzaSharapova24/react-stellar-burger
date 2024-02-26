@@ -1,15 +1,13 @@
-import styles from "./login.module.css";
+import styles from "./login-page.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useState} from "react";
 import clsx from "clsx";
 import {Link} from "react-router-dom";
-import AppHeader from "../../components/app-header";
-import {useNavigate} from "react-router";
 
 
 
-function Login({onLogin}) {
-  let navigate = useNavigate();
+
+function LoginPage({onLogin}) {
   const [userData, setUserData] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
   const inputRef = React.useRef(null);
@@ -80,7 +78,7 @@ function Login({onLogin}) {
 }
 
 
-// Login.propTypes = {
+// LoginPage.propTypes = {
 // };
 
-export default Login;
+export default LoginPage;

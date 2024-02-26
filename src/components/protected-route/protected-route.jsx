@@ -16,12 +16,12 @@ function ProtectedRoute({children, onlyUnAuth}) {
   
   if (onlyUnAuth && authData) {
     const from  = location.state?.from || {pathname: '/'}
-    console.log('navigate from login to index')
+    console.log('navigate from login-page to index')
     return <Navigate replace to={from}/>
   }
   
   if (!onlyUnAuth && !authData) {
-    console.log('navigate from page to login')
+    console.log('navigate from page to login-page')
     return <Navigate replace to="/login" state={{from: location}}/>
   }
   

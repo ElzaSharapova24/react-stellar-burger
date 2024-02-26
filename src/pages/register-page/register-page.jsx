@@ -1,18 +1,17 @@
-import styles from "./register.module.css";
+import styles from "./register-page.module.css";
 import React, {useState} from "react";
 import clsx from "clsx";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 
 
-function Register({onRegister}) {
+function RegisterPage({onRegister}) {
   const [userData, setUserData] = React.useState({email: '', password: '', name: ''});
   const inputRef = React.useRef(null);
   const [message, setMessage] = useState('');
   
   const onChange = e => {
     setUserData({  ...userData, [e.target.name]: e.target.value  });
-    console.log(userData)
   }
   
   const onIconClick = () => {
@@ -79,4 +78,4 @@ function Register({onRegister}) {
   )
 }
 
-export default Register;
+export default RegisterPage;

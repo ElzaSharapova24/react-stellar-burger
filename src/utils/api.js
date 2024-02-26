@@ -19,7 +19,7 @@ function createOrderRequest(ingredients) {
 function registerRequest({ email, password, name }) {
   return fetch(`${BASE_URL}/auth/register`, {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: {"Content-Type": "application/json", authorization: getCookie("accessToken")},
     body: JSON.stringify({email, password, name}),
   });
 }
@@ -27,25 +27,25 @@ function registerRequest({ email, password, name }) {
 function loginRequest({ email, password }) {
   return fetch(`${BASE_URL}/auth/login`, {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: {"Content-Type": "application/json", authorization: getCookie("accessToken")},
     body: JSON.stringify({email, password}),
   });
 }
 
 function logoutUserRequest() {
-  // return fetch(`${BASE_URL}/auth/logout`, {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify({ token: getCookie("refreshToken") }),
-  // });
+  return fetch(`${BASE_URL}/auth/logout`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token: getCookie("refreshToken") }),
+  });
 }
 
 function refreshTokenUserRequest() {
-  // return fetch(`${BASE_URL}/auth/token`, {
-  //   method: "POST",
-  //   headers: {"Content-Type": "application/json"},
-  //   body: JSON.stringify({token: getCookie("refreshToken")}),
-  // });
+  return fetch(`${BASE_URL}/auth/token`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({token: getCookie("refreshToken")}),
+  });
 }
 
 function getUserRequest() {

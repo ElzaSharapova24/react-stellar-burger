@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getUserRequest, loginRequest, registerRequest} from "../../utils/api";
+import {getUserRequest, loginRequest, logoutUserRequest, registerRequest} from "../../utils/api";
 import {checkResponse} from "../../utils/utils";
 import {getActionName, isActionPending, isActionRejected} from "../../utils/redux";
+import {setCookie} from "../../utils/cookie";
 
 export const sliceName = "user";
 
@@ -41,6 +42,13 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk(
+  `${sliceName}/logoutUser`,
+  async function () {
+    return await logoutUserRequest().then(checkResponse);
+  }
+);
+
 
 export const routerSlice = createSlice({
   name: sliceName,
@@ -58,10 +66,14 @@ export const routerSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.authData = action.payload;
+        setCookie('accessToken', action.payload.accessToken);
+        setCookie('refreshToken', action.payload.refreshToken);
         state.registerUserRequest = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.authData = action.payload;
+        setCookie('accessToken', action.payload.accessToken);
+        setCookie('refreshToken', action.payload.refreshToken);
         state.loginUserRequest = false;
       })
     
