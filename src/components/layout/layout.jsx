@@ -1,10 +1,7 @@
 import React, { useEffect, useMemo } from "react";
-import IngredientDetails from "../ingredient-details";
 import OrderDetails from "../order-details";
-import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../../services/selectors";
+import { useDispatch } from "react-redux";
 import {
-  getIngredientsFetch,
   dragBun,
   dragFilling,
   ingredientDelete,
@@ -17,6 +14,7 @@ import clsx from "clsx";
 import styles from "./layout.module.css";
 import BurgerIngredients from "../burger-ingredients";
 import BurgerConstructor from "../burger-constructor";
+import PropTypes from "prop-types";
 
 function Layout({
                   setOrderDetailsModal,
@@ -123,5 +121,16 @@ function Layout({
     </>
   );
 }
+
+
+Layout.propTypes = {
+  bun: PropTypes.object,
+  fillings: PropTypes.array.isRequired,
+  setOrderDetailsModal: PropTypes.func.isRequired,
+  orderDetailsModal: PropTypes.bool.isRequired,
+  ingredients: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  order: PropTypes.object,
+};
 
 export default Layout;

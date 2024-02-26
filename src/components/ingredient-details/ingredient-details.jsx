@@ -10,12 +10,10 @@ function IngredientDetails(
 ) {
   let { id } = useParams();
   const { ingredients } = useSelector(getIngredients);
-  console.log(ingredients)
   const modalItem = ingredients.find(e => e._id === id);
   if (!modalItem)
     return <></>;
   const {image_large, name, calories, proteins, fat, carbohydrates} = modalItem;
-  console.log(modalItem)
   return (
     <>
       {(

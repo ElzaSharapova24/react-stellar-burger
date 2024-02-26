@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import clsx from "clsx";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 
 
 function RegisterPage({onRegister}) {
@@ -77,5 +78,9 @@ function RegisterPage({onRegister}) {
     </>
   )
 }
+
+RegisterPage.propTypes = {
+  onRegister: PropTypes.func.isRequired,
+};
 
 export default RegisterPage;

@@ -30,3 +30,14 @@
 .text {
   width: 320px;
 }
+
+.inner {
+  display: flex;
+  column-gap: 150px;
+}
+
+.btn {
+  border: none;
+  background: transparent;
+  color: #8585ad;
+}

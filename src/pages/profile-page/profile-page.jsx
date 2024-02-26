@@ -1,33 +1,28 @@
 import styles from "./profile-page.module.css";
 import clsx from "clsx";
-import { Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAuthData} from "../../services/selectors";
 import {useNavigate} from "react-router";
-import {logoutUser} from "../../services/slices/routerSlice";
+import {authCheck, logoutUser, updateUser} from "../../services/slices/routerSlice";
+import {deleteCookie} from "../../utils/cookie";
 
 function ProfilePage() {
   const user = useSelector(getAuthData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({
-    name: '',
-    email: '',
+    name: user?.user?.name,
+    email: user?.user?.email,
     password: '',
   });
   const inputRef = React.useRef(null);
   
   const onChange = e => {
-    const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: user.user.value,
-    });
+    const { name, value} = e.target;
+    setUserData({...userData, [name]: value});
   };
-  
-  
-  console.log(user.user.password)
   
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
@@ -36,11 +31,27 @@ function ProfilePage() {
   
   const handleSubmit = e => {
     e.preventDefault();
+    dispatch(updateUser({
+      data: {
+        email: userData.email,
+        name: userData.name,
+      }
+    }))
   }
   
   const handleSignOutBtn = () => {
     dispatch(logoutUser());
+    navigate("/");
   };
+  
+  const cancelChanges = () => {
+    setUserData({
+      name: user?.user?.name,
+      email: user?.user?.email,
+      password: '',
+    })
+  }
+  
   
   return(
     <>
@@ -54,7 +65,7 @@ function ProfilePage() {
               <a className={clsx("text text_type_main-medium text_color_inactive")}>История заказов</a>
             </li>
             <li className={clsx("pt-4 pb-4")}>
-              <button onClick={handleSignOutBtn} className={clsx("text text_type_main-medium text_color_inactive", styles.link)}>Выход</button>
+              <button onClick={handleSignOutBtn} className={clsx("text text_type_main-medium text_color_inactive", styles.link, styles.btn)}>Выход</button>
             </li>
           </ul>
           <p className={clsx("text text_type_main-default text_color_inactive mt-10", styles.text)}>
@@ -68,7 +79,7 @@ function ProfilePage() {
             placeholder={'Имя'}
             onChange={onChange}
             icon={'CurrencyIcon'}
-            value={user.user.name}
+            value={userData.name}
             name={'name'}
             error={false}
             ref={inputRef}
@@ -81,7 +92,7 @@ function ProfilePage() {
             placeholder={'E-mail'}
             onChange={onChange}
             icon={'CurrencyIcon'}
-            value={user.user.email}
+            value={userData.email}
             name={'email'}
             error={false}
             ref={inputRef}
@@ -91,9 +102,17 @@ function ProfilePage() {
             extraClass="ml-1"/>
           <PasswordInput
             onChange={onChange}
-            value={user.user.password}
+            value={userData.password}
             name={'password'}
             icon="EditIcon"/>
+         <div className={clsx(styles.inner)}>
+           <Button htmlType="submit" type="primary" size="medium">
+             Сохранить
+           </Button>
+           <Button htmlType="submit" type="primary" size="medium" onClick={cancelChanges}>
+             Отменить
+           </Button>
+         </div>
         </form>
       </section>
     </>

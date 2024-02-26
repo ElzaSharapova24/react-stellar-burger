@@ -10,9 +10,7 @@ const getIngredientsRequest = ()=> {
 function createOrderRequest(ingredients) {
   return fetch(`${BASE_URL}/orders`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: {"Content-Type": "application/json"},
     body: JSON.stringify({ingredients: ingredients}),
   });
 }
@@ -50,10 +48,17 @@ function refreshTokenUserRequest() {
 
 function getUserRequest() {
   return fetch(`${BASE_URL}/auth/user`, {
-    headers: {
-      authorization: getCookie("accessToken")
-    }
+    method: "GET",
+    headers: {authorization: getCookie("accessToken")}
   });
 }
 
-export { getIngredientsRequest, createOrderRequest, loginRequest, refreshTokenUserRequest, registerRequest, logoutUserRequest, getUserRequest };
+function updateUserRequest({email, name}) {
+  return fetch(`${BASE_URL}/auth/user`, {
+    method: 'PATCH',
+    headers: {'Content-Type': 'application/json', authorization: getCookie('accessToken')},
+    body: JSON.stringify({email, name})
+  })
+}
+
+export { getIngredientsRequest, createOrderRequest, loginRequest, refreshTokenUserRequest, registerRequest, logoutUserRequest, getUserRequest, updateUserRequest};

@@ -1,4 +1,4 @@
-import {Route, Routes, useLocation, useNavigate, useParams} from "react-router";
+import {Route, Routes, useLocation, useNavigate} from "react-router";
 import Layout from "../layout/layout";
 import LoginPage from "../../pages/login-page";
 import ProfilePage from "../../pages/profile-page";
@@ -16,6 +16,7 @@ import {authCheck, checkUserAuth, loginUser, registerUser} from "../../services/
 import {getIngredientsFetch} from "../../services/slices/ingredientSlice";
 import Modal from "../modal";
 import NotFoundPage from "../../pages/not-found-page";
+import ResetPasswordPage from "../../pages/reset-password-page";
 
 function App() {
   const { ingredients, bun, fillings, isLoading, order } =
@@ -47,7 +48,8 @@ function App() {
   
   useEffect(() =>{
     dispatch(authCheck());
-  }, [dispatch])
+  }, [dispatch]);
+  
   
   return(
       <div className={clsx(styles.container)}>
@@ -65,7 +67,8 @@ function App() {
           <Route path="/profile" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>
           <Route path="/login" element={<ProtectedRoute onlyUnAuth><LoginPage onLogin={cbLogin}/></ProtectedRoute>}/>
           <Route path="/ingredients/:id" element={<IngredientDetails/>}/>
-          <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
+          <Route path="/forgot-password" element={<ProtectedRoute onlyUnAuth><ForgotPasswordPage/></ProtectedRoute>}/>
+          <Route path="/reset-password" element={<ProtectedRoute><ResetPasswordPage/></ProtectedRoute>}/>
           <Route path="*" element={<NotFoundPage/>}/>
         </Routes>
         {
@@ -87,5 +90,6 @@ function App() {
       </div>
     )
 }
+
 
 export default App;

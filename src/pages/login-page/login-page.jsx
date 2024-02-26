@@ -3,6 +3,7 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import React, {useState} from "react";
 import clsx from "clsx";
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 
 
 
@@ -55,7 +56,7 @@ function LoginPage({onLogin}) {
               name={'password'}
               icon="EditIcon"/>
             <Button htmlType="submit" type="primary" size="medium">
-              Нажми на меня
+              Зарегистрироваться
             </Button>
           </form>
         <ul className={clsx(styles.list)}>
@@ -78,7 +79,8 @@ function LoginPage({onLogin}) {
 }
 
 
-// LoginPage.propTypes = {
-// };
+LoginPage.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+};
 
 export default LoginPage;

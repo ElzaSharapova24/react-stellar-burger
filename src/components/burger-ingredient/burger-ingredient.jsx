@@ -11,7 +11,7 @@ import {Link} from "react-router-dom";
 import {useLocation} from "react-router";
 
 function BurgerIngredient(props) {
-  const { _id, name, price, image, count, onClick } = props;
+  const { _id, name, price, image, count } = props;
   const location = useLocation();
   const ref = useRef();
   const [{ isDragging }, drag] = useDrag({
@@ -40,9 +40,6 @@ function BurgerIngredient(props) {
         <img
           alt={name}
           src={image}
-          onClick={() => {
-            onClick();
-          }}
         />
         <div className={clsx(styles.info)}>
           <div className={clsx(styles.price)}>
@@ -69,7 +66,6 @@ BurgerIngredient.propTypes = {
   _id: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
-  onClick: PropTypes.func,
 };
 
 export default BurgerIngredient;

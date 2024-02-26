@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getUserRequest, loginRequest, logoutUserRequest, registerRequest} from "../../utils/api";
+import {getUserRequest, loginRequest, logoutUserRequest, registerRequest, updateUserRequest} from "../../utils/api";
 import {checkResponse} from "../../utils/utils";
 import {getActionName, isActionPending, isActionRejected} from "../../utils/redux";
-import {setCookie} from "../../utils/cookie";
+import {deleteCookie, getCookie, setCookie} from "../../utils/cookie";
 
 export const sliceName = "user";
 
@@ -16,6 +16,12 @@ const initialState = {
   
   loginUserError: null,
   loginUserRequest: false,
+  
+  logoutUserError: null,
+  logoutUserRequest: false,
+  
+  updateUserError: null,
+  updateUserRequest: false,
   
   getUserError: null,
   getUserRequest: false,
@@ -49,6 +55,13 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
+export const updateUser = createAsyncThunk(
+  `${sliceName}/updateUser`,
+  async function (payload) {
+    return await updateUserRequest(payload.data).then(checkResponse);
+  }
+);
+
 
 export const routerSlice = createSlice({
   name: sliceName,
@@ -75,6 +88,18 @@ export const routerSlice = createSlice({
         setCookie('accessToken', action.payload.accessToken);
         setCookie('refreshToken', action.payload.refreshToken);
         state.loginUserRequest = false;
+      })
+  
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.authData = null;
+        deleteCookie('refreshToken');
+        deleteCookie('accessToken')
+        state.logoutUserRequest = false;
+      })
+  
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.authData = action.payload;
+        state.updateUserRequest = false;
       })
     
       .addMatcher(isActionPending(routerSlice.name), (state, action) => {
