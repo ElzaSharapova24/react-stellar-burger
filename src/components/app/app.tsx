@@ -22,35 +22,37 @@ function App() {
   const { ingredients, bun, fillings, isLoading, order } =
     useSelector(getIngredients);
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
-  
+
   const dispatch = useDispatch();
   const location  = useLocation();
   const navigate = useNavigate();
-  
-  const cbLogin = (authData) => {
-    dispatch(loginUser({authData}));
+
+  const cbLogin = (authData: any) => {
+    // @ts-ignore
+      dispatch(loginUser({authData}));
   }
-  
-  const cbRegister = (authData) => {
-    dispatch(registerUser({authData}));
+
+  const cbRegister = (authData:any) => {
+    // @ts-ignore
+      dispatch(registerUser({authData}));
   }
-  
-  
+
+
   const backgroundLocation  = location.state?.backgroundLocation;
-  
+
   useEffect(() => {
     dispatch(getIngredientsFetch());
   }, [dispatch]);
-  
+
   useEffect(() =>{
     dispatch(checkUserAuth());
   }, [dispatch])
-  
+
   useEffect(() =>{
     dispatch(authCheck());
   }, [dispatch]);
-  
-  
+
+
   return(
       <div className={clsx(styles.container)}>
         <AppHeader/>
@@ -64,11 +66,11 @@ function App() {
                                            isLoading={isLoading}
           />}/>
           <Route path="/register" element={<ProtectedRoute onlyUnAuth><RegisterPage onRegister={cbRegister}/></ProtectedRoute>}/>
-          <Route path="/profile" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>
+          <Route path="/profile" element={<ProtectedRoute onlyUnAuth><ProfilePage/></ProtectedRoute>}/>
           <Route path="/login" element={<ProtectedRoute onlyUnAuth><LoginPage onLogin={cbLogin}/></ProtectedRoute>}/>
           <Route path="/ingredients/:id" element={<IngredientDetails/>}/>
           <Route path="/forgot-password" element={<ProtectedRoute onlyUnAuth><ForgotPasswordPage/></ProtectedRoute>}/>
-          <Route path="/reset-password" element={<ProtectedRoute><ResetPasswordPage/></ProtectedRoute>}/>
+          {/*<Route path="/reset-password" element={<ProtectedRoute><ResetPasswordPage/></ProtectedRoute>}/>*/}
           <Route path="*" element={<NotFoundPage/>}/>
         </Routes>
         {
@@ -86,7 +88,7 @@ function App() {
             }/>
           </Routes>
         }
-        
+
       </div>
     )
 }
