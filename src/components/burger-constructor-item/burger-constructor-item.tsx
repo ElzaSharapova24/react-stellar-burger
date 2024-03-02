@@ -3,10 +3,9 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { ingredientSort } from "../../services/slices/ingredientSlice";
-import PropTypes from "prop-types";
+import { useDispatch } from "../../services/hooks";
 
 interface BurgerConstructorItemProps {
   item: {
@@ -16,19 +15,23 @@ interface BurgerConstructorItemProps {
     image: string;
   };
   index: number;
-  handleDeleteIngredient?: (item: any) => void;
+  handleDeleteIngredient: (item: any) => void;
 }
 
-const BurgerConstructorItem: React.FC<BurgerConstructorItemProps> = ({
-                                                                       item,
-                                                                       index,
-                                                                       handleDeleteIngredient,
-                                                                     }) => {
+interface IndexHolder {
+    index: number
+}
+
+const BurgerConstructorItem = ({
+  item,
+  index,
+  handleDeleteIngredient,
+}: BurgerConstructorItemProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
   const [{ isDragging }, drag] = useDrag({
-    type: 'sortItem',
+    type: "sortItem",
     item: { id: item.id, index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -36,16 +39,16 @@ const BurgerConstructorItem: React.FC<BurgerConstructorItemProps> = ({
   });
 
   const [{ handlerId }, drop] = useDrop({
-    accept: 'sortItem',
+    accept: "sortItem",
     collect: (monitor) => ({
       handlerId: monitor.getHandlerId(),
     }),
-    hover: (draggedItem, monitor) => {
+    hover: (draggedItem : IndexHolder, monitor) => {
       if (!ref.current) {
         return;
       }
-      const dragIndex = draggedItem.index;
       const hoverIndex = index;
+      const dragIndex = draggedItem.index;
 
       if (dragIndex === hoverIndex) {
         return;
@@ -56,7 +59,7 @@ const BurgerConstructorItem: React.FC<BurgerConstructorItemProps> = ({
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       // @ts-ignore
-        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -66,8 +69,8 @@ const BurgerConstructorItem: React.FC<BurgerConstructorItemProps> = ({
       }
 
       dispatch(ingredientSort({ to: dragIndex, from: hoverIndex }));
-      // @ts-ignore
-        draggedItem.index = hoverIndex;
+
+      draggedItem.index = hoverIndex;
     },
   });
   const opacity = isDragging ? 0 : 1;
@@ -82,7 +85,7 @@ const BurgerConstructorItem: React.FC<BurgerConstructorItemProps> = ({
     >
       <DragIcon type="primary" />
       <ConstructorElement
-        index={index}
+        // index={index}
         text={item.name}
         price={item.price}
         thumbnail={item.image}
@@ -90,12 +93,6 @@ const BurgerConstructorItem: React.FC<BurgerConstructorItemProps> = ({
       />
     </div>
   );
-}
-
-BurgerConstructorItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
-  handleDeleteIngredient: PropTypes.func,
 };
 
 export default BurgerConstructorItem;

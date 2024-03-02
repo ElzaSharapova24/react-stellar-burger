@@ -1,32 +1,24 @@
 import clsx from "clsx";
 import styles from "./ingredient-details.module.css";
 import React from "react";
-import PropTypes from "prop-types";
-import {useParams} from "react-router";
-import {useSelector} from "react-redux";
-import {getIngredients} from "../../services/selectors";
+import { useParams } from "react-router";
+import { getIngredients } from "../../services/selectors";
+import {useSelector} from "../../services/hooks";
 
-function IngredientDetails(
-) {
+const IngredientDetails=() => {
   let { id } = useParams();
   const { ingredients } = useSelector(getIngredients);
-  const modalItem = ingredients.find(e => e._id === id);
-  if (!modalItem)
-    return <></>;
-  const {image_large, name, calories, proteins, fat, carbohydrates} = modalItem;
+  const modalItem = ingredients.find((e: { _id: string | undefined; }) => e._id === id);
+  if (!modalItem) return <></>;
+  const { image_large, name, calories, proteins, fat, carbohydrates } =
+    modalItem;
   return (
     <>
-      {(
+      {
         <div className={clsx(styles.wrapper)}>
-            <img
-              className={clsx(styles.image)}
-              src={image_large}
-              alt={name}
-            />
+          <img className={clsx(styles.image)} src={image_large} alt={name} />
           <div className={clsx(styles.inner)}>
-            <h3 className={clsx("text text_type_main-medium")}>
-              {name}
-            </h3>
+            <h3 className={clsx("text text_type_main-medium")}>{name}</h3>
             <ul className={clsx(styles.list)}>
               <li
                 className={clsx(
@@ -67,13 +59,10 @@ function IngredientDetails(
             </ul>
           </div>
         </div>
-      )}
+      }
     </>
   );
 }
 
-IngredientDetails.propTypes = {
-  modalItem: PropTypes.object,
-};
 
 export default IngredientDetails;

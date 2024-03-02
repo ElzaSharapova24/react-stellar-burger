@@ -7,76 +7,60 @@ import {
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
-import {Link} from "react-router-dom";
-import {useLocation} from "react-router";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router";
+import {IngredientsDto} from "../../types/slice-types";
 
 interface BurgerIngredientProps {
-    _id: string;
-    name: string;
-    price: number;
-    image: string;
-    count: number;
+    ingredient: IngredientsDto,
 }
 
-const BurgerIngredient: React.FC<BurgerIngredientProps> = ({
-                                                               _id,
-                                                               name,
-                                                               price,
-                                                               image,
-                                                               count,
-                                                           }) => {
-    const location = useLocation();
-    const ref = useRef<HTMLDivElement>(null);
-    const [{ isDragging }, drag] = useDrag({
-        type: "draggableItem",
-        item: { _id, name, price, image, count },
-        collect: (monitor) => ({
-            isDragging: !!monitor.isDragging(),
-        }),
-    });
-    drag(ref);
+const BurgerIngredient = ({ingredient}: BurgerIngredientProps) => {
+  const location = useLocation();
+  const {_id, name, price, image, count} = ingredient;
+  const ref = useRef<HTMLDivElement>(null);
+  const [{ isDragging }, drag] = useDrag({
+    type: "draggableItem",
+    item: ingredient,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  });
+  drag(ref);
 
-    return (
-        <article
-            className={clsx(styles.inner)}
-            key={_id}
-            ref={ref}
-            style={{
-                cursor: "move",
-            }}
-        >
-            {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
-            <Link
-                to={{ pathname: `/ingredients/${_id}` }}
-                className={clsx(styles.link)}
-                state={{ backgroundLocation: location }}
+  return (
+    <article
+      className={clsx(styles.inner)}
+      key={_id}
+      ref={ref}
+      style={{
+        cursor: "move",
+      }}
+    >
+      {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
+      <Link
+        to={{ pathname: `/ingredients/${_id}` }}
+        className={clsx(styles.link)}
+        state={{ backgroundLocation: location }}
+      >
+        <img alt={name} src={image} />
+        <div className={clsx(styles.info)}>
+          <div className={clsx(styles.price)}>
+            <p
+              className={clsx(
+                "text text_type_digits-default mr-2",
+                styles.text
+              )}
             >
-                <img alt={name} src={image} />
-                <div className={clsx(styles.info)}>
-                    <div className={clsx(styles.price)}>
-                        <p
-                            className={clsx(
-                                "text text_type_digits-default mr-2",
-                                styles.text
-                            )}
-                        >
-                            {price}
-                        </p>
-                        <CurrencyIcon type="primary" />
-                    </div>
-                    <p className={clsx("text", styles.text)}>{name}</p>
-                </div>
-            </Link>
-        </article>
-    );
-};
-
-BurgerIngredient.propTypes = {
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
+              {price}
+            </p>
+            <CurrencyIcon type="primary" />
+          </div>
+          <p className={clsx("text", styles.text)}>{name}</p>
+        </div>
+      </Link>
+    </article>
+  );
 };
 
 export default BurgerIngredient;

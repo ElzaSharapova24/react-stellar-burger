@@ -3,10 +3,21 @@ import React from "react";
 import clsx from "clsx";
 import styles from "./constructor-items.module.css";
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
-import PropTypes from "prop-types";
+import {IngredientsDto} from "../../types/slice-types";
 
-function ConstructorItems({ bun, fillings, handleDeleteIngredient }) {
-  const position = ["верх", "низ"];
+interface ConstructorItemsProps {
+  fillings: IngredientsDto[];
+  bun: IngredientsDto | null;
+  handleDeleteIngredient: () => void;
+}
+
+const ConstructorItems = ({
+  bun,
+  fillings,
+  handleDeleteIngredient,
+}: ConstructorItemsProps) => {
+  const position : string[] = ["верх", "низ"];
+
   return (
     <React.Fragment>
       {bun && (
@@ -20,7 +31,7 @@ function ConstructorItems({ bun, fillings, handleDeleteIngredient }) {
       )}
 
       <div className={clsx("custom-scroll", styles.scroll)}>
-        {fillings.map((item, index) => (
+        {fillings.map((item: IngredientsDto, index: number) => (
           <BurgerConstructorItem
             key={item.id}
             item={item}
@@ -34,7 +45,7 @@ function ConstructorItems({ bun, fillings, handleDeleteIngredient }) {
           type="bottom"
           isLocked={true}
           text={`${bun.name} (низ)`}
-          position={position}
+          // position={position}
           thumbnail={bun.image}
           price={bun.price}
         />
@@ -42,11 +53,5 @@ function ConstructorItems({ bun, fillings, handleDeleteIngredient }) {
     </React.Fragment>
   );
 }
-
-ConstructorItems.propTypes = {
-  bun: PropTypes.object,
-  fillings: PropTypes.array.isRequired,
-  handleDeleteIngredient: PropTypes.func,
-};
 
 export default ConstructorItems;

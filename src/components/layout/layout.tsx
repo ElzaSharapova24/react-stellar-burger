@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo } from "react";
 import OrderDetails from "../order-details";
-import { useDispatch } from "react-redux";
 import {
   dragBun,
   dragFilling,
@@ -14,39 +13,52 @@ import clsx from "clsx";
 import styles from "./layout.module.css";
 import BurgerIngredients from "../burger-ingredients";
 import BurgerConstructor from "../burger-constructor";
-import PropTypes from "prop-types";
+import { useDispatch } from "../../services/hooks";
+import {IngredientsDto} from "../../types/slice-types";
+import {CreateOrderResponse} from "../../types/api-types";
+import {IngredientsByCategory} from "../../utils/utils";
 
-function Layout({
-                  setOrderDetailsModal,
-                  orderDetailsModal,
-                  fillings,
-                  bun,
-                  ingredients,
-                  isLoading,
-                  order,
-  
-}) {
+interface LayoutProps {
+  setOrderDetailsModal: (a: boolean) => void;
+  orderDetailsModal: boolean;
+  bun: IngredientsDto | null;
+  fillings: IngredientsDto[];
+  ingredients: IngredientsDto[];
+  order: CreateOrderResponse | null;
+  isLoading: boolean;
+}
+
+const Layout =({
+  setOrderDetailsModal,
+  orderDetailsModal,
+  fillings,
+  bun,
+  ingredients,
+  isLoading,
+  order,
+}: LayoutProps) => {
   const [bunCategory, bunInView] = useInView({ threshold: 0 });
   const [sauceCategory, sauceInView] = useInView({ threshold: 0 });
   const [mainCategory, mainInView] = useInView({ threshold: 0 });
-  const [current, setCurrent] = React.useState([0]);
+  const [current, setCurrent] = React.useState<string>("bun");
   const dispatch = useDispatch();
-  
+
   const totalPrice = useMemo(() => {
     return (
-      fillings.reduce((a, c) => a + c.price, 0) +
+      fillings.reduce((a: number, c: IngredientsDto) => a + c.price, 0) +
       (bun !== null ? bun.price * 2 : 0)
     );
   }, [bun, fillings]);
-  
-  const handleTubClick = (type) => {
+
+  const handleTubClick = (type: string) => {
     setCurrent(type);
     const tab = document.querySelector(`#${type}`);
     if (tab) tab.scrollIntoView({ block: "start", behavior: "smooth" });
   };
-  
-  const handleDeleteIngredient = (item) => dispatch(ingredientDelete(item));
-  
+
+  const handleDeleteIngredient = (item: any) =>
+    dispatch(ingredientDelete(item));
+
   useEffect(() => {
     if (bunInView) {
       setCurrent("bun");
@@ -56,23 +68,23 @@ function Layout({
       setCurrent("main");
     }
   }, [bunInView, sauceInView, mainInView]);
-  
-  const handleDrop = (item) => {
+
+  const handleDrop = (item: any) => {
     if (item.type === "bun") {
       dispatch(dragBun(item));
     } else {
       dispatch(dragFilling(item));
     }
   };
-  
-  const currentCategories = ingredients.reduce((result, current) => {
+
+  const currentCategories = ingredients.reduce((result: IngredientsByCategory, current: IngredientsDto) => {
     if (!result[current.type]) {
       result[current.type] = [];
     }
     result[current.type].push(current);
     return result;
-  }, {});
-  
+  }, {} as IngredientsByCategory);
+
   return (
     <>
       <div className={clsx(styles.app)}>
@@ -82,55 +94,44 @@ function Layout({
           </h1>
           <div className={clsx(styles.wrapper)}>
             <BurgerIngredients
-              ingredients={ingredients}
               isLoading={isLoading}
               currentCategories={currentCategories}
               handleTubClick={handleTubClick}
               current={current}
               bunCategory={bunCategory}
               mainCategory={mainCategory}
-              sauceCategory={sauceCategory}/>
+              sauceCategory={sauceCategory}
+            />
             <BurgerConstructor
               fillings={fillings}
               bun={bun}
               totalPrice={totalPrice}
               onClick={() => {
                 dispatch(
-                  createOrderResult({
-                    ingredients: fillings.map((e) => e._id).concat(bun._id),
-                  })
+                  createOrderResult(fillings.map((e) => e._id).concat(bun!._id))
                 );
                 setOrderDetailsModal(true);
               }}
               handleDeleteIngredient={handleDeleteIngredient}
               onDrop={handleDrop}
-              buttonIsDisabled={bun === null}/>
+              buttonIsDisabled={bun === null}
+            />
           </div>
         </main>
       </div>
       {orderDetailsModal && (
         <Modal
+          title={""}
           onClose={() => {
             setOrderDetailsModal(false);
             dispatch(resetOrder());
           }}
         >
-          <OrderDetails order={order} isModal={orderDetailsModal}/>
+          <OrderDetails order={order} />
         </Modal>
       )}
     </>
   );
 }
-
-
-Layout.propTypes = {
-  bun: PropTypes.object,
-  fillings: PropTypes.array.isRequired,
-  setOrderDetailsModal: PropTypes.func.isRequired,
-  orderDetailsModal: PropTypes.bool.isRequired,
-  ingredients: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  order: PropTypes.object,
-};
 
 export default Layout;
