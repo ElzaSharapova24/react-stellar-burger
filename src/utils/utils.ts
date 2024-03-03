@@ -2,9 +2,6 @@ import {ErrorResponse} from "../types/api-types";
 import {IngredientsDto} from "../types/slice-types";
 
 interface CategoriesNames {
-  // bun: string;
-  // main: string;
-  // sauce: string;
   [name: string]: string,
 }
 
@@ -15,9 +12,6 @@ const categoriesNames: CategoriesNames = {
 };
 
 export type IngredientsByCategory = {
-    // bun: string;
-    // main: string;
-    // sauce: string;
     [name: string]: IngredientsDto[],
 }
 

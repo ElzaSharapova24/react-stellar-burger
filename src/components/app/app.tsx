@@ -5,6 +5,7 @@ import LoginPage from "../../pages/login-page";
 import ProfilePage from "../../pages/profile-page";
 import RegisterPage from "../../pages/register-page";
 import ForgotPasswordPage from "../../pages/forgot-password-page";
+import ResetPasswordPage from "../../pages/reset-password-page";
 import clsx from "clsx";
 import styles from "./app.module.css";
 import AppHeader from "../app-header";
@@ -106,7 +107,11 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        {/*<Route path="/reset-password" element={<ProtectedRoute><ResetPasswordPage/></ProtectedRoute>}/>*/}
+        <Route path="/reset-password"
+               element={
+            <ProtectedRoute>
+                <ResetPasswordPage/>
+            </ProtectedRoute>}/>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {backgroundLocation && (

@@ -10,10 +10,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {UserLoginDto} from "../../types/slice-types";
 
-interface UserData {
-  email: string;
-  password: string;
-}
 
 interface LoginPageProps {
   onLogin: (userData: UserLoginDto) => void;

@@ -16,7 +16,6 @@ const ConstructorItems = ({
   fillings,
   handleDeleteIngredient,
 }: ConstructorItemsProps) => {
-  const position : string[] = ["верх", "низ"];
 
   return (
     <React.Fragment>
@@ -45,7 +44,6 @@ const ConstructorItems = ({
           type="bottom"
           isLocked={true}
           text={`${bun.name} (низ)`}
-          // position={position}
           thumbnail={bun.image}
           price={bun.price}
         />

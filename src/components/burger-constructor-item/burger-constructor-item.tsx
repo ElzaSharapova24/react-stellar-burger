@@ -85,7 +85,6 @@ const BurgerConstructorItem = ({
     >
       <DragIcon type="primary" />
       <ConstructorElement
-        // index={index}
         text={item.name}
         price={item.price}
         thumbnail={item.image}

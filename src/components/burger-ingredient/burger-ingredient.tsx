@@ -5,7 +5,6 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useRef } from "react";
-import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router";
@@ -22,9 +21,7 @@ const BurgerIngredient = ({ingredient}: BurgerIngredientProps) => {
   const [{ isDragging }, drag] = useDrag({
     type: "draggableItem",
     item: ingredient,
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
+    collect: (monitor) => ({isDragging: !!monitor.isDragging(),}),
   });
   drag(ref);
 

@@ -5,7 +5,7 @@ import React from "react";
 import { useSelector } from "../../services/hooks";
 
 interface ProtectedRouteProps extends React.PropsWithChildren {
-  // children: React.ReactNode;
+  children: React.ReactNode;
   onlyUnAuth?: boolean;
 }
 
@@ -16,18 +16,18 @@ const ProtectedRoute = ({ children, onlyUnAuth }: ProtectedRouteProps) => {
 
   if (!isAuthCheck) {
     console.log("Waiting for user authentication check...");
-    return <Loader />; // Make sure to import and use the Loader component
+    return <Loader />;
   }
 
   if (onlyUnAuth && authData) {
     const from = location.state?.from || { pathname: "/" };
     console.log("Navigating from login-page to index");
-    return <Navigate replace to={from} />; // Make sure to import and use the Navigate component
+    return <Navigate replace to={from} />;
   }
 
   if (!onlyUnAuth && !authData) {
     console.log("Navigating from page to login-page");
-    return <Navigate replace to="/login" state={{ from: location }} />; // Make sure to import and use the Navigate component
+    return <Navigate replace to="/login" state={{ from: location }} />;
   }
 
   console.log("Rendering component");

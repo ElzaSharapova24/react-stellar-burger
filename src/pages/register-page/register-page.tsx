@@ -10,11 +10,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {UserRegisterDto} from "../../types/slice-types";
 
-interface UserData {
-  email: string;
-  password: string;
-  name: string;
-}
 
 interface RegisterPageProps {
   onRegister: (userData: UserRegisterDto) => void;
