@@ -7,12 +7,12 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import {IngredientsDto} from "../../types/slice-types";
+import { IngredientsDto } from "../../types/slice-types";
 import ConstructorItems from "../constructor-items/constructor-items";
 
 interface BurgerConstructorProps {
-  onClick: any;
-  onDrop: any;
+  onClick: () => void;
+  onDrop: (item: any) => void;
   bun: IngredientsDto | null;
   fillings: IngredientsDto[];
   totalPrice: number;
@@ -92,6 +92,6 @@ const BurgerConstructor = ({
       </section>
     </>
   );
-}
+};
 
 export default BurgerConstructor;

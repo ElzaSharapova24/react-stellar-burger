@@ -4,16 +4,16 @@ import BurgerIngredientsCategory from "../burger-ingredients-category";
 import React from "react";
 import BurgerIngredientsTabs from "../burger-ingredients-tabs";
 import Loader from "../loader";
-import {IngredientsByCategory} from "../../utils/utils";
+import { IngredientsByCategory } from "../../utils/utils";
 
 interface BurgerIngredientsProps {
   isLoading: boolean;
   currentCategories: IngredientsByCategory;
   handleTubClick: (category: string) => void;
   current: string;
-  bunCategory: any;
-  mainCategory: any;
-  sauceCategory: any;
+  bunCategory: () => void;
+  mainCategory: () => void;
+  sauceCategory: () => void;
 }
 
 const BurgerIngredients = ({

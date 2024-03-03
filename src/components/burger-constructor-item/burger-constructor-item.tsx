@@ -19,7 +19,7 @@ interface BurgerConstructorItemProps {
 }
 
 interface IndexHolder {
-    index: number
+  index: number;
 }
 
 const BurgerConstructorItem = ({
@@ -43,7 +43,7 @@ const BurgerConstructorItem = ({
     collect: (monitor) => ({
       handlerId: monitor.getHandlerId(),
     }),
-    hover: (draggedItem : IndexHolder, monitor) => {
+    hover: (draggedItem: IndexHolder, monitor) => {
       if (!ref.current) {
         return;
       }

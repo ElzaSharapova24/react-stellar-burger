@@ -14,9 +14,9 @@ import styles from "./layout.module.css";
 import BurgerIngredients from "../burger-ingredients";
 import BurgerConstructor from "../burger-constructor";
 import { useDispatch } from "../../services/hooks";
-import {IngredientsDto} from "../../types/slice-types";
-import {CreateOrderResponse} from "../../types/api-types";
-import {IngredientsByCategory} from "../../utils/utils";
+import { IngredientsDto } from "../../types/slice-types";
+import { CreateOrderResponse } from "../../types/api-types";
+import { IngredientsByCategory } from "../../utils/utils";
 
 interface LayoutProps {
   setOrderDetailsModal: (a: boolean) => void;
@@ -28,7 +28,7 @@ interface LayoutProps {
   isLoading: boolean;
 }
 
-const Layout =({
+const Layout = ({
   setOrderDetailsModal,
   orderDetailsModal,
   fillings,
@@ -69,7 +69,8 @@ const Layout =({
     }
   }, [bunInView, sauceInView, mainInView]);
 
-  const handleDrop = (item: any) => {
+  const handleDrop = (item: IngredientsDto) => {
+    console.log(item);
     if (item.type === "bun") {
       dispatch(dragBun(item));
     } else {
@@ -77,13 +78,16 @@ const Layout =({
     }
   };
 
-  const currentCategories = ingredients.reduce((result: IngredientsByCategory, current: IngredientsDto) => {
-    if (!result[current.type]) {
-      result[current.type] = [];
-    }
-    result[current.type].push(current);
-    return result;
-  }, {} as IngredientsByCategory);
+  const currentCategories = ingredients.reduce(
+    (result: IngredientsByCategory, current: IngredientsDto) => {
+      if (!result[current.type]) {
+        result[current.type] = [];
+      }
+      result[current.type].push(current);
+      return result;
+    },
+    {} as IngredientsByCategory
+  );
 
   return (
     <>
@@ -132,6 +136,6 @@ const Layout =({
       )}
     </>
   );
-}
+};
 
 export default Layout;

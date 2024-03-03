@@ -5,7 +5,7 @@ import styles from "./burger-ingredients-tabs.module.css";
 import { categoriesNames } from "../../utils/utils";
 
 interface BurgerIngredientsTabsProps {
-  tabs: string[];
+  tabs: Record<string, unknown>;
   current: string;
   handleTubClick: (key: string) => void;
 }

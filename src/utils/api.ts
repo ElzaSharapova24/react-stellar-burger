@@ -55,14 +55,6 @@ function logoutUserRequest(): Promise<Response> {
   });
 }
 
-function refreshTokenUserRequest(): Promise<Response> {
-  return fetch(`${BASE_URL}/auth/token`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" } as HeadersInit,
-    body: JSON.stringify({ token: getCookie("refreshToken") }),
-  });
-}
-
 function getUserRequest(): Promise<Response> {
   return fetch(`${BASE_URL}/auth/user`, {
     method: "GET",
@@ -87,7 +79,6 @@ export {
   getIngredientsRequest,
   createOrderRequest,
   loginRequest,
-  refreshTokenUserRequest,
   registerRequest,
   logoutUserRequest,
   getUserRequest,
