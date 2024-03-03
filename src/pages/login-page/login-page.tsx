@@ -66,7 +66,7 @@ const LoginPage = ({ onLogin }: LoginPageProps) => {
             icon="EditIcon"
           />
           <Button htmlType="submit" type="primary" size="medium">
-            Зарегистрироваться
+            Войти
           </Button>
         </form>
         <ul className={clsx(styles.list)}>

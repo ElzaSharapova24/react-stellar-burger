@@ -5,7 +5,7 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import React, { useRef, useState } from "react";
+import React, {FormEvent, useRef, useState} from "react";
 
 const ForgotPasswordPage = () => {
   const [value, setValue] = useState<string>("Email");
@@ -16,13 +16,17 @@ const ForgotPasswordPage = () => {
     alert("Icon Click Callback");
   };
 
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    }
+
   return (
     <>
       <section className={clsx(styles.wrap)}>
         <h1 className={clsx("text", "text_type_main-medium")}>
           Восстановление пароля
         </h1>
-        <form className={clsx(styles.form)}>
+        <form className={clsx(styles.form)} onSubmit={handleSubmit}>
           <Input
             type={"text"}
             placeholder={"Укажите e-mail"}
@@ -37,7 +41,7 @@ const ForgotPasswordPage = () => {
             size={"default"}
             extraClass="ml-1"
           />
-          <Button htmlType="button" type="primary" size="medium">
+          <Button htmlType="submit" type="primary" size="medium">
             Нажми на меня
           </Button>
         </form>
