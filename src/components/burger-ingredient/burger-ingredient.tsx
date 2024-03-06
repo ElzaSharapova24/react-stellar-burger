@@ -28,11 +28,7 @@ const BurgerIngredient = ({ingredient}: BurgerIngredientProps) => {
   return (
     <article
       className={clsx(styles.inner)}
-      key={_id}
       ref={ref}
-      style={{
-        cursor: "move",
-      }}
     >
       {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
       <Link

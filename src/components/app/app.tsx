@@ -9,7 +9,7 @@ import ResetPasswordPage from "../../pages/reset-password-page";
 import clsx from "clsx";
 import styles from "./app.module.css";
 import AppHeader from "../app-header";
-import React, { useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { getIngredients } from "../../services/selectors";
 import IngredientDetails from "../ingredient-details";
 import ProtectedRoute from "../protected-route";
@@ -24,6 +24,8 @@ import Modal from "../modal";
 import NotFoundPage from "../../pages/not-found-page";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { UserLoginDto, UserRegisterDto } from "../../types/slice-types";
+import Feed from "../../pages/feed";
+import OrderHistory from "../../pages/order-history";
 
 const App = () => {
   const { ingredients, bun, fillings, isLoading, order } =
@@ -34,27 +36,22 @@ const App = () => {
   const location: Location<{backgroundLocation: Location}> = useLocation();
   const navigate = useNavigate();
 
-  const cbLogin = (authData: UserLoginDto) => {
-    dispatch(loginUser(authData));
-  };
+  const cbLogin = useCallback((authData: UserLoginDto) => {
+      dispatch(loginUser(authData));
+  }, [dispatch]);
 
-  const cbRegister = (authData: UserRegisterDto) => {
-    dispatch(registerUser(authData ));
-  };
+  const cbRegister = useCallback((authData: UserRegisterDto) => {
+      dispatch(registerUser(authData));
+  }, [dispatch]);
 
   const backgroundLocation = location.state?.backgroundLocation;
 
   useEffect(() => {
     dispatch(getIngredientsFetch());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(checkUserAuth());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(authCheck());
   }, [dispatch]);
+
 
   return (
     <div className={clsx(styles.container)}>
@@ -112,6 +109,16 @@ const App = () => {
             <ProtectedRoute>
                 <ResetPasswordPage/>
             </ProtectedRoute>}/>
+          <Route path="/feed"
+                 element={
+                     <ProtectedRoute>
+                         <Feed/>
+                     </ProtectedRoute>}/>
+          <Route path="/profile/orders"
+                 element={
+                     <ProtectedRoute>
+                         <OrderHistory/>
+                     </ProtectedRoute>}/>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {backgroundLocation && (

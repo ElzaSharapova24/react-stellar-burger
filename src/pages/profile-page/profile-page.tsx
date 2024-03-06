@@ -10,6 +10,7 @@ import { getAuthData } from "../../services/selectors";
 import { useNavigate } from "react-router";
 import { logoutUser, updateUser } from "../../services/slices/routerSlice";
 import { useDispatch, useSelector } from "../../services/hooks";
+import {Link} from "react-router-dom";
 
 interface UserData {
   name: string | null;
@@ -17,7 +18,7 @@ interface UserData {
   password: string;
 }
 
-const ProfilePage: React.FC = () => {
+const ProfilePage = () => {
   const user = useSelector(getAuthData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -70,15 +71,15 @@ const ProfilePage: React.FC = () => {
               <a className={clsx("text text_type_main-medium")}>Профиль</a>
             </li>
             <li className={clsx("pt-4 pb-4")}>
-              <a
+              <Link to={"/profile/orders"}
                 className={clsx(
-                  "text text_type_main-medium text_color_inactive"
+                  "text text_type_main-medium text_color_inactive", styles.btn
                 )}
               >
                 История заказов
-              </a>
+              </Link>
             </li>
-            <li className={clsx("pt-4 pb-4")}>
+            <li className={clsx("pt-4 pb-4", styles.exitBnt)}>
               <button
                 onClick={handleSignOutBtn}
                 className={clsx(

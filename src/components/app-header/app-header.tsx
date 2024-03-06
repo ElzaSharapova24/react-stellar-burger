@@ -19,12 +19,12 @@ const AppHeader = () => {
               Конструктор
             </p>
           </NavLink>
-          <a href="#" className={clsx(styles.link)}>
+          <NavLink to={"/feed"} className={clsx(styles.link)}>
             <ListIcon type={"secondary"} />
             <p className={clsx("text text_type_main-default ml-2")}>
               Лента заказов
             </p>
-          </a>
+          </NavLink>
         </div>
         <div>
           <Logo />

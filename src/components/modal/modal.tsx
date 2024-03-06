@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import styles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useEffect } from "react";
+import React, {PropsWithChildren, useEffect} from "react";
 import ModalOverlay from "../modal-overlay";
 import { createPortal } from "react-dom";
+
 
 interface ModalProps {
   title: string;
@@ -12,7 +13,7 @@ interface ModalProps {
   className?: string;
 }
 
-const Modal = ({ title, children, onClose, className }: ModalProps) => {
+const Modal = ({ title, children, onClose, className }: PropsWithChildren<ModalProps>) => {
   const modal = document.getElementById("modal");
   const isVisible = true;
 

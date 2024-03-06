@@ -37,7 +37,15 @@
 }
 
 .btn {
+  text-decoration: none;
   border: none;
   background: transparent;
   color: #8585ad;
+  cursor: pointer;
+  transition: color .4s ease-in-out;
 }
+
+.btn:hover {
+  color: #5252cb;
+}
+

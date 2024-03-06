@@ -15,22 +15,18 @@ const ProtectedRoute = ({ children, onlyUnAuth }: ProtectedRouteProps) => {
   const isAuthCheck = useSelector(getIsAuthChecked);
 
   if (!isAuthCheck) {
-    console.log("Waiting for user authentication check...");
     return <Loader />;
   }
 
   if (onlyUnAuth && authData) {
     const from = location.state?.from || { pathname: "/" };
-    console.log("Navigating from login-page to index");
     return <Navigate replace to={from} />;
   }
 
   if (!onlyUnAuth && !authData) {
-    console.log("Navigating from page to login-page");
     return <Navigate replace to="/login" state={{ from: location }} />;
   }
 
-  console.log("Rendering component");
   return <>{children}</>;
 };
 
