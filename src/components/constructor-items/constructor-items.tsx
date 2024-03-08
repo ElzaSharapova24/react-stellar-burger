@@ -6,50 +6,50 @@ import BurgerConstructorItem from "../burger-constructor-item/burger-constructor
 import {IngredientsDto} from "../../types/slice-types";
 
 interface ConstructorItemsProps {
-  fillings: IngredientsDto[];
-  bun: IngredientsDto | null;
-  handleDeleteIngredient: () => void;
+    fillings: IngredientsDto[];
+    bun: IngredientsDto | null;
+    handleDeleteIngredient: () => void;
 }
 
 const ConstructorItems = ({
-  bun,
-  fillings,
-  handleDeleteIngredient,
-}: ConstructorItemsProps) => {
+                              bun,
+                              fillings,
+                              handleDeleteIngredient,
+                          }: ConstructorItemsProps) => {
 
-  return (
-    <React.Fragment>
-      {bun && (
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${bun.name} (верх)`}
-          thumbnail={bun.image}
-          price={bun.price}
-        />
-      )}
+    return (
+        <React.Fragment>
+            {bun && (
+                <ConstructorElement
+                    type="top"
+                    isLocked={true}
+                    text={`${bun.name} (верх)`}
+                    thumbnail={bun.image}
+                    price={bun.price}
+                />
+            )}
 
-      <div className={clsx("custom-scroll", styles.scroll)}>
-        {fillings.map((item: IngredientsDto, index: number) => (
-          <BurgerConstructorItem
-            key={item.id}
-            item={item}
-            index={index}
-            handleDeleteIngredient={handleDeleteIngredient}
-          />
-        ))}
-      </div>
-      {bun && (
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={`${bun.name} (низ)`}
-          thumbnail={bun.image}
-          price={bun.price}
-        />
-      )}
-    </React.Fragment>
-  );
+            <div className={clsx("custom-scroll", styles.scroll)}>
+                {fillings.map((item: IngredientsDto, index: number) => (
+                    <BurgerConstructorItem
+                        key={item.id}
+                        item={item}
+                        index={index}
+                        handleDeleteIngredient={handleDeleteIngredient}
+                    />
+                ))}
+            </div>
+            {bun && (
+                <ConstructorElement
+                    type="bottom"
+                    isLocked={true}
+                    text={`${bun.name} (низ)`}
+                    thumbnail={bun.image}
+                    price={bun.price}
+                />
+            )}
+        </React.Fragment>
+    );
 }
 
 export default ConstructorItems;

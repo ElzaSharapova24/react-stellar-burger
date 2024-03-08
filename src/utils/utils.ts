@@ -2,13 +2,13 @@ import {ErrorResponse} from "../types/api-types";
 import {IngredientsDto} from "../types/slice-types";
 
 interface CategoriesNames {
-  [name: string]: string,
+    [name: string]: string,
 }
 
 const categoriesNames: CategoriesNames = {
-  bun: "Булки",
-  main: "Начинка",
-  sauce: "Соусы",
+    bun: "Булки",
+    main: "Начинка",
+    sauce: "Соусы",
 };
 
 export type IngredientsByCategory = {
@@ -17,10 +17,10 @@ export type IngredientsByCategory = {
 
 
 function checkResponse<T>(res: Response): Promise<T | ErrorResponse> {
-  if (res.ok) {
-    return res.json() as Promise<T>;
-  }
-  return Promise.reject<ErrorResponse>({ statusCode: res.status });
+    if (res.ok) {
+        return res.json() as Promise<T>;
+    }
+    return Promise.reject<ErrorResponse>({ statusCode: res.status });
 }
 
 

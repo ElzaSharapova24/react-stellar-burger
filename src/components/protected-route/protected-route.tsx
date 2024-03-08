@@ -5,29 +5,29 @@ import React from "react";
 import { useSelector } from "../../services/hooks";
 
 interface ProtectedRouteProps extends React.PropsWithChildren {
-  children: React.ReactNode;
-  onlyUnAuth?: boolean;
+    children: React.ReactNode;
+    onlyUnAuth?: boolean;
 }
 
 const ProtectedRoute = ({ children, onlyUnAuth }: ProtectedRouteProps) => {
-  const location = useLocation();
-  const authData = useSelector(getAuthData);
-  const isAuthCheck = useSelector(getIsAuthChecked);
+    const location = useLocation();
+    const authData = useSelector(getAuthData);
+    const isAuthCheck = useSelector(getIsAuthChecked);
 
-  if (!isAuthCheck) {
-    return <Loader />;
-  }
+    if (!isAuthCheck) {
+        return <Loader />;
+    }
 
-  if (onlyUnAuth && authData) {
-    const from = location.state?.from || { pathname: "/" };
-    return <Navigate replace to={from} />;
-  }
+    if (onlyUnAuth && authData) {
+        const from = location.state?.from || { pathname: "/" };
+        return <Navigate replace to={from} />;
+    }
 
-  if (!onlyUnAuth && !authData) {
-    return <Navigate replace to="/login" state={{ from: location }} />;
-  }
+    if (!onlyUnAuth && !authData) {
+        return <Navigate replace to="/login" state={{ from: location }} />;
+    }
 
-  return <>{children}</>;
+    return <>{children}</>;
 };
 
 export default ProtectedRoute;

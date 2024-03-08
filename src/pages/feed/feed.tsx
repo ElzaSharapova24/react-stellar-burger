@@ -5,10 +5,10 @@ import OrderInformation from "./order-information";
 
 const Feed = () => {
     return(
-       <section className={clsx(styles.container)}>
-               <OrderFeed/>
-               <OrderInformation/>
-       </section>
+        <section className={clsx(styles.container)}>
+            <OrderFeed/>
+            <OrderInformation/>
+        </section>
     )
 }
 
