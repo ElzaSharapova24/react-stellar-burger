@@ -8,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { IngredientsDto } from "../../types/slice-types";
-import ConstructorItems from "../constructor-items/constructor-items";
+import ConstructorItems from "./constructor-items/constructor-items";
 
 interface BurgerConstructorProps {
     onClick: () => void;

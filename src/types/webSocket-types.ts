@@ -1,14 +1,5 @@
-import {
-    wsClose,
-    wsConnect,
-    wsConnecting,
-    wsDisconnect,
-    wsError,
-    wsMessage,
-    wsOpen
-} from "../services/middleware/actions";
 import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from "@reduxjs/toolkit";
-import {CreateOrderResponse} from "./api-types";
+import { WebSocketOrdersAllDto} from "./api-types";
 
 export type wsPayloadConnect = {
     wsUrl: string,
@@ -21,6 +12,6 @@ export type TWsActions = {
     wsConnecting: ActionCreatorWithoutPayload,
     wsOpen: ActionCreatorWithoutPayload,
     wsClose: ActionCreatorWithoutPayload,
-    wsMessage: ActionCreatorWithPayload<CreateOrderResponse>,
+    wsMessage: ActionCreatorWithPayload<WebSocketOrdersAllDto>,
     wsError:ActionCreatorWithPayload<any>,
 }

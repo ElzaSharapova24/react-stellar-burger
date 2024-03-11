@@ -23,16 +23,15 @@ import { getIngredientsFetch } from "../../services/slices/ingredientSlice";
 import Modal from "../modal";
 import NotFoundPage from "../../pages/not-found-page";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { UserLoginDto, UserRegisterDto } from "../../types/slice-types";
+import {UserLoginDto, UserRegisterDto} from "../../types/slice-types";
 import Feed from "../../pages/feed";
 import OrderHistory from "../../pages/order-history";
 import {getCookie} from "../../utils/cookie";
 import {wsConnect, wsDisconnect} from "../../services/middleware/actions";
-import {BASE_URL_WS_FEED} from "../../utils/api";
+import {BASE_URL_WS_ORDERS, BASE_URL_WS_ORDERS_ALL} from "../../utils/api";
 
 const App = () => {
-    const { ingredients, bun, fillings, isLoading, order } =
-        useSelector(getIngredients);
+    const { ingredients, bun, fillings, isLoading, order } = useSelector(getIngredients);
     const [orderDetailsModal, setOrderDetailsModal] = useState<boolean>(false);
 
     const dispatch = useDispatch();
@@ -47,28 +46,26 @@ const App = () => {
         dispatch(registerUser(authData));
     }, [dispatch]);
 
+
     const backgroundLocation = location.state?.backgroundLocation;
-
-    useEffect(() => {
-        const accessToken = getCookie("accessToken");
-        if (accessToken){
-            const correctedToken = accessToken.replace('Bearer ', '');
-            const wsUrl = BASE_URL_WS_FEED + `?token=${correctedToken}`;
-            dispatch(wsConnect({wsUrl: wsUrl, withTokenRefresh:false}));
-        }
-
-
-        return () => {
-            dispatch(wsDisconnect())
-        }
-    }, [])
 
     useEffect(() => {
         dispatch(getIngredientsFetch());
         dispatch(checkUserAuth());
         dispatch(authCheck());
-    }, [dispatch]);
+        dispatch(wsConnect({wsUrl: BASE_URL_WS_ORDERS_ALL, withTokenRefresh:false}));
 
+        const accessToken = getCookie("accessToken");
+        if (accessToken){
+            const correctedToken = accessToken.replace('Bearer ', '');
+            const wsUrl = BASE_URL_WS_ORDERS + `?token=${correctedToken}`;
+            dispatch(wsConnect({wsUrl: wsUrl, withTokenRefresh:true}));
+        }
+
+        return () => {
+            dispatch(wsDisconnect())
+        }
+    }, [dispatch])
 
     return (
         <div className={clsx(styles.container)}>
@@ -128,9 +125,7 @@ const App = () => {
                            </ProtectedRoute>}/>
                 <Route path="/feed"
                        element={
-                           <ProtectedRoute>
-                               <Feed/>
-                           </ProtectedRoute>}/>
+                               <Feed/>}/>
                 <Route path="/profile/orders"
                        element={
                            <ProtectedRoute>

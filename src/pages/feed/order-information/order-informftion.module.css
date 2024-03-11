@@ -1,15 +1,29 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  row-gap: 60px;
+  row-gap: 40px;
 }
 
 .inner {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  max-height: 500px;
+  column-gap: 38%;
+  align-items: flex-start;
 }
 
 .list {
+  display: flex;
+  flex-wrap: wrap;
   list-style: none;
+  column-gap: 30%;
 }
+
+
+.text {
+  color: #00cccc;
+}
+
+.largeText {
+  text-shadow: 0 0 16px rgb(51 51 255/25%), 0 0 8px rgb(51 51 255/25%), 0 4px 32px rgb(51 51 255/50%);
+}
+

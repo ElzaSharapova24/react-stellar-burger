@@ -4,8 +4,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { ingredientSort } from "../../services/slices/ingredientSlice";
-import { useDispatch } from "../../services/hooks";
+import { ingredientSort } from "../../../services/slices/ingredientSlice";
+import { useDispatch } from "../../../services/hooks";
 
 interface BurgerConstructorItemProps {
     item: {

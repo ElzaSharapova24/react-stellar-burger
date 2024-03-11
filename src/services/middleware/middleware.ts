@@ -11,6 +11,7 @@ export const socketMiddleware: (wsActions: TWsActions) => Middleware = (wsAction
         let isConnected: boolean = false;
         let wsUrl: string = '';
         let withTokenRefresh: boolean = false;
+
         return next => action => {
             const {dispatch} = store;
             const {wsConnect, wsDisconnect, wsConnecting, wsOpen, wsClose, wsMessage, wsError} = wsActions;
@@ -26,22 +27,23 @@ export const socketMiddleware: (wsActions: TWsActions) => Middleware = (wsAction
             if (socket) {
 
                 socket.onopen = () => {
+                    console.log('socket.onopen')
                     dispatch(wsOpen());
                 };
 
                 socket.onerror = event => {
-                    // dispatch(wsError);
-                    console.log('soket.onerror', event)
+                    console.log('socket.onerror', event)
                 };
 
                 socket.onclose = event => {
+                    console.log('socket.onclose')
                    if (event.code !== 1000) {
-                       console.log('soket.onclose error', event);
+                       console.log('socket.onclose error', event);
                        dispatch(wsError(event.code.toString()))
                    }
 
                     if (event.code === 1000) {
-                        console.log('soket.onclose success', event);
+                        console.log('socket.onclose success', event);
                     }
 
                    if (isConnected && event.code !== 1000) {
@@ -53,8 +55,8 @@ export const socketMiddleware: (wsActions: TWsActions) => Middleware = (wsAction
 
                 socket.onmessage = event => {
                     const {data} = event;
-                    const parsedData = JSON.parse(data)
-                    console.log(parsedData)
+                    const parsedData = JSON.parse(data);
+                    // console.log(parsedData)
                     if (withTokenRefresh && parsedData.message === 'Invalid or missing token') {
                         refreshTokenUserRequest().then(checkResponse)
                             .then(token => {

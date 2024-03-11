@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import styles from "./burger-ingredients-category.module.css";
 import React from "react";
-import BurgerIngredient from "../burger-ingredient";
+import BurgerIngredient from "./burger-ingredient";
 import { categoriesNames } from "../../utils/utils";
 import {IngredientsDto} from "../../types/slice-types";
 
@@ -10,10 +10,7 @@ interface BurgerIngredientsCategoryProps {
     ingredients?: IngredientsDto[] | null;
 }
 
-const BurgerIngredientsCategory = ({
-                                       name,
-                                       ingredients,
-                                   }: BurgerIngredientsCategoryProps) => {
+const BurgerIngredientsCategory = ({name, ingredients,}: BurgerIngredientsCategoryProps) => {
     return (
         <div id={name}>
             <h2 id={name}>{categoriesNames[name]}</h2>

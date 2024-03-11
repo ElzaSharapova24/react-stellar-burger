@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import styles from "../burger-ingredients-category/burger-ingredients-category.module.css";
+import styles from "../burger-ingredients-category.module.css";
 import {
     Counter,
     CurrencyIcon,
@@ -8,7 +8,7 @@ import React, { useRef } from "react";
 import { useDrag } from "react-dnd";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router";
-import {IngredientsDto} from "../../types/slice-types";
+import {IngredientsDto} from "../../../types/slice-types";
 
 interface BurgerIngredientProps {
     ingredient: IngredientsDto,

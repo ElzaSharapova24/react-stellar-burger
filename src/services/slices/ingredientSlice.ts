@@ -10,6 +10,7 @@ export interface IngredientState {
     fillings: IngredientsDto[];
     ingredients: IngredientsDto[];
     isLoading: boolean;
+    imagesByIds: Map<string, string>;
     order: null | CreateOrderResponse;
 }
 
@@ -18,6 +19,7 @@ export const initialState: IngredientState = {
     fillings: [],
     ingredients: [],
     isLoading: true,
+    imagesByIds: new Map(),
     order: null,
 };
 
@@ -69,6 +71,7 @@ export const ingredientSlice = createSlice({
         resetOrder(state) {
             state.order = null;
         },
+
     },
     extraReducers: (builder) => {
         builder
@@ -77,12 +80,16 @@ export const ingredientSlice = createSlice({
             })
             .addCase(getIngredientsFetch.fulfilled, (state: IngredientState, action) => {
                 const { data } = action.payload;
-                state.ingredients = data.map((e) => {
+                const ingredients = data.map((e) => {
                     return {
                         ...e,
                         count: 0,
                     };
                 });
+                state.ingredients = ingredients;
+                for (let ingredient of ingredients){
+                    state.imagesByIds.set(ingredient._id, ingredient.image_mobile);
+                }
                 state.isLoading = false;
             })
 

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { rootReducers } from "./rootReducers";
 import {socketMiddleware} from "./middleware/middleware";
+import { enableMapSet } from 'immer';
 import {wsClose, wsConnect, wsConnecting, wsDisconnect, wsError, wsMessage, wsOpen} from "./middleware/actions";
 
 const wsActions = {
@@ -14,6 +15,7 @@ const wsActions = {
 }
 const webSocketMiddleware = socketMiddleware(wsActions);
 
+enableMapSet();
 
 export const store = configureStore({
     reducer: rootReducers,

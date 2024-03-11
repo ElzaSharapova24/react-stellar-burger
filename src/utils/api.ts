@@ -5,7 +5,8 @@ import {
     UserRegisterDto,
 } from "../types/slice-types";
 
-export const BASE_URL_WS_FEED: string = "wss://norma.nomoreparties.space/orders";
+export const BASE_URL_WS_ORDERS: string = "wss://norma.nomoreparties.space/orders";
+export const BASE_URL_WS_ORDERS_ALL: string = 'wss://norma.nomoreparties.space/orders/all';
 
 const BASE_URL: string | null = "https://norma.nomoreparties.space/api";
 

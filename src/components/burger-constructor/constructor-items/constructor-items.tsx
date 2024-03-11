@@ -3,7 +3,7 @@ import React from "react";
 import clsx from "clsx";
 import styles from "./constructor-items.module.css";
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
-import {IngredientsDto} from "../../types/slice-types";
+import {IngredientsDto} from "../../../types/slice-types";
 
 interface ConstructorItemsProps {
     fillings: IngredientsDto[];
