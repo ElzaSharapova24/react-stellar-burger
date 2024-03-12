@@ -19,13 +19,14 @@ import { CreateOrderResponse } from "../../types/api-types";
 import { IngredientsByCategory } from "../../utils/utils";
 
 interface LayoutProps {
-    setOrderDetailsModal: (a: boolean) => void;
-    orderDetailsModal: boolean;
-    bun: IngredientsDto | null;
-    fillings: IngredientsDto[];
-    ingredients: IngredientsDto[];
-    order: CreateOrderResponse | null;
-    isLoading: boolean;
+    setOrderDetailsModal: (a: boolean) => void,
+    orderDetailsModal: boolean,
+    bun: IngredientsDto | null,
+    fillings: IngredientsDto[],
+    ingredients: IngredientsDto[],
+    order: CreateOrderResponse | null,
+    isLoading: boolean,
+    totalPrice: number
 }
 
 const Layout = ({
@@ -36,6 +37,7 @@ const Layout = ({
                     ingredients,
                     isLoading,
                     order,
+                    totalPrice
                 }: LayoutProps) => {
     const [bunCategory, bunInView] = useInView({ threshold: 0 });
     const [sauceCategory, sauceInView] = useInView({ threshold: 0 });
@@ -43,12 +45,6 @@ const Layout = ({
     const [current, setCurrent] = React.useState<string>("bun");
     const dispatch = useDispatch();
 
-    const totalPrice = useMemo(() => {
-        return (
-            fillings.reduce((a: number, c: IngredientsDto) => a + c.price, 0) +
-            (bun !== null ? bun.price * 2 : 0)
-        );
-    }, [bun, fillings]);
 
     const handleTubClick = (type: string) => {
         setCurrent(type);
@@ -70,7 +66,6 @@ const Layout = ({
     }, [bunInView, sauceInView, mainInView]);
 
     const handleDrop = (item: IngredientsDto) => {
-        console.log(item);
         if (item.type === "bun") {
             dispatch(dragBun(item));
         } else {

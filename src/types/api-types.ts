@@ -54,6 +54,13 @@ export type TAllOrder = {
     number: number;
 }
 
+export type IngredientShortDto = {
+    name: string;
+    price: number;
+    image: string;
+    count: number;
+}
+
 export type GetIngredientsResponse = ServerResponse<{
     data: IngredientsDto[]
 }>;

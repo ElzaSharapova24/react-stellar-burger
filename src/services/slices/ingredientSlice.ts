@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import { createOrderRequest, getIngredientsRequest } from "../../utils/api";
 import { checkResponse } from "../../utils/utils";
 import { IngredientsDto } from "../../types/slice-types";
-import {CreateOrderResponse, GetIngredientsResponse} from "../../types/api-types";
+import {CreateOrderResponse, GetIngredientsResponse, IngredientShortDto} from "../../types/api-types";
 import {PayloadCreator} from "../hooks";
 
 export interface IngredientState {
@@ -10,7 +10,7 @@ export interface IngredientState {
     fillings: IngredientsDto[];
     ingredients: IngredientsDto[];
     isLoading: boolean;
-    imagesByIds: Map<string, string>;
+    imagesByIds: Map<string, IngredientShortDto>;
     order: null | CreateOrderResponse;
 }
 
@@ -88,7 +88,12 @@ export const ingredientSlice = createSlice({
                 });
                 state.ingredients = ingredients;
                 for (let ingredient of ingredients){
-                    state.imagesByIds.set(ingredient._id, ingredient.image_mobile);
+                    state.imagesByIds.set(ingredient._id, {
+                        image: ingredient.image_mobile,
+                        price: ingredient.price,
+                        name: ingredient.name,
+                        count: ingredient.count,
+                    });
                 }
                 state.isLoading = false;
             })

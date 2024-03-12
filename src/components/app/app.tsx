@@ -9,8 +9,8 @@ import ResetPasswordPage from "../../pages/reset-password-page";
 import clsx from "clsx";
 import styles from "./app.module.css";
 import AppHeader from "../app-header";
-import React, {useCallback, useEffect, useState} from "react";
-import { getIngredients } from "../../services/selectors";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
+import {getIngredients, getOrder} from "../../services/selectors";
 import IngredientDetails from "../ingredient-details";
 import ProtectedRoute from "../protected-route";
 import {
@@ -23,16 +23,18 @@ import { getIngredientsFetch } from "../../services/slices/ingredientSlice";
 import Modal from "../modal";
 import NotFoundPage from "../../pages/not-found-page";
 import { useDispatch, useSelector } from "../../services/hooks";
-import {UserLoginDto, UserRegisterDto} from "../../types/slice-types";
+import {IngredientsDto, UserLoginDto, UserRegisterDto} from "../../types/slice-types";
 import Feed from "../../pages/feed";
 import OrderHistory from "../../pages/order-history";
 import {getCookie} from "../../utils/cookie";
 import {wsConnect, wsDisconnect} from "../../services/middleware/actions";
 import {BASE_URL_WS_ORDERS, BASE_URL_WS_ORDERS_ALL} from "../../utils/api";
+import OrderIngredientDetails from "../../pages/feed/order-feed/order/order-ingredient-details";
 
 const App = () => {
-    const { ingredients, bun, fillings, isLoading, order } = useSelector(getIngredients);
+    const { ingredients, bun, fillings, isLoading, order, imagesByIds } = useSelector(getIngredients);
     const [orderDetailsModal, setOrderDetailsModal] = useState<boolean>(false);
+    const {orders} = useSelector(getOrder);
 
     const dispatch = useDispatch();
     const location: Location<{backgroundLocation: Location}> = useLocation();
@@ -67,6 +69,14 @@ const App = () => {
         }
     }, [dispatch])
 
+    const totalPrice = useMemo(() => {
+        return (
+            fillings.reduce((a: number, c: IngredientsDto) => a + c.price, 0) +
+            (bun !== null ? bun.price * 2 : 0)
+        );
+    }, [bun, fillings]);
+
+    // @ts-ignore
     return (
         <div className={clsx(styles.container)}>
             <AppHeader />
@@ -82,6 +92,7 @@ const App = () => {
                             order={order}
                             ingredients={ingredients}
                             isLoading={isLoading}
+                            totalPrice={totalPrice}
                         />
                     }
                 />
@@ -123,13 +134,13 @@ const App = () => {
                            <ProtectedRoute>
                                <ResetPasswordPage/>
                            </ProtectedRoute>}/>
-                <Route path="/feed"
-                       element={
-                               <Feed/>}/>
+                <Route path="/feed" element={<Feed imagesByIds={imagesByIds} orders={orders}/>}/>
+                <Route path="/feed/:id" element={
+                    <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders} totalPrice={totalPrice}/>} />
                 <Route path="/profile/orders"
                        element={
                            <ProtectedRoute>
-                               <OrderHistory/>
+                               <OrderHistory imagesByIds={imagesByIds} orders={orders}/>
                            </ProtectedRoute>}/>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
@@ -149,6 +160,10 @@ const App = () => {
                             </Modal>
                         }
                     />
+                    <Route path={"/feed/:id"} element={
+                        <Modal onClose={() => {navigate(-1);}} title={''}>
+                            <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders} totalPrice={totalPrice}/>
+                        </Modal>}/>
                 </Routes>
             )}
         </div>
