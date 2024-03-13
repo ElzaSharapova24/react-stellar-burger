@@ -13,10 +13,11 @@ interface OrderProps {
 
 const Order = ({ item, imagesByIds }:OrderProps) => {
     const location = useLocation();
-    const images = item.ingredients.map(id => imagesByIds.get(id)) as IngredientShortDto[];
+    const images = item.ingredients.map(id => imagesByIds.get(id));
     const {_id} = item;
     const visibleCount = 6;
     const remainingCount = Math.max(images.length - visibleCount, 0);
+    const orderStatus = () => {return item.status === "done" ? 'Выполнен' : item.status === 'pending' ? 'Готовится' : null};
     return (
             <li className={clsx(styles.wrap)}>
                 <Link to={{ pathname: `/feed/${_id}` }} state={{ backgroundLocation: location }} className={clsx(styles.inner)}>
@@ -25,12 +26,13 @@ const Order = ({ item, imagesByIds }:OrderProps) => {
                         <FormattedDate className={clsx("text text_type_main-small text_color_inactive")}  date={new Date()}/>
                     </div>
                     <h2 className={clsx("mt-6 mr-6 ml-6 text text_type_main-medium")}>{item.name}</h2>
+                    <span className={clsx(styles.status, "text text_type_main-small mt-6 mr-6 ml-6")}>{orderStatus()}</span>
                     <div className={clsx("mt-6 mr-6 ml-6 mb-6", styles.price)}>
                         <ul className={clsx(styles.iconsList)}>
                             {
-                                images.slice(0,visibleCount).map((image, i) => {
+                                images.filter(e => e !== undefined).slice(0,visibleCount).map((image, i) => {
                                     return <li className={clsx(styles.iconsItem)} key={i}>
-                                               <img src={image.image} className={clsx(styles.orderIcons)} alt={item.name}/>
+                                               <img src={image!.image} className={clsx(styles.orderIcons)} alt={item.name}/>
                                            </li>
                                 })
                             }
@@ -38,7 +40,6 @@ const Order = ({ item, imagesByIds }:OrderProps) => {
                                 (remainingCount > 0) && <span className={clsx("text text_type_digits-default", styles.iconCount)}>{`+${remainingCount}`}</span>
                             }
 
-                            {/*<span className={clsx(styles.orderTime)}>{item.status}</span>*/}
                         </ul>
                         <div className={clsx('ml-6')}>
                             <span className={clsx("mr-2 text text_type_digits-medium")}>1111</span>

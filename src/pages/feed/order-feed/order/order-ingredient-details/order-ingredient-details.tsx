@@ -12,22 +12,20 @@ interface OrderIngredientDetailsProps {
 
 const OrderIngredientDetails = ({imagesByIds, orders, totalPrice }: OrderIngredientDetailsProps) => {
     return (
-            <div className={clsx(styles.container, "p-1")}>
+            <div className={clsx(styles.container)}>
                 {
                     orders.slice(0,1).map(item =>
                         {
                             const ingredients = item.ingredients.map(id => imagesByIds.get(id)) as IngredientShortDto[];
-                            const date = item.createAt;
-                            const orderStatus = () => {
-                                return item.status === "done" ? 'Выполнен' : item.status === 'pending' ? 'Готовится' : null;
-                            };
+                            const orderStatus = () => {return item.status === "done" ? 'Выполнен' : item.status === 'pending' ? 'Готовится' : null};
+                            const date = new Date();
                             return <>
                                <article key={item._id} className={clsx(styles.wrapper)}>
                                    <p className={clsx("text text_type_digits-default mb-5", styles.number)}>{`#${item.number}`}</p>
                                    <h1 className={clsx("text text_type_main-medium mb-1")}>{item.name}</h1>
-                                   <span className={clsx(styles.status, "text text_type_main-default")}>{orderStatus()}</span>
+                                   <span className={clsx(styles.status, "text text_type_main-default mb-10")}>{orderStatus()}</span>
                                    <div className={clsx(styles.wrap)}>
-                                       <h2 className={clsx("text text_type_main-medium")}>
+                                       <h2 className={clsx("text text_type_main-medium mb-5")}>
                                            Состав:
                                        </h2>
                                        <ul className={clsx(styles.list, "custom-scroll mb-7")}>
@@ -53,9 +51,11 @@ const OrderIngredientDetails = ({imagesByIds, orders, totalPrice }: OrderIngredi
                                        <div className={clsx(styles.info)}>
                                            <FormattedDate
                                                className={clsx("text text_type_main-small text_color_inactive")}
-                                               date={new Date(date)}/>
-                                           <p className={clsx("text text_type_digits-default")}>{totalPrice}</p>
-                                           <CurrencyIcon type="primary" />
+                                               date={date}/>
+                                           <div>
+                                               <p className={clsx("text text_type_digits-default")}>{totalPrice}</p>
+                                               <CurrencyIcon type="primary" />
+                                           </div>
                                        </div>
                                    </div>
                                </article>

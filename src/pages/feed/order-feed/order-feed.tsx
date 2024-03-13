@@ -1,8 +1,6 @@
 import styles from "./order-feed.module.css"
 import clsx from "clsx";
 import Order from "./order";
-import {useSelector} from "../../../services/hooks";
-import {getIngredients, getOrder} from "../../../services/selectors";
 import "../feed";
 import {IngredientShortDto, TAllOrder} from "../../../types/api-types";
 interface OrderFeedProps {

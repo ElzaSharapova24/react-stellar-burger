@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation, useNavigate } from "react-router";
+import {Route, Routes, useLocation, useNavigate} from "react-router";
 import {Location} from "react-router-dom"
 import Layout from "../layout/layout";
 import LoginPage from "../../pages/login-page";
@@ -13,21 +13,16 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {getIngredients, getOrder} from "../../services/selectors";
 import IngredientDetails from "../ingredient-details";
 import ProtectedRoute from "../protected-route";
-import {
-    authCheck,
-    checkUserAuth,
-    loginUser,
-    registerUser,
-} from "../../services/slices/routerSlice";
-import { getIngredientsFetch } from "../../services/slices/ingredientSlice";
+import {authCheck, checkUserAuth, loginUser, registerUser,} from "../../services/slices/routerSlice";
+import {getIngredientsFetch} from "../../services/slices/ingredientSlice";
 import Modal from "../modal";
 import NotFoundPage from "../../pages/not-found-page";
-import { useDispatch, useSelector } from "../../services/hooks";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {IngredientsDto, UserLoginDto, UserRegisterDto} from "../../types/slice-types";
 import Feed from "../../pages/feed";
 import OrderHistory from "../../pages/order-history";
 import {getCookie} from "../../utils/cookie";
-import {wsConnect, wsDisconnect} from "../../services/middleware/actions";
+import {wsConnect} from "../../services/middleware/actions";
 import {BASE_URL_WS_ORDERS, BASE_URL_WS_ORDERS_ALL} from "../../utils/api";
 import OrderIngredientDetails from "../../pages/feed/order-feed/order/order-ingredient-details";
 
@@ -59,14 +54,14 @@ const App = () => {
 
         const accessToken = getCookie("accessToken");
         if (accessToken){
-            const correctedToken = accessToken.replace('Bearer ', '');
-            const wsUrl = BASE_URL_WS_ORDERS + `?token=${correctedToken}`;
-            dispatch(wsConnect({wsUrl: wsUrl, withTokenRefresh:true}));
+            // const correctedToken = accessToken.replace('Bearer ', '');
+            // const wsUrl = BASE_URL_WS_ORDERS + `?token=${correctedToken}`;
+            // dispatch(wsConnect({wsUrl: wsUrl, withTokenRefresh:true}));
         }
 
-        return () => {
-            dispatch(wsDisconnect())
-        }
+        // return () => {
+        //     dispatch(wsDisconnect())
+        // }
     }, [dispatch])
 
     const totalPrice = useMemo(() => {
