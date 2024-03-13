@@ -92,7 +92,8 @@ export const ingredientSlice = createSlice({
                         image: ingredient.image_mobile,
                         price: ingredient.price,
                         name: ingredient.name,
-                        count: ingredient.count,
+                        count: 0,
+                        _id: ingredient._id,
                     });
                 }
                 state.isLoading = false;

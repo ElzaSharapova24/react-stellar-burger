@@ -1,7 +1,13 @@
 import styles from "./order-informftion.module.css"
 import clsx from "clsx";
+import {IngredientShortDto, TAllOrder} from "../../../types/api-types";
 
-const OrderInformation = () => {
+interface OrderInformation {
+    total:number,
+    totalToday: number,
+}
+
+const OrderInformation = ({total, totalToday}: OrderInformation) => {
     return (
         <div className={clsx(styles.wrapper, "custom-scroll")}>
             <div className={clsx(styles.inner)}>
@@ -40,13 +46,13 @@ const OrderInformation = () => {
                 <p className={clsx("text text_type_main-medium")}>
                     Выполнено за все время:
                 </p>
-                <p className={clsx("text text_type_digits-large", styles.largeText)}>12345678</p>
+                <p className={clsx("text text_type_digits-large", styles.largeText)}>{total}</p>
             </div>
             <div>
                 <p className={clsx("ext text_type_main-medium")}>
                     Выполнено за сегодня:
                 </p>
-                <p className={clsx("text text_type_digits-large", styles.largeText)}>1234</p>
+                <p className={clsx("text text_type_digits-large", styles.largeText)}>{totalToday}</p>
             </div>
         </div>
     )

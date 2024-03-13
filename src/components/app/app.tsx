@@ -10,7 +10,7 @@ import clsx from "clsx";
 import styles from "./app.module.css";
 import AppHeader from "../app-header";
 import React, {useCallback, useEffect, useMemo, useState} from "react";
-import {getIngredients, getOrder} from "../../services/selectors";
+import {getCurrentUserOrder, getIngredients, getOrder} from "../../services/selectors";
 import IngredientDetails from "../ingredient-details";
 import ProtectedRoute from "../protected-route";
 import {authCheck, checkUserAuth, loginUser, registerUser,} from "../../services/slices/routerSlice";
@@ -22,14 +22,15 @@ import {IngredientsDto, UserLoginDto, UserRegisterDto} from "../../types/slice-t
 import Feed from "../../pages/feed";
 import OrderHistory from "../../pages/order-history";
 import {getCookie} from "../../utils/cookie";
-import {wsConnect} from "../../services/middleware/actions";
+import {currentUserOrdersActions, ordersAllActions} from "../../services/middleware/actions";
 import {BASE_URL_WS_ORDERS, BASE_URL_WS_ORDERS_ALL} from "../../utils/api";
 import OrderIngredientDetails from "../../pages/feed/order-feed/order/order-ingredient-details";
 
 const App = () => {
     const { ingredients, bun, fillings, isLoading, order, imagesByIds } = useSelector(getIngredients);
     const [orderDetailsModal, setOrderDetailsModal] = useState<boolean>(false);
-    const {orders} = useSelector(getOrder);
+    const {orders, total, totalToday} = useSelector(getOrder);
+    const {orders: currentUserOrders} = useSelector(getCurrentUserOrder);
 
     const dispatch = useDispatch();
     const location: Location<{backgroundLocation: Location}> = useLocation();
@@ -50,18 +51,15 @@ const App = () => {
         dispatch(getIngredientsFetch());
         dispatch(checkUserAuth());
         dispatch(authCheck());
-        dispatch(wsConnect({wsUrl: BASE_URL_WS_ORDERS_ALL, withTokenRefresh:false}));
+        dispatch(ordersAllActions.wsConnect({wsUrl: BASE_URL_WS_ORDERS_ALL, withTokenRefresh:false}));
 
         const accessToken = getCookie("accessToken");
         if (accessToken){
-            // const correctedToken = accessToken.replace('Bearer ', '');
-            // const wsUrl = BASE_URL_WS_ORDERS + `?token=${correctedToken}`;
-            // dispatch(wsConnect({wsUrl: wsUrl, withTokenRefresh:true}));
+            const correctedToken = accessToken.replace('Bearer ', '');
+            const wsUrlOrders = BASE_URL_WS_ORDERS + `?token=${correctedToken}`;
+            dispatch(currentUserOrdersActions.wsConnect({wsUrl: wsUrlOrders, withTokenRefresh:true}));
         }
 
-        // return () => {
-        //     dispatch(wsDisconnect())
-        // }
     }, [dispatch])
 
     const totalPrice = useMemo(() => {
@@ -129,13 +127,13 @@ const App = () => {
                            <ProtectedRoute>
                                <ResetPasswordPage/>
                            </ProtectedRoute>}/>
-                <Route path="/feed" element={<Feed imagesByIds={imagesByIds} orders={orders}/>}/>
+                <Route path="/feed" element={<Feed imagesByIds={imagesByIds} orders={orders} total={total} totalToday={totalToday}/>}/>
                 <Route path="/feed/:id" element={
-                    <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders} totalPrice={totalPrice}/>} />
+                    <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders}/>} />
                 <Route path="/profile/orders"
                        element={
                            <ProtectedRoute>
-                               <OrderHistory imagesByIds={imagesByIds} orders={orders}/>
+                               <OrderHistory imagesByIds={imagesByIds} orders={currentUserOrders}/>
                            </ProtectedRoute>}/>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
@@ -157,7 +155,7 @@ const App = () => {
                     />
                     <Route path={"/feed/:id"} element={
                         <Modal onClose={() => {navigate(-1);}} title={''}>
-                            <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders} totalPrice={totalPrice}/>
+                            <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders}/>
                         </Modal>}/>
                 </Routes>
             )}

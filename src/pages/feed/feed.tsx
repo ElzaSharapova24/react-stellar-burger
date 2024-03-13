@@ -7,13 +7,15 @@ import {IngredientShortDto, TAllOrder} from "../../types/api-types";
 interface FeedProps {
     imagesByIds: Map<string, IngredientShortDto>,
     orders: TAllOrder[],
+    total: number,
+    totalToday: number
 }
 
-const Feed = ({ imagesByIds, orders }: FeedProps) => {
+const Feed = ({ imagesByIds, orders, total, totalToday }: FeedProps) => {
     return(
         <section className={clsx(styles.container)}>
             <OrderFeed imagesByIds={imagesByIds} orders={orders}/>
-            <OrderInformation/>
+            <OrderInformation total={total} totalToday={totalToday}/>
         </section>
     )
 }

@@ -33,11 +33,12 @@ export type TOrderType = {
 }
 
 export type TOrderState = {
-    orders: TAllOrder[];
+    orders: TAllOrder[],
     isLoading: boolean,
-    errorCode: string | null;
+    errorCode: string | null,
+    total: number,
+    totalToday: number,
 }
-
 export type WebSocketOrdersAllDto = ServerResponse<{
     orders: TAllOrder[],
     total: number,
@@ -49,7 +50,7 @@ export type TAllOrder = {
     ingredients: string[],
     status: string,
     name: string,
-    createAt: string,
+    createdAt: Date,
     updateAt: string,
     number: number;
 }
@@ -59,7 +60,9 @@ export type IngredientShortDto = {
     price: number;
     image: string;
     count: number;
+    _id: string;
 }
+
 
 export type GetIngredientsResponse = ServerResponse<{
     data: IngredientsDto[]

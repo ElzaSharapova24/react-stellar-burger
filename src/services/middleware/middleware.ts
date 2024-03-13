@@ -4,7 +4,7 @@ import {refreshTokenUserRequest} from "../../utils/api";
 import {checkResponse} from "../../utils/utils";
 
 
-export const socketMiddleware: (wsActions: TWsActions) => Middleware = (wsActions) => {
+export const socketMiddleware: (wsActions: TWsActions, prefix: string) => Middleware = (wsActions, prefix: string) => {
     return (store: { dispatch: any; }) => {
         let socket: WebSocket | null = null;
         let reconnectTimer: number = 0;
@@ -13,6 +13,11 @@ export const socketMiddleware: (wsActions: TWsActions) => Middleware = (wsAction
         let withTokenRefresh: boolean = false;
 
         return next => action => {
+            const type = (action as any).type as string;
+            if (!type.startsWith(prefix)){
+                next(action);
+                return;
+            }
             const {dispatch} = store;
             const {wsConnect, wsDisconnect, wsConnecting, wsOpen, wsClose, wsMessage, wsError} = wsActions;
 
@@ -56,7 +61,6 @@ export const socketMiddleware: (wsActions: TWsActions) => Middleware = (wsAction
                 socket.onmessage = event => {
                     const {data} = event;
                     const parsedData = JSON.parse(data);
-                    // console.log(parsedData)
                     if (withTokenRefresh && parsedData.message === 'Invalid or missing token') {
                         refreshTokenUserRequest().then(checkResponse)
                             .then(token => {
@@ -66,7 +70,7 @@ export const socketMiddleware: (wsActions: TWsActions) => Middleware = (wsAction
                                 dispatch(wsConnect({wsUrl, withTokenRefresh}))
                             })
                             .catch(error => {
-                                dispatch(wsError(error.code.toString()))
+                                dispatch(wsError((error.code || error.statusCode).toString()))
                             })
 
                         dispatch(wsClose())
