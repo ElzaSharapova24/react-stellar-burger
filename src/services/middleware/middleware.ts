@@ -1,11 +1,12 @@
 import {TWsActions} from "../../types/webSocket-types";
-import {Middleware} from "@reduxjs/toolkit";
+import {Middleware, MiddlewareAPI} from "@reduxjs/toolkit";
 import {refreshTokenUserRequest} from "../../utils/api";
 import {checkResponse} from "../../utils/utils";
+import {RootStore, AppDispatch} from "../hooks";
 
 
 export const socketMiddleware: (wsActions: TWsActions, prefix: string) => Middleware = (wsActions, prefix: string) => {
-    return (store: { dispatch: any; }) => {
+    return (store: MiddlewareAPI<AppDispatch, RootStore>) => {
         let socket: WebSocket | null = null;
         let reconnectTimer: number = 0;
         let isConnected: boolean = false;

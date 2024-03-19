@@ -51,7 +51,7 @@ export const registerUser = createAsyncThunk<UserResponseToken, UserRegisterDto>
     `${sliceName}/registerUser`,
     PayloadCreator<UserResponseToken, UserRegisterDto>(async function (payload) {
         return await registerRequest(payload).then(checkResponse<UserResponseToken>);
-    }) // AsyncThunkPayloadCreator<Returned, ThunkArg, ThunkApiConfig >
+    })
 );
 
 export const loginUser = createAsyncThunk<UserResponseToken, UserLoginDto>(

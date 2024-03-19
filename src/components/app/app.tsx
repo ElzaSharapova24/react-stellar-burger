@@ -21,9 +21,6 @@ import {useDispatch, useSelector} from "../../services/hooks";
 import {IngredientsDto, UserLoginDto, UserRegisterDto} from "../../types/slice-types";
 import Feed from "../../pages/feed";
 import OrderHistory from "../../pages/order-history";
-import {getCookie} from "../../utils/cookie";
-import {currentUserOrdersActions, ordersAllActions} from "../../services/middleware/actions";
-import {BASE_URL_WS_ORDERS, BASE_URL_WS_ORDERS_ALL} from "../../utils/api";
 import OrderIngredientDetails from "../../pages/feed/order-feed/order/order-ingredient-details";
 
 const App = () => {
@@ -51,15 +48,6 @@ const App = () => {
         dispatch(getIngredientsFetch());
         dispatch(checkUserAuth());
         dispatch(authCheck());
-        dispatch(ordersAllActions.wsConnect({wsUrl: BASE_URL_WS_ORDERS_ALL, withTokenRefresh:false}));
-
-        const accessToken = getCookie("accessToken");
-        if (accessToken){
-            const correctedToken = accessToken.replace('Bearer ', '');
-            const wsUrlOrders = BASE_URL_WS_ORDERS + `?token=${correctedToken}`;
-            dispatch(currentUserOrdersActions.wsConnect({wsUrl: wsUrlOrders, withTokenRefresh:true}));
-        }
-
     }, [dispatch])
 
     const totalPrice = useMemo(() => {

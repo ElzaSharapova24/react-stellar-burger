@@ -25,7 +25,7 @@ const Order = ({ item, imagesByIds }:OrderProps) => {
             <li className={clsx(styles.wrap)}>
                 <Link to={{ pathname: `/feed/${_id}` }} state={{ backgroundLocation: location }} className={clsx(styles.inner)}>
                     <div className={clsx("mt-6 mr-6 ml-6", styles.priceInfo)}>
-                        <p className={clsx("text text_type_digits-default")}>{`#${item._id}`}</p>
+                        <p className={clsx("text text_type_digits-default")}>{`#${item.number}`}</p>
                         <FormattedDate className={clsx("text text_type_main-small text_color_inactive")}  date={new Date(item.createdAt)}/>
                     </div>
                     <h2 className={clsx("mt-6 mr-6 ml-6 text text_type_main-medium")}>{item.name}</h2>
