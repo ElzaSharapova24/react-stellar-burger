@@ -3,7 +3,7 @@ describe('Login to page',() => {
         cy.visit('http://localhost:3000')
     })
     
-    it('Авторизация пользователя', () => {
+    it('User authorization', () => {
         // Переходим на страницу авторизации
         cy.visit('http://localhost:3000/login');
         
@@ -16,6 +16,5 @@ describe('Login to page',() => {
         
         // Нажимаем на кнопку "Вход"
         cy.get('[data-cy="login-btn"]').click();
-        
     });
 })

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import styles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {PropsWithChildren, useEffect} from "react";
+import React, {PropsWithChildren, useEffect, useState} from "react";
 import ModalOverlay from "./modal-overlay";
 import { createPortal } from "react-dom";
 
@@ -16,6 +16,12 @@ interface ModalProps {
 const Modal = ({ title, children, onClose, className }: PropsWithChildren<ModalProps>) => {
     const modal = document.getElementById("modal");
     const isVisible = true;
+
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const isLoading = () => {
+        setLoading(true);
+    };
 
     useEffect(() => {
         function closeByEscape(evt: KeyboardEvent) {
@@ -33,11 +39,13 @@ const Modal = ({ title, children, onClose, className }: PropsWithChildren<ModalP
 
     return isVisible
         ? createPortal(
-            <ModalOverlay onClose={onClose}>
+            <ModalOverlay onClose={onClose} data-cy='modal'>
                 <div className={clsx(styles.content, "p-10")}>
-                    <div className={clsx(styles.wrap)}>
+                    <div className={clsx(styles.wrap)} data-cy='modal-container'>
                         <h2 className={clsx(className, styles.heading)}>{title}</h2>
-                        <CloseIcon type="primary" onClick={onClose} />
+                        <button data-cy='close-icon' className={clsx(styles.btn)}>
+                            <CloseIcon type="primary" onClick={onClose} />
+                        </button>
                     </div>
                     {children}
                 </div>

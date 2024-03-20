@@ -15,7 +15,7 @@ const IngredientDetails=() => {
     return (
         <>
             {
-                <div className={clsx(styles.wrapper)}>
+                <div className={clsx(styles.wrapper)} data-cy='ingredient-modal'>
                     <img className={clsx(styles.image)} src={image_large} alt={name} />
                     <div className={clsx(styles.inner)}>
                         <h3 className={clsx("text text_type_main-medium")}>{name}</h3>

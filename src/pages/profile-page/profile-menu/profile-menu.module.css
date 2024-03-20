@@ -1,0 +1,38 @@
+
+.item {
+  display: flex;
+}
+
+.link {
+  text-decoration: none;
+  color: #8585ad;
+  background-color: transparent;
+  border: none;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  list-style: none;
+}
+
+.text {
+  width: 320px;
+}
+
+.inner {
+  display: flex;
+  column-gap: 150px;
+}
+
+.wrap a {
+  text-decoration: none;
+}
+
+.isActive {
+  color: white;
+}
+
+
+

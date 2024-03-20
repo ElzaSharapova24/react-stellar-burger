@@ -1,4 +1,8 @@
 .wrap {
+  display: flex;
   margin: 0 auto;
   width: 850px;
+  align-items: baseline;
+  column-gap: 24px;
+  padding-top: 25px;
 }

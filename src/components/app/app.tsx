@@ -86,14 +86,6 @@ const App = () => {
                     }
                 />
                 <Route
-                    path="/profile"
-                    element={
-                        <ProtectedRoute>
-                            <ProfilePage />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
                     path="/login"
                     element={
                         <ProtectedRoute onlyUnAuth>
@@ -117,12 +109,25 @@ const App = () => {
                            </ProtectedRoute>}/>
                 <Route path="/feed" element={<Feed imagesByIds={imagesByIds} orders={orders} total={total} totalToday={totalToday}/>}/>
                 <Route path="/feed/:id" element={
-                    <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders}/>} />
+                    <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders}/>
+                } />
+                <Route
+                    path="/profile"
+                    element={
+                        <ProtectedRoute>
+                            <ProfilePage />
+                        </ProtectedRoute>
+                    }
+                />
                 <Route path="/profile/orders"
                        element={
                            <ProtectedRoute>
                                <OrderHistory imagesByIds={imagesByIds} orders={currentUserOrders}/>
-                           </ProtectedRoute>}/>
+                           </ProtectedRoute>}
+                />
+                <Route path={"/profile/orders/:id"} element={
+                    <OrderIngredientDetails imagesByIds={imagesByIds} orders={currentUserOrders}/>
+                }/>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
             {backgroundLocation && (
@@ -144,7 +149,13 @@ const App = () => {
                     <Route path={"/feed/:id"} element={
                         <Modal onClose={() => {navigate(-1);}} title={''}>
                             <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders}/>
-                        </Modal>}/>
+                        </Modal>}
+                    />
+                    <Route path={"/profile/orders/:id"} element={
+                        <Modal onClose={() => {navigate(-1);}} title={''}>
+                            <OrderIngredientDetails imagesByIds={imagesByIds} orders={currentUserOrders}/>
+                        </Modal>}
+                    />
                 </Routes>
             )}
         </div>

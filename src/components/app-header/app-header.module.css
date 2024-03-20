@@ -22,10 +22,17 @@
   display: flex;
   text-decoration: none;
   align-items: center;
-  color: #8585ad;
+  color: #9090a6;
 }
 
+
 .activeLink  {
-  color: #f2f2f3;
+  color: #fff;
   text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.activeLink svg {
+  fill: #fff;
+  transition: fill 0.3s ease-in-out;
 }

@@ -10,13 +10,15 @@ import ReactDOM from "react-dom/client";
 import App from "./components/app";
 
 ReactDOM.createRoot(document.getElementById("root") as MathMLElement).render(
-    <Provider store={store}>
-        <DndProvider backend={HTML5Backend}>
-            <BrowserRouter basename={"/"}>
-                <App />
-            </BrowserRouter>
-        </DndProvider>
-    </Provider>
+    <React.StrictMode>
+        <Provider store={store}>
+            <DndProvider backend={HTML5Backend}>
+                <BrowserRouter basename={"/"}>
+                    <App />
+                </BrowserRouter>
+            </DndProvider>
+        </Provider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

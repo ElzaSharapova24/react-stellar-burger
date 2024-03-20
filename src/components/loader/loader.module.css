@@ -1,8 +1,8 @@
 .loader {
   display:flex;
-  justify-content: center;
+  margin: 0 auto;
   align-items: center;
-  min-height: 500px;
+  padding-top: 50px;
 }
 .loader:after {
   content: " ";

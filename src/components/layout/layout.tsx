@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import OrderDetails from "../order-details";
 import {
     dragBun,
@@ -107,7 +107,7 @@ const Layout = ({
                             totalPrice={totalPrice}
                             onClick={() => {
                                 dispatch(
-                                    createOrderResult(fillings.map((e) => e._id).concat(bun!._id))
+                                    createOrderResult([bun!._id].concat(fillings.map((e) => e._id).concat(bun!._id)))
                                 );
                                 setOrderDetailsModal(true);
                             }}

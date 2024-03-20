@@ -6,7 +6,7 @@ describe('drag-and-drop', () => {
     })
     
     const dragAndDrop = (index) => {
-        cy.get('[data-cy="drag-ingredient"]').eq(index).trigger('dragstart');
+        cy.get('[data-cy="ingredient"]').eq(index).trigger('dragstart');
         cy.get('[data-cy="drop-container"]').trigger('drop');
     };
     

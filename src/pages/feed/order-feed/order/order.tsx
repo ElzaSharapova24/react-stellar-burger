@@ -9,9 +9,10 @@ import {useLocation} from "react-router";
 interface OrderProps {
     item: TAllOrder,
     imagesByIds: Map<string, IngredientShortDto>,
+    orderLinkFunc: (id: string) => string,
 }
 
-const Order = ({ item, imagesByIds }:OrderProps) => {
+const Order = ({ item, imagesByIds, orderLinkFunc }:OrderProps) => {
     const location = useLocation();
     const images = item.ingredients.map(id => imagesByIds.get(id));
     const {_id} = item;
@@ -23,7 +24,7 @@ const Order = ({ item, imagesByIds }:OrderProps) => {
     },0)
     return (
             <li className={clsx(styles.wrap)}>
-                <Link to={{ pathname: `/feed/${_id}` }} state={{ backgroundLocation: location }} className={clsx(styles.inner)}>
+                <Link to={{ pathname: orderLinkFunc(_id) }} state={{ backgroundLocation: location }} className={clsx(styles.inner)}>
                     <div className={clsx("mt-6 mr-6 ml-6", styles.priceInfo)}>
                         <p className={clsx("text text_type_digits-default")}>{`#${item.number}`}</p>
                         <FormattedDate className={clsx("text text_type_main-small text_color_inactive")}  date={new Date(item.createdAt)}/>

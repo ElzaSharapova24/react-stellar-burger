@@ -17,7 +17,10 @@ const getIngredientsRequest = (): Promise<Response> => {
 function createOrderRequest(ingredients: string[]) : Promise<Response> {
     return fetch(`${BASE_URL}/orders`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" } as HeadersInit,
+        headers: {
+            "Content-Type": "application/json",
+            authorization: getCookie("accessToken") as string,
+        } as HeadersInit,
         body: JSON.stringify({ ingredients: ingredients }),
     });
 }

@@ -29,7 +29,7 @@ const BurgerIngredient = ({ingredient}: BurgerIngredientProps) => {
         <article
             className={clsx(styles.inner)}
             ref={ref}
-            data-cy='drag-ingredient'
+            data-cy='ingredient'
         >
             {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
             <Link

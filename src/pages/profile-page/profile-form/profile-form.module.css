@@ -1,0 +1,10 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  row-gap: 24px;
+}
+.inner {
+  display: flex;
+  gap: 47%;
+}
