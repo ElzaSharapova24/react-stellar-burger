@@ -30,7 +30,7 @@ const AppHeader = () => {
                     <Logo />
                 </div>
                 <div>
-                    <NavLink to="/profile" className={clsx(styles.link)}>
+                    <NavLink to="/profile" className={clsx(styles.link)} data-cy='profile-btn'>
                         <ProfileIcon type="secondary" />
                         <p className={clsx("text text_type_main-default ml-2")}>
                             Личный кабинет

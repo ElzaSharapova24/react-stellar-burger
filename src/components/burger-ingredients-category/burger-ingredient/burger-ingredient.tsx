@@ -21,7 +21,7 @@ const BurgerIngredient = ({ingredient}: BurgerIngredientProps) => {
     const [{ isDragging }, drag] = useDrag({
         type: "draggableItem",
         item: ingredient,
-        collect: (monitor) => ({isDragging: !!monitor.isDragging(),}),
+        collect: (monitor) => ({isDragging: monitor.isDragging(),}),
     });
     drag(ref);
 
@@ -29,6 +29,7 @@ const BurgerIngredient = ({ingredient}: BurgerIngredientProps) => {
         <article
             className={clsx(styles.inner)}
             ref={ref}
+            data-cy='drag-ingredient'
         >
             {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
             <Link

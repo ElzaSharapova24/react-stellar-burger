@@ -26,16 +26,18 @@ const ConstructorItems = ({
                     text={`${bun.name} (верх)`}
                     thumbnail={bun.image}
                     price={bun.price}
+                    data-cy="top-bun"
                 />
             )}
 
-            <div className={clsx("custom-scroll", styles.scroll)}>
+            <div className={clsx("custom-scroll", styles.scroll)} data-cy="ingredients">
                 {fillings.map((item: IngredientsDto, index: number) => (
                     <BurgerConstructorItem
                         key={item.id}
                         item={item}
                         index={index}
                         handleDeleteIngredient={handleDeleteIngredient}
+                        data-cy="ingredient"
                     />
                 ))}
             </div>
@@ -46,6 +48,7 @@ const ConstructorItems = ({
                     text={`${bun.name} (низ)`}
                     thumbnail={bun.image}
                     price={bun.price}
+                    data-cy="bottom-bun"
                 />
             )}
         </React.Fragment>

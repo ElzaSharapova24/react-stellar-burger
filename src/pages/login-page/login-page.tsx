@@ -58,14 +58,18 @@ const LoginPage = ({ onLogin }: LoginPageProps) => {
                         errorText={"Ошибка"}
                         size={"default"}
                         extraClass="ml-1"
+                        disabled={false}
+                        data-cy="form-input"
                     />
                     <PasswordInput
                         onChange={onChange}
                         value={userData.password}
                         name={"password"}
                         icon="EditIcon"
+                        disabled={false}
+                        data-cy="form-password"
                     />
-                    <Button htmlType="submit" type="primary" size="medium">
+                    <Button htmlType="submit" type="primary" size="medium" data-cy='login-btn'>
                         Войти
                     </Button>
                 </form>

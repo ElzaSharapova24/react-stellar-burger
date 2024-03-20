@@ -56,6 +56,7 @@ const BurgerConstructor = ({
                 <div
                     className={clsx(styles.wrap)}
                     ref={drop}
+                    data-cy='drop-container'
                     style={{
                         boxShadow: isOver
                             ? "4px -1px 20px 6px rgba(38,19,239,0.51)"
