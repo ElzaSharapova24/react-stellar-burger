@@ -33,7 +33,7 @@ export interface TUserState {
     error: SerializedError | null | unknown;
 }
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
     isAuthChecked: false,
     authData: null,
     loading: false,

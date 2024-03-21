@@ -1,31 +1,51 @@
 const { ingredientReducers, initialState, dragBun, dragFilling, ingredientSort, ingredientDelete, resetOrder,
     getIngredientsFetch, createOrderResult
 } = require('./ingredientSlice');
+const {enableMapSet} = require("immer");
+const generated_id = '1q2w3e4r';
+global.crypto = {
+    randomUUID() {return generated_id}
+};
+
+enableMapSet();
 
 describe('ingredient reducers', () => {
+    
     it('should return the initial state', () => {
         expect(ingredientReducers(undefined, {})).toEqual(initialState);
     });
     
     it('should handle dragBun correctly', () => {
-        const action = dragBun({ _id: 'bun_id', name: 'bun', });
-        const newState = ingredientReducers(initialState, action);
-        expect(newState.bun).toEqual({ _id: 'bun_id', name: 'bun',});
+        const state = {
+            ...initialState,
+            ingredients: [
+                { _id: 'bun_id', name: 'bun', count: 0}
+            ]
+        };
+        const action = dragBun({ _id: 'bun_id', name: 'bun', count: 0});
+        const newState = ingredientReducers(state, action);
+        expect(newState.bun).toEqual({ _id: 'bun_id', name: 'bun', count: 0});
     });
     
     it('should handle dragFilling correctly', () => {
+        const state = {
+            ...initialState,
+            ingredients: [
+                { _id: 'filling_id', name: 'filling', count: 0}
+            ]
+        };
         const action = dragFilling({ _id: 'filling_id', name: 'filling' });
-        const newState = ingredientReducers(initialState, action);
+        const newState = ingredientReducers(state, action);
         expect(newState.fillings).toHaveLength(1);
-        expect(newState.fillings[0]).toEqual({ _id: 'filling_id', name: 'filling'});
+        expect(newState.fillings[0]).toEqual({ _id: 'filling_id', name: 'filling', id: generated_id});
     });
     
     it('should handle ingredientSort correctly', () => {
         const state = {
             ...initialState,
             fillings: [
-                { _id: 'filling_id', name: 'filling1'},
-                { _id: 'filling_id', name: 'filling2'}
+                { _id: 'filling_id1', name: 'filling1'},
+                { _id: 'filling_id2', name: 'filling2'}
             ]
         };
         const action = ingredientSort({ from: 0, to: 1 });

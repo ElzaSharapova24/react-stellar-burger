@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 import {
     checkUserAuth,
     registerUser,
@@ -7,9 +6,9 @@ import {
     logoutUser,
     authCheck,
     loginUser,
-    updateUser
+    updateUser,
+    initialState
 } from "./routerSlice";
-import {initialState} from "./ingredientSlice";
 
 describe("Reducers", () => {
     let store;
@@ -42,9 +41,10 @@ describe("Reducers", () => {
         const mockResponse = {
             accessToken: "mockAccessToken",
             refreshToken: "mockRefreshToken",
+            email: 'test@gmail.com',
+            name: "User",
         };
-        const mockUserData = { email: 'test@gmail.com', name: "User" };
-        const action = registerUser.fulfilled(mockUserData, '');
+        const action = registerUser.fulfilled(mockResponse, '');
         const state = routerReducers(initialState, action);
         expect(state.authData).toEqual(mockResponse);
         expect(state.loading).toEqual(false);
@@ -55,9 +55,10 @@ describe("Reducers", () => {
         const mockResponse = {
             accessToken: "mockAccessToken",
             refreshToken: "mockRefreshToken",
+            email: 'test@gmail.com',
+            name: "User",
         };
-        const mockUserData = { email: 'test@gmail.com', name: "User" };
-        const action = loginUser.fulfilled(mockUserData, '');
+        const action = loginUser.fulfilled(mockResponse, '');
         const state = routerReducers(initialState, action);
         expect(state.authData).toEqual(mockResponse);
         expect(state.loading).toEqual(false);
