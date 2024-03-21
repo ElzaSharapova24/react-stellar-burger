@@ -69,6 +69,7 @@ const BurgerConstructor = ({
                         bun={bun}
                         fillings={fillings}
                         handleDeleteIngredient={handleDeleteIngredient}
+                        data-cy="drop-element"
                     />
                     <div className={clsx(styles.inner)}>
                         <div className={clsx(styles.price, "mr-10")}>

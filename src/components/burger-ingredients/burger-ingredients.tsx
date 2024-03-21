@@ -42,6 +42,7 @@ const BurgerIngredients = ({
                         <BurgerIngredientsCategory
                             name="bun"
                             ingredients={currentCategories["bun"]}
+                            data-cy='bun-ingredient'
                         />
                     </div>
                     <div id="main" ref={mainCategory}>

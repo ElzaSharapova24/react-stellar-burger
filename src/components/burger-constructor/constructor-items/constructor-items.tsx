@@ -26,7 +26,6 @@ const ConstructorItems = ({
                     text={`${bun.name} (верх)`}
                     thumbnail={bun.image}
                     price={bun.price}
-                    data-cy="top-bun"
                 />
             )}
 
@@ -37,7 +36,6 @@ const ConstructorItems = ({
                         item={item}
                         index={index}
                         handleDeleteIngredient={handleDeleteIngredient}
-                        data-cy="ingredient"
                     />
                 ))}
             </div>
@@ -48,7 +46,6 @@ const ConstructorItems = ({
                     text={`${bun.name} (низ)`}
                     thumbnail={bun.image}
                     price={bun.price}
-                    data-cy="bottom-bun"
                 />
             )}
         </React.Fragment>

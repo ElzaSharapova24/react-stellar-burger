@@ -35,8 +35,7 @@ const ProfileMenu = () => {
                         onClick={handleSignOutBtn}
                         className={clsx(
                             "text text_type_main-medium text_color_inactive",
-                            styles.link,
-                            styles.btn,
+                            styles.link
                         )}
                     >
                         Выход

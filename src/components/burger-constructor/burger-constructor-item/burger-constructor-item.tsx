@@ -6,6 +6,8 @@ import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { ingredientSort } from "../../../services/slices/ingredientSlice";
 import { useDispatch } from "../../../services/hooks";
+import clsx from "clsx";
+import styles from "./burger-constructor-item.module.css"
 
 interface BurgerConstructorItemProps {
     item: {

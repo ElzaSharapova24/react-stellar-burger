@@ -17,7 +17,7 @@ const BurgerIngredientsCategory = ({name, ingredients,}: BurgerIngredientsCatego
             <div className={clsx(styles.card)}>
                 {ingredients &&
                     ingredients.map((ingredient) => (
-                        <BurgerIngredient ingredient={ingredient} key={ingredient._id}/>
+                        <BurgerIngredient ingredient={ingredient} key={ingredient._id} />
                     ))}
             </div>
         </div>

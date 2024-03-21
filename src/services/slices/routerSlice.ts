@@ -133,4 +133,4 @@ export const routerSlice = createSlice({
 
 export const { authCheck } = routerSlice.actions;
 
-export const routeReducers = routerSlice.reducer;
+export const routerReducers = routerSlice.reducer;
