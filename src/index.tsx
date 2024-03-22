@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root") as MathMLElement).render(
     <React.StrictMode>
         <Provider store={store}>
             <DndProvider backend={HTML5Backend}>
-                <BrowserRouter basename={process.env.PUBLIC_URL}>
+                <BrowserRouter basename={"/stellar-burger"}>
                     <App />
                 </BrowserRouter>
             </DndProvider>

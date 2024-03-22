@@ -63,7 +63,7 @@ const App = () => {
             <AppHeader />
             <Routes location={backgroundLocation || location}>
                 <Route
-                    path="/stellar-burger"
+                    path="/"
                     element={
                         <Layout
                             setOrderDetailsModal={setOrderDetailsModal}
