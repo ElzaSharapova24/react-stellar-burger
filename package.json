@@ -2,7 +2,7 @@
   "name": "react-burger-starter",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://elzasharapova24.github.io/stellar-burger/",
+  "homepage": "https://elzasharapova24.github.io/stellar-burger",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.14.0",
