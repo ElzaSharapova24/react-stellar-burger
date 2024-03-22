@@ -21,7 +21,9 @@ const AppHeader = () => {
                             Конструктор
                         </p>
                     </NavLink>
-                    <NavLink to={"/feed"} className={clsx(styles.link, {[styles.activeLink]: location.pathname === "/feed"})}>
+                    <NavLink to={"/feed"}
+                             className={clsx(styles.link, {[styles.activeLink]: location.pathname === "/feed"})}
+                                 >
                         <ListIcon type={"secondary"} />
                         <p className={clsx("text text_type_main-default ml-2")}>
                             Лента заказов
