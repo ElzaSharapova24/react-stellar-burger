@@ -29,7 +29,9 @@ const AppHeader = () => {
                     </NavLink>
                 </div>
                 <div>
-                    <Logo />
+                    <NavLink to="/" >
+                        <Logo />
+                    </NavLink>
                 </div>
                 <div>
                     <NavLink to="/profile" className={clsx(styles.link, {[styles.activeLink]: location.pathname === "/profile"})} data-cy='profile-btn'>

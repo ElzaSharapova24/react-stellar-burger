@@ -1,7 +1,9 @@
+import {testUrl} from "../../constants";
+
 describe('open ingredient modal', () => {
     beforeEach(() => {
         cy.viewport(1300, 800);
-        cy.visit('http://localhost:3000')
+        cy.visit(testUrl);
     })
     
     it('should open modal on ingredient click', () => {
