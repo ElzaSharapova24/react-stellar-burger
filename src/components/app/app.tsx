@@ -123,23 +123,27 @@ const App = () => {
                 <Route path="/feed" element={<Feed imagesByIds={imagesByIds} orders={orders} total={total} totalToday={totalToday}/>}/>
 
                 <Route
+                    path={"/profile/orders/:id"}
+                    element={
+                        <ProtectedRoute>
+                            <SeparateOrderHistoryIngredientDetails imagesByIds={imagesByIds} orders={currentUserOrders}/>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/profile/orders"
+                    element={
+                        <ProtectedRoute>
+                            <OrderHistory imagesByIds={imagesByIds} orders={currentUserOrders}/>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
                     path="/profile"
                     element={
                         <ProtectedRoute>
                             <ProfilePage />
                         </ProtectedRoute>
-                    }
-                />
-                <Route path="/profile/orders"
-                       element={
-                           <ProtectedRoute>
-                               <OrderHistory imagesByIds={imagesByIds} orders={currentUserOrders}/>
-                           </ProtectedRoute>}
-                />
-                <Route
-                    path={"/profile/orders/:id"}
-                    element={
-                        <SeparateOrderHistoryIngredientDetails imagesByIds={imagesByIds} orders={currentUserOrders} />
                     }
                 />
                 <Route path="*" element={<NotFoundPage />} />
@@ -176,14 +180,16 @@ const App = () => {
                     <Route
                         path={"/profile/orders/:id"}
                         element={
-                            <Modal
-                                title={''}
-                                onClose={() => {
-                                    navigate(-1);
-                                }}
-                            >
-                                <OrderIngredientDetails imagesByIds={imagesByIds} orders={currentUserOrders}/>
-                            </Modal>
+                            <ProtectedRoute>
+                                <Modal
+                                    title={''}
+                                    onClose={() => {
+                                        navigate(-1);
+                                    }}
+                                >
+                                    <OrderIngredientDetails imagesByIds={imagesByIds} orders={currentUserOrders}/>
+                                </Modal>
+                            </ProtectedRoute>
                         }
                     />
                 </Routes>
