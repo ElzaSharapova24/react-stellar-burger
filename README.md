@@ -1,4 +1,4 @@
-# Проект: Stella-Burger
+# Проект: Stellar-Burger
 # Описание:
 ## Проект не адаптирован для мобильных устройств и рассчитан для десктопных устройв.
 ## Проект stella-Burger представляет из себя веб-приложения для конструирования и заказов бургеров.
@@ -23,4 +23,4 @@
         4. npm run test — запуск unit тестов.
         5. cypress open — запуск e2e тестов.
 
-## [Обычная ссылка с title](https://www.yandex.ru "Я Yandex!") 
+## [Stellar-Burger](https://elzasharapova24.github.io/stellar-burger/ "Stellar-Burger") 

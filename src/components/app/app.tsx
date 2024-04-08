@@ -21,7 +21,9 @@ import {useDispatch, useSelector} from "../../services/hooks";
 import {IngredientsDto, UserLoginDto, UserRegisterDto} from "../../types/slice-types";
 import Feed from "../../pages/feed";
 import OrderHistory from "../../pages/order-history";
-import OrderIngredientDetails from "../../pages/feed/order-feed/order/order-ingredient-details";
+import {OrderIngredientDetails,
+    SeparateOrderFeedIngredientDetails,
+    SeparateOrderHistoryIngredientDetails} from "../../pages/feed/order-feed/order/order-ingredient-details";
 
 const App = () => {
     const { ingredients, bun, fillings, isLoading, order, imagesByIds } = useSelector(getIngredients);
@@ -42,7 +44,7 @@ const App = () => {
     }, [dispatch]);
 
 
-    const backgroundLocation = location.state?.backgroundLocation;
+    const backgroundLocation = location?.state?.backgroundLocation;
 
     useEffect(() => {
         dispatch(getIngredientsFetch());
@@ -93,7 +95,12 @@ const App = () => {
                         </ProtectedRoute>
                     }
                 />
-                <Route path="/ingredients/:id" element={<IngredientDetails />} />
+                <Route
+                    path="/ingredients/:id"
+                    element={
+                        <IngredientDetails />
+                    }
+                />
                 <Route
                     path="/forgot-password"
                     element={
@@ -107,10 +114,30 @@ const App = () => {
                            <ProtectedRoute>
                                <ResetPasswordPage/>
                            </ProtectedRoute>}/>
+                <Route
+                    path="/feed/:id"
+                    element={
+                        <SeparateOrderFeedIngredientDetails imagesByIds={imagesByIds} orders={orders}/>
+                    }
+                />
                 <Route path="/feed" element={<Feed imagesByIds={imagesByIds} orders={orders} total={total} totalToday={totalToday}/>}/>
-                <Route path="/feed/:id" element={
-                    <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders}/>
-                } />
+
+                <Route
+                    path={"/profile/orders/:id"}
+                    element={
+                        <ProtectedRoute>
+                            <SeparateOrderHistoryIngredientDetails imagesByIds={imagesByIds} orders={currentUserOrders}/>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/profile/orders"
+                    element={
+                        <ProtectedRoute>
+                            <OrderHistory imagesByIds={imagesByIds} orders={currentUserOrders}/>
+                        </ProtectedRoute>
+                    }
+                />
                 <Route
                     path="/profile"
                     element={
@@ -119,15 +146,6 @@ const App = () => {
                         </ProtectedRoute>
                     }
                 />
-                <Route path="/profile/orders"
-                       element={
-                           <ProtectedRoute>
-                               <OrderHistory imagesByIds={imagesByIds} orders={currentUserOrders}/>
-                           </ProtectedRoute>}
-                />
-                <Route path={"/profile/orders/:id"} element={
-                    <OrderIngredientDetails imagesByIds={imagesByIds} orders={currentUserOrders}/>
-                }/>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
             {backgroundLocation && (
@@ -142,19 +160,37 @@ const App = () => {
                                 }}
                                 className={"text text_type_main-large"}
                             >
-                                <IngredientDetails />
+                                <IngredientDetails/>
                             </Modal>
                         }
                     />
-                    <Route path={"/feed/:id"} element={
-                        <Modal onClose={() => {navigate(-1);}} title={''}>
-                            <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders}/>
-                        </Modal>}
+                    <Route
+                        path={"/feed/:id"}
+                        element={
+                            <Modal
+                                title={''}
+                                onClose={() => {
+                                    navigate(-1);
+                                }}
+                            >
+                                <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders}/>
+                            </Modal>
+                        }
                     />
-                    <Route path={"/profile/orders/:id"} element={
-                        <Modal onClose={() => {navigate(-1);}} title={''}>
-                            <OrderIngredientDetails imagesByIds={imagesByIds} orders={currentUserOrders}/>
-                        </Modal>}
+                    <Route
+                        path={"/profile/orders/:id"}
+                        element={
+                            <ProtectedRoute>
+                                <Modal
+                                    title={''}
+                                    onClose={() => {
+                                        navigate(-1);
+                                    }}
+                                >
+                                    <OrderIngredientDetails imagesByIds={imagesByIds} orders={currentUserOrders}/>
+                                </Modal>
+                            </ProtectedRoute>
+                        }
                     />
                 </Routes>
             )}

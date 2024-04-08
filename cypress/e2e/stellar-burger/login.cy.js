@@ -1,7 +1,9 @@
+import {testUrl} from "../../constants";
+
 describe('Login to page',() => {
     beforeEach(() => {
         cy.viewport(1300, 800);
-        cy.visit('http://localhost:3000')
+        cy.visit(testUrl);
     })
     
     it('User authorization', () => {

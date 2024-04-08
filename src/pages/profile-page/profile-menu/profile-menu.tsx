@@ -24,7 +24,8 @@ const ProfileMenu = () => {
                 <li className={clsx( styles.wrap)}>
                     <NavLink to={"/profile/orders"}
                           className={clsx(
-                              "text text_type_main-medium text_color_inactive", styles.btn, {[styles.isActive]: location.pathname === "/profile/orders"}
+                              "text text_type_main-medium text_color_inactive", styles.btn,
+                              {[styles.isActive]: location.pathname === "/profile/orders"}
                           )}
                     >
                         История заказов

@@ -1,2 +1,2 @@
-import OrderIngredientDetails from "./order-ingredient-details";
-export default OrderIngredientDetails;
+import {OrderIngredientDetails, SeparateOrderFeedIngredientDetails, SeparateOrderHistoryIngredientDetails}  from "./order-ingredient-details";
+export {OrderIngredientDetails, SeparateOrderFeedIngredientDetails, SeparateOrderHistoryIngredientDetails};;

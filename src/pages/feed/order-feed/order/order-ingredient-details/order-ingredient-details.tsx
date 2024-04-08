@@ -4,11 +4,42 @@ import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components"
 import {IngredientShortDto, TAllOrder} from "../../../../../types/api-types";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useParams} from "react-router";
-import React from "react";
+import React, {useEffect} from "react";
+import {useDispatch} from "../../../../../services/hooks";
+import {currentUserOrdersActions, ordersAllActions} from "../../../../../services/middleware/actions";
+import {BASE_URL_WS_ORDERS, BASE_URL_WS_ORDERS_ALL} from "../../../../../utils/api";
+import {getCookie} from "../../../../../utils/cookie";
 interface OrderIngredientDetailsProps {
     imagesByIds: Map<string, IngredientShortDto>,
     orders: TAllOrder[],
 }
+
+const SeparateOrderFeedIngredientDetails = ({imagesByIds, orders }: OrderIngredientDetailsProps) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(ordersAllActions.wsConnect({wsUrl: BASE_URL_WS_ORDERS_ALL, withTokenRefresh:false}));
+        return () => {
+            dispatch(ordersAllActions.wsDisconnect());
+        }
+    }, [])
+    return <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders} />
+};
+
+const SeparateOrderHistoryIngredientDetails = ({imagesByIds, orders }: OrderIngredientDetailsProps) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        const accessToken = getCookie("accessToken");
+        if (accessToken){
+            const correctedToken = accessToken.replace('Bearer ', '');
+            const wsUrlOrders = BASE_URL_WS_ORDERS + `?token=${correctedToken}`;
+            dispatch(currentUserOrdersActions.wsConnect({wsUrl: wsUrlOrders, withTokenRefresh:true}));
+        }
+        return () => {
+            dispatch(currentUserOrdersActions.wsDisconnect());
+        }
+    }, [])
+    return <OrderIngredientDetails imagesByIds={imagesByIds} orders={orders} />
+};
 
 const OrderIngredientDetails = ({imagesByIds, orders }: OrderIngredientDetailsProps) => {
     let {id} = useParams();
@@ -82,4 +113,4 @@ const OrderIngredientDetails = ({imagesByIds, orders }: OrderIngredientDetailsPr
     )
 }
 
-export default OrderIngredientDetails;
+export {OrderIngredientDetails, SeparateOrderFeedIngredientDetails, SeparateOrderHistoryIngredientDetails};
